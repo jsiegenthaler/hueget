@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Create a report to help us improve the gethue project
+about: Create a report to help us improve the hueget project
 title: ''
 labels: bug
 assignees: ''

@@ -1,13 +1,13 @@
 {
-  "name": "gethue",
+  "name": "hueget",
   "version": "0.1.0-beta.1",
   "description": "A simple API that converts the Philips Hue API PUT to GET requests, allowing control of Philips Hue lights via http GET requests",
-  "main": "gethue.js",
+  "main": "hueget.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "gethue",
+    "hueget",
     "hueget",
     "homebridge",
     "Philips Hue",

@@ -1,6 +1,6 @@
 ---
 name: Support Request
-about: Need help? Ask your questions about the gethue project here.
+about: Need help? Ask your questions about the hueget project here.
 title: ''
 labels: question
 assignees: ''

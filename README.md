@@ -1,4 +1,4 @@
-# gethue
+# hueget
 A simple API to control Philips Hue lamps with http GET requests
 
 # Background
@@ -6,20 +6,20 @@ The existing Philips Hue REST API requires a PUT request to control the lights.
 
 I needed GET, so I made a simple API to translate from GET to PUT.
             
-# Installing gethue
-I run **gethue** on my raspberry pi. To install with NPM:
+# Installing hueget
+I run **hueget** on my raspberry pi. To install with NPM:
 ```
-$ npm install gethue -g
+$ npm install hueget -g
 ```
 
-# Starting gethue
-To see the help text, start **gethue** without any arguments as follows:
+# Starting hueget
+To see the help text, start **hueget** without any arguments as follows:
 ```
-$ node gethue
+$ node hueget
 ```
-**gethue** shows the following response:
+**hueget** shows the following response:
 ```
-USAGE: node gethue [OPTION1] [OPTION2]... arg1 arg2...
+USAGE: node hueget [OPTION1] [OPTION2]... arg1 arg2...
 The following options are supported:
   -i, --ip      Philips Hue bridge IP address (required)
   -k, --key     Philips Hue API key (required)
@@ -27,31 +27,31 @@ The following options are supported:
 ```  
 You must enter the options in the order -i, -k, -p
 
-Example to run gethue on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue API key of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
+Example to run hueget on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue API key of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
 ```
-$ node gethue.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+$ node hueget.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 The same again, but using port 1234:
 ```
-$ node gethue.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
+$ node hueget.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
 ```
-A successful start of gethue will show:
+A successful start of hueget will show:
 ```
-gethue v1.0.0
+hueget v1.0.0
 commands will be sent to 192.168.0.50 with API key UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
-# Starting gethue as a Service
-You can configure your system to automatically start **gethue** when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process manager 2).
-To start **gethue** with **pm2**, and have it daemonized, monitored and kept alive forever, enter:
+# Starting hueget as a Service
+You can configure your system to automatically start **hueget** when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process manager 2).
+To start **hueget** with **pm2**, and have it daemonized, monitored and kept alive forever, enter:
 ```
-$ pm2 start gethue
+$ pm2 start hueget
 ```
-Managing gethue is straigtforward:
+Managing hueget is straigtforward:
 ```
-$ pm2 stop gethue
-$ pm2 restart gethue
-$ pm2 delete gethue
+$ pm2 stop hueget
+$ pm2 restart hueget
+$ pm2 delete hueget
 ```
 For more information see https://github.com/Unitech/pm2
 
@@ -67,7 +67,7 @@ The API key will look something like this:
 UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 
-# Controlling your Hue Lights with gethue
+# Controlling your Hue Lights with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. 
 Examples:
 

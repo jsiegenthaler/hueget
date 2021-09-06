@@ -1,4 +1,4 @@
-// gethue.js
+// hueget.js
 const packagejson = require('./package.json');
 //const appname = packagejson.name;
 //const version = packagejson.version;

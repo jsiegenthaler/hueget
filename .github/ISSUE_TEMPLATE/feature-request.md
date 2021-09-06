@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest an idea for the gethue project
+about: Suggest an idea for the hueget project
 title: ''
 labels: enhancement
 assignees: ''
