@@ -36,10 +36,10 @@ commands will be sent to 192.168.0.50 with API key UBxWZChHseyjeFwAkwgbdQ08x9XAS
 listening on port 1234
 ```
 # Starting gethue as a Service
-You can configure your system to automatically start gethue when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process monitor 2).
-to start gethue with pm2, and have it daemonized, monitored and kept alive forever, enter:
+You can configure your system to automatically start **gethue** when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process manager 2).
+To start **gethue** with **pm2**, and have it daemonized, monitored and kept alive forever, enter:
 ```
-$ pm2 start app.js
+$ pm2 start gethue
 ```
 Managing gethue is straigtforward:
 ```
