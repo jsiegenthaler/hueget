@@ -9,7 +9,7 @@ I needed GET, so I made a simple API to translate from GET to PUT.
 # Starting gethue
 To see the help text, start **gethue** without any arguments as follows:
 ```
-node gethue
+$ node gethue
 ```
 **gethue** shows the following response:
 ```
@@ -23,11 +23,11 @@ You must enter the options in the order -i, -k, -p
 
 Example to run gethue on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue API key of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
 ```
-node gethue.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+$ node gethue.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 The same again, but using port 1234:
 ```
-node gethue.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
+$ node gethue.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
 ```
 A successful start of gethue will show:
 ```
@@ -35,6 +35,19 @@ gethue v1.0.0
 commands will be sent to 192.168.0.50 with API key UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
+# Starting gethue as a Service
+You can configure your system to automatically start gethue when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process monitor 2).
+to start gethue with pm2, and have it daemonized, monitored and kept alive forever, enter:
+```
+$ pm2 start app.js
+```
+Managing gethue is straigtforward:
+```
+$ pm2 stop gethue
+$ pm2 restart gethue
+$ pm2 delete gethue
+```
+For more information see https://github.com/Unitech/pm2
 
 # Getting your Philips Hue API Key
 If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge API key
