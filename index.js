@@ -11,13 +11,7 @@ const hueApiKey = 'yourPhilipsHueApiKey';
 const hueBridgeIpAddress = '192.168.x.x'; // ip address of the Hue bridge
 
 
-// for testing
-app.get('/api/' + hueApiKey + '/lights', (req, res) => {
-    res.json({ message: 'Got the lights!', received: req.url })
-  })
-
-
-// handle lights state
+// handle /lights/xx/state
 // triggered by http://192.168.0.101/api/yourPhilipsHueApiKey/lights
 // translates a received GET command into a PUT command
 // GET: http://192.168.0.101/api/yourPhilipsHueApiKey/lights/31/state?on=true
@@ -43,7 +37,7 @@ app.use('/api/' + hueApiKey + '/lights', (req, res) => {
           pairValue = '"' + pairValue + '"';
         }
         // Hue accepts: {"name":booleanOrNumber, "name":"String"}
-        result = result + ',"' + pair[0] + '":' + pairValue
+        result = result + ',"' + pair[0] + '":' + pairValue;
     });
     result = result.replace('{,','{') + '}'; // clean up, add brackets
 
@@ -60,12 +54,12 @@ app.use('/api/' + hueApiKey + '/lights', (req, res) => {
     axios.put(url, bodyObj)
         .then(response => {
             console.log('response:', response.status, response.statusText, JSON.stringify(response.data) );
-            res.json(response.data)
+            res.json(response.data);
         })
         .catch(error => {
             const errText = error.syscall + ' ' + error.code + ' ' + error.address + ':' + error.port;
             console.log('error:', errText);
-            res.json({ error: errText })
+            res.json({ error: errText });
         });
 
   })
