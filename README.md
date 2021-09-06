@@ -12,9 +12,18 @@ If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https
   "ECB5FAFFFEFFFFFF": "yourPhilipsHueApiKey"
  },
 ```
+The API key will look something like this:
+```
+UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+```
+
             
 # Installing gethue
-To do
+To see the help file, start gethue without any arguments as follows:
+```
+node gethue
+```
+
 
 # Using gethue
 Enter a URL (in the format shown below) into your browser and press Enter. Some examples:
