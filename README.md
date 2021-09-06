@@ -4,6 +4,34 @@ A simple API to control Philips Hue lamps with http GET requests
 # Background
 The existing Philips Hue REST API required a PUT request to control the lights. 
 I needed GET, so I made a simple API to translate from GET to PUT.
+            
+# Installing gethue
+To see the help file, start **gethue** without any arguments as follows:
+```
+node gethue
+```
+**gethue** shows the following response:
+```
+USAGE: node gethue [OPTION1] [OPTION2]... arg1 arg2...
+The following options are supported:
+  -i, --ip      Philips Hue bridge IP address (required)
+  -k, --key     Philips Hue API key (required)
+  -p, --port    port number to listen on (default 3000)
+```  
+Example to run gethue on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue API key of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
+```
+node gethue.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+```
+The same again, but using port 1234:
+```
+node gethue.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
+```
+A successful start of gethue will show:
+```
+gethue v1.0.0
+commands will be sent to 192.168.0.50 with API key UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+listening on port 1234
+```
 
 # Getting your Philips Hue API Key
 If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge API key
@@ -17,34 +45,18 @@ The API key will look something like this:
 UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 
-            
-# Installing gethue
-To see the help file, start **gethue** without any arguments as follows:
-```
-node gethue
-```
-**gethue** shows the following response:
-```
-USAGE: node gethue [OPTION1] [OPTION2]... arg1 arg2...
-The following options are supported:
-  -i, --ip      Philips Hue bridge IP address (required)
-  -k, --key     Philips Hue API key (required)
-  -p, --port    gethue API port number (default 3000)
-```  
-
-
-# Using gethue
-Enter a URL (in the format shown below) into your browser and press Enter. Some examples:
+# Controlling your Hue Lights with gethue
+Enter a URL (in the format shown below) into your browser and press Enter. 
+Examples:
 
 * Turn light 31 on: http://192.168.x.x:3000/api/yourPhilipsHueApiKey/lights/31/state?on=true
 * Turn light 31 off: http://192.168.x.x:3000/api/yourPhilipsHueApiKey/lights/31/state?on=false
-
 * Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?on=true&bri=50
 * Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?on=true&bri=100
 * Identify light 31 with a single flash: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?alert=select
 * Identify light 31 with a long number of flashes (about 15): http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?alert=lselect
 
-## Supported keywords
+# Supported Keywords
 The API is transparent to all keywords, but it is a simple API. It does not do any nesting of JSON syntax, thus please expect only the simple light controls for the light **state** to work.
 
 The full JSON response for a light looks like this:
