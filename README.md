@@ -6,7 +6,7 @@ The existing Philips Hue REST API required a PUT request to control the lights.
 I needed GET, so I made a simple API to translate from GET to PUT.
             
 # Installing gethue
-To see the help file, start **gethue** without any arguments as follows:
+To see the help text, start **gethue** without any arguments as follows:
 ```
 node gethue
 ```
