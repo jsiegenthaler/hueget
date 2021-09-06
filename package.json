@@ -1,0 +1,16 @@
+{
+  "name": "gethue",
+  "version": "0.1.0",
+  "description": "A simple API that converts the Philips Hue API PUT to GET requests, allowing control of Philips Hue lights via http GET requests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jochen Siegenthaler (https://github.com/jsiegenthaler)",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.3",
+    "express": "^4.17.1"
+  }
+}
