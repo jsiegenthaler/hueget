@@ -19,7 +19,6 @@ assignees: ''
 <!-- A clear and concise description of what you expected to happen. -->
 
 **Logs:**
-
 ```
 Show any logs here, remove any sensitive information.
 ```

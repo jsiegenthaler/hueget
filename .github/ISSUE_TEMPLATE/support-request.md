@@ -13,7 +13,6 @@ assignees: ''
 <!-- A clear and concise description of what problem you are trying to solve. -->
 
 **Logs:**
-
 ```
 Show any logs here, remove any sensitive information.
 ```
