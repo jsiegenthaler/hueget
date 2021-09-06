@@ -11,11 +11,17 @@ I run **hueget** on my raspberry pi. To install with NPM:
 ```
 $ sudo npm install hueget -g
 ```
+hueget will install in /usr/lib/node_modules/hueget/
+
 
 # Starting hueget
 To see the help text, start **hueget** without any arguments as follows:
 ```
-$ node hueget
+$ node /usr/lib/node_modules/hueget/hueget.js
+```
+or just
+```
+$ node /usr/lib/node_modules/hueget/hueget
 ```
 **hueget** shows the following response:
 ```
@@ -27,6 +33,8 @@ The following options are supported:
 ```  
 You must enter the options in the order -i, -k, -p
 
+The following examples assume you have /usr/lib/node_modules/hueget/ as your current folder, or you have modified your PATH vairables to include the folder.
+```
 Example to run hueget on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue API key of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
 ```
 $ node hueget.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
