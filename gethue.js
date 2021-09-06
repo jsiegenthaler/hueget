@@ -1,5 +1,7 @@
 // gethue.js
-const version = '0.1.0-beta.1';
+const packagejson = require('./package.json');
+//const appname = packagejson.name;
+//const version = packagejson.version;
 
 const express = require('express');
 const axios = require('axios');
@@ -8,20 +10,26 @@ const app = express();
 
 // handle arguments
 var options = stdio.getopt({
-  'ip':   {key: 'i', required: true,  description: 'Philips Hue bridge IP address'}, // option 0
-  'key':  {key: 'k', required: true,  description: 'Philips Hue API key'}, // option 1
-  'port': {key: 'p', required: false, description: 'port number to listen on (default 3000)'} // option 2
+  'ip':   {key: 'i', required: true, description: 'Philips Hue bridge IP address'}, // option 0
+  'key':  {key: 'k', required: true, description: 'Philips Hue API key'}, // option 1
+  'port': {key: 'p', required: false, default: 3000, description: 'port number to listen on'} // option 2
+  //'version': {key: 'v', required: false, description: 'display version info'}
 });
 const hueBridgeIpAddress = options.args[0];
 const hueApiKey = options.args[1];
 const port = options.args[2] || 3000;
+
+// show version and arguments
+console.log('%s v%s', packagejson.name, packagejson.version);
+console.log('commands will be sent to %s with API key %s', options.args[0], options.args[1]);
+
   
 
 // handle /lights/xx/state
-// triggered by http://192.168.0.101/api/yourPhilipsHueApiKey/lights
+// triggered by http://192.168.x.x/api/yourPhilipsHueApiKey/lights
 // translates a received GET command into a PUT command
-// GET: http://192.168.0.101/api/yourPhilipsHueApiKey/lights/31/state?on=true
-// PUT: http://192.168.0.101/api/yourPhilipsHueApiKey/lights/31/state --data "{""on"":true}"
+// GET: http://192.168.x.x/api/yourPhilipsHueApiKey/lights/31/state?on=true
+// PUT: http://192.168.x.x/api/yourPhilipsHueApiKey/lights/31/state --data "{""on"":true}"
 app.use('/api/' + hueApiKey + '/lights', (req, res) => {
     
     // get the path component immediately following lights/
@@ -71,8 +79,5 @@ app.use('/api/' + hueApiKey + '/lights', (req, res) => {
   })
 
 app.listen(port, () => {
-  console.log('gethue v%s', version);
-  console.log('commands will be sent to %s with API key %s', options.args[0], options.args[1]);
-  //console.log('using api key', options.args[1]);
   console.log(`listening on port ${port}`);
 })
