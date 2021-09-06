@@ -1,16 +1,14 @@
 // index.js
 
-// https://learn.vonage.com/blog/2020/08/11/5-ways-to-build-a-node-js-api/
-
 const express = require('express');
 const axios = require('axios');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000; // default port = 3000
 
 // Philips Hue config
-const hueApiKey = 'UBxOGChHsexmvFwArmgbdQ08xsXZpWpanVVVg-mj';
-const hueBridgeIpAddress = '192.168.0.101';
+const hueApiKey = 'yourPhilipsHueApiKey';
+const hueBridgeIpAddress = '192.168.x.x'; // ip address of the Hue bridge
 
 
 // for testing
@@ -19,20 +17,16 @@ app.get('/api/' + hueApiKey + '/lights', (req, res) => {
   })
 
 
-// handle lights on/off
-// triggered by http://192.168.0.101/api/UBxOGChHsexmvFwArmgbdQ08xsXZpWpanVVVg-mj/lights
+// handle lights state
+// triggered by http://192.168.0.101/api/yourPhilipsHueApiKey/lights
 // translates a received GET command into a PUT command
-// GET: http://192.168.0.101/api/UBxOGChHsexmvFwArmgbdQ08xsXZpWpanVVVg-mj/lights/31/state?on=true
-// PUT: http://192.168.0.101/api/UBxOGChHsexmvFwArmgbdQ08xsXZpWpanVVVg-mj/lights/31/state --data "{""on"":true}"
+// GET: http://192.168.0.101/api/yourPhilipsHueApiKey/lights/31/state?on=true
+// PUT: http://192.168.0.101/api/yourPhilipsHueApiKey/lights/31/state --data "{""on"":true}"
 app.use('/api/' + hueApiKey + '/lights', (req, res) => {
-    // http://192.168.0.101/api/UBxOGChHsexmvFwArmgbdQ08xsXZpWpanVVVg-mj/lights/31/state?on=true
-    // http://localhost:3000/api/UBxOGChHsexmvFwArmgbdQ08xsXZpWpanVVVg-mj/lights/31/state?on=true&bri=100
     
     // get the path component immediately following lights/
     const urlPathParts = req.url.split('/');
     const lightId = urlPathParts[1];
-    //const lightCommand = urlPathParts[2];
-    //console.log('lightCommand:', lightCommand);
     
     // get the query string parts after ?
     // [0] = left side of ?, [1] = right side of ?
@@ -59,7 +53,7 @@ app.use('/api/' + hueApiKey + '/lights', (req, res) => {
 
 
     // form a PUT request for the Hue bridge
-    // PUT http://192.168.0.101/api/UBxOGChHsexmvFwArmgbdQ08xsXZpWpanVVVg-mj/lights/31/state --data "{""on"":true}"
+    // PUT http://192.168.0.101/api/yourPhilipsHueApiKey/lights/31/state --data "{""on"":true}"
     const url = 'http://' + hueBridgeIpAddress + '/api/' + hueApiKey + '/lights/' +  + lightId + '/state';
     console.log('sending http PUT to:', url);
     console.log('with data:', bodyObj);
