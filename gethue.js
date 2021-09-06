@@ -10,7 +10,7 @@ const app = express();
 var options = stdio.getopt({
   'ip':   {key: 'i', required: true,  description: 'Philips Hue bridge IP address'}, // option 0
   'key':  {key: 'k', required: true,  description: 'Philips Hue API key'}, // option 1
-  'port': {key: 'p', required: false, description: 'gethue API port number (default 3000)'} // option 2
+  'port': {key: 'p', required: false, description: 'port number to listen on (default 3000)'} // option 2
 });
 const hueBridgeIpAddress = options.args[0];
 const hueApiKey = options.args[1];
