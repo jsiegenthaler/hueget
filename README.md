@@ -70,7 +70,7 @@ As you can see, the available simple keywords for state are:
 on, bri, hue, sat, effect, ct, alert, colormode, mode
 
 For full details of the control capabilities, please see the [official Philips Hue API reference](https://developers.meethue.com/develop/hue-api/).
-An [alternative reference](http://www.burgestrand.se/hue-api/) also exists.
+An [alternative unoffical reference](http://www.burgestrand.se/hue-api/) also exists.
 
 # Finding your Light ids
 You need to know the light id of the light you wish to control.
