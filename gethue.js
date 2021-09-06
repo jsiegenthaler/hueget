@@ -1,15 +1,21 @@
-// index.js
+// gethue.js
+const version = '0.1.0-beta.1';
 
 const express = require('express');
 const axios = require('axios');
-
+const stdio = require('stdio');
 const app = express();
-const port = process.env.PORT || 3000; // default port = 3000
 
-// Philips Hue config
-const hueApiKey = 'yourPhilipsHueApiKey';
-const hueBridgeIpAddress = '192.168.x.x'; // ip address of the Hue bridge
-
+// handle arguments
+var options = stdio.getopt({
+  'ip':   {key: 'i', required: true,  description: 'Philips Hue bridge IP address'}, // option 0
+  'key':  {key: 'k', required: true,  description: 'Philips Hue API key'}, // option 1
+  'port': {key: 'p', required: false, description: 'gethue API port number (default 3000)'} // option 2
+});
+const hueBridgeIpAddress = options.args[0];
+const hueApiKey = options.args[1];
+const port = options.args[2] || 3000;
+  
 
 // handle /lights/xx/state
 // triggered by http://192.168.0.101/api/yourPhilipsHueApiKey/lights
@@ -65,5 +71,8 @@ app.use('/api/' + hueApiKey + '/lights', (req, res) => {
   })
 
 app.listen(port, () => {
-  console.log(`listening on port ${port}`)
+  console.log('gethue v%s', version);
+  console.log('commands will be sent to %s with API key %s', options.args[0], options.args[1]);
+  //console.log('using api key', options.args[1]);
+  console.log(`listening on port ${port}`);
 })
