@@ -76,7 +76,7 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 
 # Controlling your Hue Lights with hueget
-Enter a URL (in the format shown below) into your browser and press Enter. 
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running **hueget**, eg: a raspberry pi.
 Examples:
 
 * Turn light 31 on: http://192.168.x.x:3000/api/yourPhilipsHueApiKey/lights/31/state?on=true
