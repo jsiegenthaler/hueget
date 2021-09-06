@@ -6,6 +6,12 @@ The existing Philips Hue REST API requires a PUT request to control the lights.
 
 I needed GET, so I made a simple API to translate from GET to PUT.
             
+# Installing gethue
+I run **gethue** on my raspberry pi. To install with NPM:
+```
+$ npm install gethue -g
+```
+
 # Starting gethue
 To see the help text, start **gethue** without any arguments as follows:
 ```
