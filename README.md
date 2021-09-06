@@ -3,6 +3,7 @@ A simple API to control Philips Hue lamps with http GET requests
 
 # Background
 The existing Philips Hue REST API required a PUT request to control the lights. 
+
 I needed GET, so I made a simple API to translate from GET to PUT.
             
 # Installing gethue
