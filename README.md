@@ -19,10 +19,18 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 
             
 # Installing gethue
-To see the help file, start gethue without any arguments as follows:
+To see the help file, start **gethue** without any arguments as follows:
 ```
 node gethue
 ```
+**gethue** shows the following response:
+```
+USAGE: node gethue [OPTION1] [OPTION2]... arg1 arg2...
+The following options are supported:
+  -i, --ip      Philips Hue bridge IP address (required)
+  -k, --key     Philips Hue API key (required)
+  -p, --port    gethue API port number (default 3000)
+```  
 
 
 # Using gethue
