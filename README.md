@@ -9,7 +9,7 @@ I needed GET, so I made a simple API to translate from GET to PUT.
 # Installing hueget
 I run **hueget** on my raspberry pi. To install with NPM:
 ```
-$ npm install hueget -g
+$ sudo npm install hueget -g
 ```
 
 # Starting hueget
