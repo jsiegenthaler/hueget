@@ -71,7 +71,7 @@ on, bri, hue, sat, effect, ct, alert, colormode, mode
 For full details of the control capabilities, please see the [official Philips Hue API reference](https://developers.meethue.com/develop/hue-api/).
 An [alternative reference](http://www.burgestrand.se/hue-api/) also exists.
 
-# Finding your light ids
+# Finding your Light ids
 You need to know the light id of the light you wish to control.
 Go to http://192.168.x.x/api/yourPhilipsHueApiKey/lights. You will see a responce that looks like this (truncated here for brevity):
 ```
