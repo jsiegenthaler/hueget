@@ -18,6 +18,8 @@ The following options are supported:
   -k, --key     Philips Hue API key (required)
   -p, --port    port number to listen on (default 3000)
 ```  
+You must enter the options in the order -i, -k, -p
+
 Example to run gethue on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue API key of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
 ```
 node gethue.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
