@@ -53,7 +53,7 @@ listening on port 1234
 You can configure your system to automatically start **hueget** when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process manager 2).
 To start **hueget** with **pm2**, and have it daemonized, monitored and kept alive forever, enter:
 ```
-$ pm2 start hueget
+$ pm2 start hueget.js -- -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 ```
 Managing hueget is straigtforward:
 ```
