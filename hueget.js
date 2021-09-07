@@ -63,8 +63,8 @@ app.use('/api/' + hueApiKey + '/lights', (req, res) => {
     // form a PUT request for the Hue bridge
     // PUT http://192.168.0.101/api/yourPhilipsHueApiKey/lights/31/state --data "{""on"":true}"
     const url = 'http://' + hueBridgeIpAddress + '/api/' + hueApiKey + '/lights/' +  + lightId + '/state';
-    console.log('sending http PUT to:', url);
-    console.log('with data:', bodyObj);
+    //console.log('sending http PUT to:', url);
+    //console.log('with data:', bodyObj);
     axios.put(url, bodyObj)
         .then(response => {
             console.log('response:', response.status, response.statusText, JSON.stringify(response.data) );
