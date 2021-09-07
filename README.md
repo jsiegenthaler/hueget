@@ -8,7 +8,7 @@ I needed GET, so I made a simple API to translate from GET to PUT.
 
 This is my first ever API javascript program, so if you see any way it can be improved, I'd be happy to receive your suggestions.
 
-If you like this plugin, consider buying me a coffee!<br>
+If you like this tool, consider buying me a coffee!<br>
 <a target="blank" href="https://ko-fi.com/jsiegenthaler"><img src="https://img.shields.io/badge/Ko--Fi-Buy%20me%20a%20coffee-29abe0.svg?logo=ko-fi"/></a>
             
 # Installing hueget
