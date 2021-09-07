@@ -4,10 +4,15 @@ A simple API to control Philips Hue lamps with http GET requests.
 # Background
 The existing Philips Hue REST API requires a PUT request to control the lights. 
 
-I needed GET, so I made a simple API to translate from GET to PUT.
+I needed GET, so I made a simple API to translate from GET to PUT. 
+
+This is my first ever API javascript program, so if you see any way it can be improved, I'd be happy to receive your suggestions.
+
+If you like this plugin, consider buying me a coffee!<br>
+<a target="blank" href="https://ko-fi.com/jsiegenthaler"><img src="https://img.shields.io/badge/Ko--Fi-Buy%20me%20a%20coffee-29abe0.svg?logo=ko-fi"/></a>
             
 # Installing hueget
-I run **hueget** on my raspberry pi. To install with NPM:
+I run hueget on my raspberry pi. To install with NPM:
 ```
 $ sudo npm install hueget -g
 ```
@@ -15,17 +20,14 @@ hueget will install in /usr/lib/node_modules/hueget/
 
 
 # Starting hueget
-To see the help text, start **hueget** without any arguments as follows:
+To see the help text, start hueget without any arguments as follows:
 ```
 $ node /usr/lib/node_modules/hueget/hueget.js
 ```
-or just
+
+hueget shows the following response:
 ```
-$ node /usr/lib/node_modules/hueget/hueget
-```
-**hueget** shows the following response:
-```
-USAGE: node hueget [OPTION1] [OPTION2]... arg1 arg2...
+USAGE: node hueget.js [OPTION1] [OPTION2]... arg1 arg2...
 The following options are supported:
   -i, --ip      Philips Hue bridge IP address (required)
   -k, --key     Philips Hue API key (required)
@@ -50,8 +52,8 @@ commands will be sent to 192.168.0.50 with API key UBxWZChHseyjeFwAkwgbdQ08x9XAS
 listening on port 1234
 ```
 # Starting hueget as a Service
-You can configure your system to automatically start **hueget** when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process manager 2).
-To start **hueget** with **pm2**, and have it daemonized, monitored and kept alive forever, enter:
+You can configure your system to automatically start hueget when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process manager 2).
+To start hueget with pm2, and have it daemonized, monitored and kept alive forever, enter:
 ```
 $ pm2 start hueget.js -- -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 ```
@@ -76,7 +78,7 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 
 # Controlling your Hue Lights with hueget
-Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running **hueget**, eg: a raspberry pi.
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
 * Turn light 31 on: http://192.168.x.x:3000/api/yourPhilipsHueApiKey/lights/31/state?on=true
