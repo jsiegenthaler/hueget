@@ -16,11 +16,11 @@ I run hueget on my raspberry pi. To install with NPM:
 ```
 $ sudo npm install hueget -g
 ```
-hueget will install in /usr/lib/node_modules/hueget/
+On my raspberry pi, hueget is installed in /usr/lib/node_modules/hueget/. Your location may be different.
 
 
 # Starting hueget
-The following examples assume you have hueget in a folder that your system can find. update your PATH vairables if needed.
+The following examples assume you have hueget in a folder that your system can find. Update your PATH vairables if needed.
 
 To see the help text, start hueget without any arguments as follows:
 ```
