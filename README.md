@@ -2,7 +2,7 @@
 A simple API to control Philips Hue lamps with http GET requests.
 
 # Background
-The existing Philips Hue REST API requires a PUT request to control the lights. 
+The existing Philips Hue REST API requires a PUT request to control the Hue lights. 
 
 I needed GET, so I made a simple API to translate from GET to PUT. It also supports the standard GET command for lights, so you can use hueget for both.
 
@@ -20,9 +20,11 @@ hueget will install in /usr/lib/node_modules/hueget/
 
 
 # Starting hueget
+The following examples assume you have hueget in a folder that your system can find. update your PATH vairables if needed.
+
 To see the help text, start hueget without any arguments as follows:
 ```
-$ node /usr/lib/node_modules/hueget/hueget.js
+$ node hueget.js
 ```
 
 hueget shows the following response:
@@ -34,8 +36,6 @@ The following options are supported:
   -p, --port    port number to listen on (default 3000)
 ```  
 You must enter the options in the order -i, -k, -p
-
-The following examples assume you have /usr/lib/node_modules/hueget/ as your current folder, or you have modified your PATH vairables to include the folder.
 
 Example to run hueget on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue API key of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
 ```
