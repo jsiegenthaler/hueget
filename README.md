@@ -32,12 +32,12 @@ hueget shows the following response:
 USAGE: node hueget.js [OPTION1] [OPTION2]... arg1 arg2...
 The following options are supported:
   -i, --ip      Philips Hue bridge IP address (required)
-  -k, --key     Philips Hue API key (required)
+  -u, --user     Philips Hue username (required)
   -p, --port    port number to listen on ("3000" by default)
 ```  
 You must enter the options in the order -i, -k, -p
 
-Example to run hueget on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue API key of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
+Example to run hueget on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue username of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
 ```
 $ node hueget.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
@@ -48,7 +48,7 @@ $ node hueget.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 
 A successful start of hueget will show:
 ```
 hueget v1.0.0
-commands will be sent to 192.168.0.50 with API key UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+commands will be sent to 192.168.0.50 with username UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
 # Starting hueget as a Service
@@ -65,14 +65,14 @@ $ pm2 delete hueget
 ```
 For more information about pm2, see https://github.com/Unitech/pm2
 
-# Getting your Philips Hue API Key
-If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge API key
+# Getting your Philips Hue username
+If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge username
 ```
 "users": {
   "ECB5FAFFFEFFFFFF": "yourPhilipsHueApiKey"
  },
 ```
-The API key will look something like this:
+The username will look something like this:
 ```
 UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
@@ -91,8 +91,8 @@ Examples:
 * Turn light 31 off: http://192.168.x.x:3000/api/yourPhilipsHueApiKey/lights/31/state?on=false
 * Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?on=true&bri=50
 * Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?on=true&bri=100
-* Identify light 31 with a single flash: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?alert=select
-* Identify light 31 with a long number of flashes (about 15): http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?alert=lselect
+* Identify light 31 with a single blink: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?alert=select
+* Identify light 31 with a 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?alert=lselect
 
 # Supported Keywords
 The API is transparent to all keywords, but it is a simple API. It does not do any nesting of JSON syntax, thus please expect only the simple light controls for the light **state** to work.
