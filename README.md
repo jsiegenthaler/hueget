@@ -4,7 +4,7 @@ A simple API to control Philips Hue lamps with http GET requests.
 # Background
 The existing Philips Hue REST API requires a PUT request to control the lights. 
 
-I needed GET, so I made a simple API to translate from GET to PUT. 
+I needed GET, so I made a simple API to translate from GET to PUT. It also supports the standard GET command for lights, so you can use hueget for both.
 
 This is my first ever API javascript program, so if you see any way it can be improved, I'd be happy to receive your suggestions.
 
@@ -76,6 +76,12 @@ The API key will look something like this:
 ```
 UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
+
+# Reading the Status of your Hue Lights with hueget
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
+Examples:
+
+* Get status of light 31 on: http://192.168.x.x:3000/api/yourPhilipsHueApiKey/lights/31
 
 # Controlling your Hue Lights with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
