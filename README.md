@@ -20,7 +20,7 @@ On my raspberry pi, hueget is installed in /usr/lib/node_modules/hueget/. Your l
 
 
 # Starting hueget
-The following examples assume you have hueget in a folder that your system can find. Update your PATH vairables if needed.
+The following examples assume you have hueget in a folder that your system can find. Update your PATH variables if needed.
 
 To see the help text, start hueget without any arguments as follows:
 ```
@@ -57,13 +57,13 @@ To start hueget with pm2, and have it daemonized, monitored and kept alive forev
 ```
 $ pm2 start hueget.js -- -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 ```
-Managing hueget is straigtforward:
+Managing hueget in pm2 is straigtforward:
 ```
 $ pm2 stop hueget
 $ pm2 restart hueget
 $ pm2 delete hueget
 ```
-For more information see https://github.com/Unitech/pm2
+For more information about pm2, see https://github.com/Unitech/pm2
 
 # Getting your Philips Hue API Key
 If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge API key
