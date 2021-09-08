@@ -32,7 +32,7 @@ hueget shows the following response:
 USAGE: node hueget.js [OPTION1] [OPTION2]... arg1 arg2...
 The following options are supported:
   -i, --ip      Philips Hue bridge IP address (required)
-  -u, --user     Philips Hue username (required)
+  -u, --user    Philips Hue username (required)
   -p, --port    port number to listen on ("3000" by default)
 ```  
 You must enter the options in the order -i, -k, -p
@@ -65,11 +65,11 @@ $ pm2 delete hueget
 ```
 For more information about pm2, see https://github.com/Unitech/pm2
 
-# Getting your Philips Hue username
+# Getting your Philips Hue Bridge Username
 If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge username
 ```
 "users": {
-  "ECB5FAFFFEFFFFFF": "yourPhilipsHueApiKey"
+  "ECB5FAFFFEFFFFFF": "yourPhilipsHueBridgeUsername"
  },
 ```
 The username will look something like this:
@@ -81,18 +81,18 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
-* Get status of light 31: http://192.168.x.x:3000/api/yourPhilipsHueApiKey/lights/31
+* Get status of light 31: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31
 
 # Controlling your Hue Lights with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
-* Turn light 31 on: http://192.168.x.x:3000/api/yourPhilipsHueApiKey/lights/31/state?on=true
-* Turn light 31 off: http://192.168.x.x:3000/api/yourPhilipsHueApiKey/lights/31/state?on=false
-* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?on=true&bri=50
-* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?on=true&bri=100
-* Identify light 31 with a single blink: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?alert=select
-* Identify light 31 with a 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipshueApiKey/lights/31/state?alert=lselect
+* Turn light 31 on: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?on=true
+* Turn light 31 off: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?on=false
+* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?on=true&bri=50
+* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?on=true&bri=100
+* Identify light 31 with a single blink: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?alert=select
+* Identify light 31 with a 15 seconds of blinking: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?alert=lselect
 
 # Supported Keywords
 The API is transparent to all keywords, but it is a simple API. It does not do any nesting of JSON syntax, thus please expect only the simple light controls for the light **state** to work.
