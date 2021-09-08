@@ -81,18 +81,18 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
-* Get status of light 31: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31
+* Get status of light 31: http://192.168.x.x:3000/api/\<yourPhilipsHueBridgeUsername\>/lights/31
 
 # Controlling your Hue Lights with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
-* Turn light 31 on: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?on=true
-* Turn light 31 off: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?on=false
-* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?on=true&bri=50
-* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?on=true&bri=100
-* Identify light 31 with a single blink: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?alert=select
-* Identify light 31 with a 15 seconds of blinking: http://192.168.x.x:3000/api/<yourPhilipsHueBridgeUsername>/lights/31/state?alert=lselect
+* Turn light 31 on: http://192.168.x.x:3000/api/\<yourPhilipsHueBridgeUsername\>/lights/31/state?on=true
+* Turn light 31 off: http://192.168.x.x:3000/api/\<yourPhilipsHueBridgeUsername\>/lights/31/state?on=false
+* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/\<yourPhilipsHueBridgeUsername\>/lights/31/state?on=true&bri=50
+* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/\<yourPhilipsHueBridgeUsername\>/lights/31/state?on=true&bri=100
+* Identify light 31 with a single blink: http://192.168.x.x:3000/api/\<yourPhilipsHueBridgeUsername\>/lights/31/state?alert=select
+* Identify light 31 with a 15 seconds of blinking: http://192.168.x.x:3000/api/\<yourPhilipsHueBridgeUsername\>/lights/31/state?alert=lselect
 
 # Supported Keywords
 The API is transparent to all keywords, but it is a simple API. It does not do any nesting of JSON syntax, thus please expect only the simple light controls for the light **state** to work.
