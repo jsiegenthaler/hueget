@@ -2,9 +2,9 @@
 A simple API to control Philips Hue lamps with http GET requests.
 
 # Background
-The existing Philips Hue REST API requires a PUT request to control the Hue lights. 
+The existing Philips Hue REST API requires a PUT request to control the Hue lights and groups. 
 
-I needed GET, so I made a simple API to translate from GET to PUT. It also supports the standard GET command for lights, so you can use hueget for both.
+I needed GET, so I made a simple API to translate from GET to PUT. It also supports the standard GET command for lights and groups, so you can use hueget for both.
 
 This is my first ever API javascript program, so if you see any way it can be improved, I'd be happy to receive your suggestions.
 
@@ -77,13 +77,14 @@ The username will look something like this:
 UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 
-# Reading the Status of your Hue Lights with hueget
+# Reading the Status of your Hue Lights or Groups with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
 * Get status of light 31: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31
+* Get status of group 2: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2
 
-# Controlling your Hue Lights with hueget
+# Controlling your Hue Lights or Groups with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
@@ -94,22 +95,39 @@ Examples:
 * Identify light 31 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=select
 * Identify light 31 with a 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=lselect
 
+* Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true
+* Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=false
+* Turn group 2 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=50
+* Turn group 2 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=100
+* Identify group 2 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=select
+* Identify group 2 with a 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=lselect
+
+Groups are collections of lights, commonly called Rooms in the Hue app.
+
 # Supported Keywords
-The API is transparent to all keywords, but it is a simple API. It does not do any nesting of JSON syntax, thus please expect only the simple light controls for the light **state** to work.
+The API is transparent to all keywords, but it is a simple API. It does not do any nesting of JSON syntax.
 
 The full JSON response for a light looks like this:
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500,"alert":"select","colormode":"xy","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2021-08-21T01:50:00"},"type":"Extended color light","name":"Standard Lamp","modelid":"LCA001","manufacturername":"Signify Netherlands B.V.","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":200,"maxlumen":800,"colorgamuttype":"C","colorgamut":[[0.6915,0.3083],[0.1700,0.7000],[0.1532,0.0475]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"floorshade","function":"mixed","direction":"omnidirectional","startup":{"mode":"safety","configured":true}},"uniqueid":"00:17:88:01:08:ff:ff:ff-0b","swversion":"1.90.1","swconfigid":"35F80D40","productid":"Philips-LCA001-4-A19ECLv6"}
 ```
-As you can see, the available simple keywords for state are:
+As you can see, the available state keywords for state are:
 on, bri, hue, sat, effect, ct, alert, colormode, mode
+
+The full JSON response for a group looks like this:
+```
+{"name":"Lounge","lights":["9","1","2"],"sensors":[],"type":"Room","state":{"all_on":false,"any_on":false},"recycle":false,"class":"Lounge","action":{"on":false,"bri":0,"hue":7800,"sat":138,"effect":"none","xy":[0.5302,0.392],"ct":153,"alert":"select","colormode":"xy"}}
+```
+As you can see, the available action keywords for state are:
+on, bri, hue, sat, effect, ct, alert, colormode, mode
+
 
 For full details of the control capabilities, please see the [official Philips Hue API reference](https://developers.meethue.com/develop/hue-api/).
 An [alternative unoffical reference](http://www.burgestrand.se/hue-api/) also exists.
 
-# Finding your Light ids
-You need to know the light id of the light you wish to control.
-Go to http://192.168.x.x/api/yourPhilipsHueApiKey/lights. You will see a responce that looks like this (truncated here for brevity):
+# Finding your Light or Group ids
+You need to know the light id or the group id of the light or group you wish to control.
+Go to http://192.168.x.x/api/yourPhilipsHueApiKey/lights respectively http://192.168.x.x/api/yourPhilipsHueApiKey/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500," ...
 ```
@@ -121,3 +139,5 @@ Go backwards in the text until you find the keyword **state**, this is at the st
 ```
 ... ,"31":{"state":{"on":true,"bri":100,"hue":65396 ...
 ```
+
+Use the same method for groups to find the group id of the room you wish to control.
