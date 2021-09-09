@@ -4,13 +4,27 @@ A simple API to control Philips Hue lamps with http GET requests.
 # Background
 The existing Philips Hue REST API requires a PUT request to control the Hue lights and groups. 
 
-I needed GET, so I made a simple API to translate from GET to PUT. It also supports the standard GET command for lights and groups, so you can use hueget for both.
+I needed GET, so I made a simple API to translate from GET to PUT. It also supports the standard GET command so you can use hueget for both.
+
+hueget suports controlling lights as well as groups. A group is a collection of a number of lights, which in the Philips Hue app appears as a room.
 
 This is my first ever API javascript program, so if you see any way it can be improved, I'd be happy to receive your suggestions.
 
 If you like this tool, consider buying me a coffee!<br>
 <a target="blank" href="https://ko-fi.com/jsiegenthaler"><img src="https://img.shields.io/badge/Ko--Fi-Buy%20me%20a%20coffee-29abe0.svg?logo=ko-fi"/></a>
             
+# Creative Ways to use hueget
+
+## Visual Door Bell
+Flash your lights in the entire house when the doorbell rings. I have a Shelly1 as my doorbell. The doorbell connects to the Shelly1 SW input using a relay on the doorbell buzzer. Thus when the doorbell button is pressed, the Shelly1 sees an input, and calls a url, which flashes a group of lights for 15 seconds using the ```alert=lselect``` command. I use the Philips Hue app to determine what lights should be in the group.
+
+## Control Hue Lights directly from Shelly Motion Sensors
+Anything that can call a url when triggered - such as a Shelly Motion Sensor - can be used to turn the lights on and off again. Make sure the motion sensor calls a url to turn lights on, and a url to turn lights off. The Shelly Motion Sensor is ideal for this, as you can activate call urls for different motion triggers.
+
+## Be Home Soon Alert
+Flash lights in a room or in any group (zone, room) when someone comes home. The ```alert=lselect``` command is perfect to generate a 15 second long flash without any extra programming. Just call the URL from Apple HomeKit automations when a person arrives in your geofence.
+
+
 # Installing hueget
 I run hueget on my raspberry pi. To install with NPM:
 ```
@@ -128,7 +142,7 @@ An [alternative unoffical reference](http://www.burgestrand.se/hue-api/) also ex
 
 # Finding your Light or Group ids
 You need to know the light id or the group id of the light or group you wish to control.
-Go to http://192.168.x.x/api/yourPhilipsHueApiKey/lights respectively http://192.168.x.x/api/yourPhilipsHueApiKey/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
+Go to http://192.168.x.x/api/yourPhilipsHueBridgeUsername/lights respectively http://192.168.x.x/api/yourPhilipsHueBridgeUsername/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500," ...
 ```
@@ -142,3 +156,5 @@ Go backwards in the text until you find the keyword **state**, this is at the st
 ```
 
 Use the same method for groups to find the group id of the room you wish to control.
+
+
