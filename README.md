@@ -31,9 +31,9 @@ hueget shows the following response:
 ```
 USAGE: node hueget.js [OPTION1] [OPTION2]... arg1 arg2...
 The following options are supported:
-  -i, --ip      Philips Hue bridge IP address (required)
-  -u, --user    Philips Hue username (required)
-  -p, --port    port number to listen on ("3000" by default)
+  -i, --ip              Philips Hue bridge IP address (required)
+  -u, --username        Philips Hue username (required)
+  -p, --port            port number to listen on ("3000" by default)
 ```  
 You must enter the options in the order -i, -k, -p
 
