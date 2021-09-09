@@ -87,7 +87,7 @@ Examples:
 # Controlling your Hue Lights or Groups with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
-
+## Lights
 * Turn light 31 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true
 * Turn light 31 off: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=false
 * Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=50
@@ -95,7 +95,7 @@ Examples:
 * Identify light 31 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=select
 * Identify light 31 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=lselect
 
-
+## Groups
 * Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true
 * Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=false
 * Turn group 2 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=50
