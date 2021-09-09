@@ -140,4 +140,4 @@ Go backwards in the text until you find the keyword **state**, this is at the st
 ... ,"31":{"state":{"on":true,"bri":100,"hue":65396 ...
 ```
 
-Use the same method for groups to find the group id of the room you wish to control
+Use the same method for groups to find the group id of the room you wish to control.
