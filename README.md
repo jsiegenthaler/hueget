@@ -93,14 +93,15 @@ Examples:
 * Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=50
 * Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100
 * Identify light 31 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=select
-* Identify light 31 with a 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=lselect
+* Identify light 31 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=lselect
+
 
 * Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true
 * Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=false
 * Turn group 2 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=50
 * Turn group 2 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=100
 * Identify group 2 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=select
-* Identify group 2 with a 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=lselect
+* Identify group 2 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=lselect
 
 Groups are collections of lights, commonly called Rooms in the Hue app.
 
