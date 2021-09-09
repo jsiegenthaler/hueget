@@ -11,26 +11,28 @@ const app = express();
 // handle arguments
 var options = stdio.getopt({
   'ip':   {key: 'i', required: true, description: 'Philips Hue bridge IP address'}, // option 0
-  'key':  {key: 'k', required: true, description: 'Philips Hue API key'}, // option 1
+  'key':  {key: 'k', required: true, description: 'Philips Hue username'}, // option 1
   'port': {key: 'p', required: false, default: 3000, description: 'port number to listen on'} // option 2
   //'version': {key: 'v', required: false, description: 'display version info'}
 });
-const hueBridgeIpAddress = options.args[0];
-const hueApiKey = options.args[1];
+const ipAddress = options.args[0];
+const username = options.args[1];
 const port = options.args[2] || 3000;
 
 // show version and arguments
 console.log('%s v%s', packagejson.name, packagejson.version);
-console.log('commands will be sent to %s with API key %s', options.args[0], options.args[1]);
+console.log('commands will be sent to %s with username %s', options.args[0], options.args[1]);
 
 
 
-// handle /lights/xx/state
-// triggered by http://192.168.x.x/api/yourPhilipsHueApiKey/lights
+// handle 
+// api/<username>/lights/<id>/state
+// api/<username>/groups/<id>/action 
+// triggered by http://192.168.x.x/api/<username>/lights
 // translates a received GET command into a PUT command
-// GET: http://192.168.x.x/api/yourPhilipsHueApiKey/lights/31/state?on=true
-// PUT: http://192.168.x.x/api/yourPhilipsHueApiKey/lights/31/state --data "{""on"":true}"
-app.use('/api/' + hueApiKey + '/lights', (req, res) => {
+// GET: http://192.168.x.x/api/<username>/lights/31/state?on=true
+// PUT: http://192.168.x.x/api/<username>/lights/31/state --data "{""on"":true}"
+app.use('/api/' + username, (req, res) => {
   const reqUrl = req.url;
 
   // wrap the url parser in an error handler
@@ -38,23 +40,68 @@ app.use('/api/' + hueApiKey + '/lights', (req, res) => {
     // set an error prefix to help identify errors
     var errPrefix = 'url syntax error, ';
 
+
+    console.log('req.url', req.url);
+
+
     // get the query string parts after ?m where index [0] = left side of ?, index [1] = right side of ?
+    // subfolders expected: lights: 1 or 3; groups: 1 or 3
     const urlPathParts = req.url.split('/');
-    if (!((urlPathParts.length == 2) || (urlPathParts.length == 3))) {
-      throw errPrefix + (urlPathParts.length - 1).toString() + ' subfolders found, expecting 1 or 3: "' + req.url + '"';
+    console.log('urlPathParts.length', urlPathParts.length );
+
+    // get components of url, in format resource/id/command
+    const resource  = (urlPathParts[1] || '').toLowerCase(); 
+    const id  = urlPathParts[2]; 
+    const command  = (urlPathParts[3] || '').toLowerCase(); 
+    console.log('resource', resource );
+    console.log('id', id );
+    console.log('command', command );
+
+    // throw error if resource is not supported
+    if ( !((resource  == 'lights') || (resource  == 'groups')) ) {
+      throw errPrefix + 'unknown resource "' + resource + '", expecting "lights" or "groups": "' + req.url + '"';
     }
-    if ((urlPathParts.length == 3) && (!urlPathParts[2].toLowerCase().startsWith('state?'))) { throw errPrefix + 'unknown subfolder found, expecting "state": "' + req.url + '"'; }
 
-    // get the lightid, throw error if not a number
-    const lightId = urlPathParts[1];
-    if (isNaN(lightId)){ throw errPrefix + 'lightId is not a number: "' + lightId + '"';}
+    // get the id, throw error if not a number
+    if ( (isNaN((id || '')) || (id == '')) ){ throw errPrefix + 'id "' + id + '" is not an integer: "' + req.url + '"';}
 
-    // get the query parts
+    // throw error if unexpected quantity of url components
+    // allowed: 
+    // /<resource>
+    // /<resource>/<id>
+    // /<resource>/<id>/command
+    if ( urlPathParts.length > 4 ) {
+      throw errPrefix + (urlPathParts.length - 1).toString() + ' url path components found, expecting maximum 3: "' + req.url + '"';
+    }
+
+    // throw error if unexpected command
+    // for lights  /lights/<id>/state  expectedCommand = state or nothing
+    // for groups, /groups/<id>/action expectedCommand = action or nothing
+    var expectedCommand;
+    if (urlPathParts.length > 3) {
+      switch(resource) {
+        case 'lights':
+          expectedCommand = 'state'
+          break;
+        case 'groups':
+          expectedCommand = 'action'
+          break;
+      }
+      console.log('expectedCommand', expectedCommand );
+      if (!command.startsWith(expectedCommand)) { throw errPrefix + 'unknown command "' + command + '", expecting "' + expectedCommand + '": "' + req.url + '"'; }
+      if (!command.includes(expectedCommand + '?')) { throw errPrefix + 'query character "?" missing in "' + command + '", expecting "' + expectedCommand + '?<query>": "' + req.url + '"'; }
+      if (command.endsWith(expectedCommand + '?')) { throw errPrefix + 'query missing in "' + command + '", expecting "' + expectedCommand + '?<query>": "' + req.url + '"'; }
+    }
+
+
+    // get the query parts, throw error if unexpected quantity
     const urlQueryParts = req.url.split('?'); 
-    if ((urlPathParts[0].toLowerCase() == 'state') && (urlQueryParts.length != 2)) { throw errPrefix + (urlQueryParts.length - 1).toString() + ' "?" delimiters found, expecting 1: "' + req.url + '"';}
+    if ( (urlPathParts[0].toLowerCase() == expectedCommand) && (urlQueryParts.length != 2) ) { 
+      throw errPrefix + (urlQueryParts.length - 1).toString() + ' "?" delimiters found, expecting 1: "' + req.url + '"';
+    }
 
     // if a query exists, split the query part [1] into name-value pairs on &, loop and construct a json result
-    var bodyObj;
+    var dataObj;
     if (urlQueryParts.length > 1){
       var result = '{';
       errPrefix = 'url query syntax error, ';
@@ -72,17 +119,18 @@ app.use('/api/' + hueApiKey + '/lights', (req, res) => {
         result = result + ',"' + pair[0] + '":' + pairValue;
       });
       result = result.replace('{,','{') + '}'; // clean up, add brackets
-      bodyObj = JSON.parse(result);
+      dataObj = JSON.parse(result);
     }
 
 
-    // if a bodyObj exists, send PUT; otherwise, send a GET
-    // GET http://192.168.0.101/api/yourPhilipsHueApiKey/lights/31
-    // PUT http://192.168.0.101/api/yourPhilipsHueApiKey/lights/31/state --data "{""on"":true}"
-    const url = 'http://' + hueBridgeIpAddress + '/api/' + hueApiKey + '/lights/' +  + lightId;
-    if (bodyObj){
-      console.log('sending: PUT %s %s', url + '/state', bodyObj || '');
-      axios.put(url + '/state', bodyObj)
+    // if a dataObj exists, send PUT; otherwise, send a GET
+    // GET http://192.168.0.101/api/<username>/lights/31
+    // PUT http://192.168.0.101/api/<username>/lights/31/state --data "{""on"":true}"
+    var url = 'http://' + ipAddress + '/api/' + username + '/' + resource;
+    if (id) { url = url + '/' + id; } // add id if supplied
+    if (dataObj){
+      console.log('sending: PUT %s %s', url + '/' + expectedCommand, dataObj || '');
+      axios.put(url + '/' + expectedCommand, dataObj)
         .then(response => {
           console.log('PUT response:', response.status, response.statusText, JSON.stringify(response.data) );
           res.json(response.data);
