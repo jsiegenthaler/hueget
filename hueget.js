@@ -10,9 +10,9 @@ const app = express();
 
 // handle arguments
 var options = stdio.getopt({
-  'ip':   {key: 'i', required: true, description: 'Philips Hue bridge IP address'}, // option 0
-  'key':  {key: 'k', required: true, description: 'Philips Hue username'}, // option 1
-  'port': {key: 'p', required: false, default: 3000, description: 'port number to listen on'} // option 2
+  'ip':         {key: 'i', required: true, description: 'Philips Hue bridge IP address'}, // option 0
+  'username':   {key: 'u', required: true, description: 'Philips Hue username'}, // option 1
+  'port':       {key: 'p', required: false, default: 3000, description: 'port number to listen on'} // option 2
   //'version': {key: 'v', required: false, description: 'display version info'}
 });
 const ipAddress = options.args[0];
