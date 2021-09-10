@@ -34,6 +34,7 @@ console.log('commands will be sent to %s with username %s', options.args[0], opt
 // PUT: http://192.168.x.x/api/<username>/lights/31/state --data "{""on"":true}"
 app.use('/api/' + username, (req, res) => {
   const reqUrl = req.url;
+  console.log('parsing url:', reqUrl);
 
   // wrap the url parser in an error handler
   try {
@@ -41,21 +42,18 @@ app.use('/api/' + username, (req, res) => {
     var errPrefix = 'url syntax error, ';
 
 
-    console.log('req.url', req.url);
-
-
     // get the query string parts after ?m where index [0] = left side of ?, index [1] = right side of ?
     // subfolders expected: lights: 1 or 3; groups: 1 or 3
     const urlPathParts = req.url.split('/');
-    console.log('urlPathParts.length', urlPathParts.length );
+    //console.log('urlPathParts.length', urlPathParts.length );
 
     // get components of url, in format resource/id/command
     const resource  = (urlPathParts[1] || '').toLowerCase(); 
     const id  = urlPathParts[2]; 
     const command  = (urlPathParts[3] || '').toLowerCase(); 
-    console.log('resource', resource );
-    console.log('id', id );
-    console.log('command', command );
+    //console.log('resource', resource );
+    //console.log('id', id );
+    //console.log('command', command );
 
     // throw error if resource is not supported
     if ( !((resource  == 'lights') || (resource  == 'groups')) ) {
@@ -87,7 +85,7 @@ app.use('/api/' + username, (req, res) => {
           expectedCommand = 'action'
           break;
       }
-      console.log('expectedCommand', expectedCommand );
+      //console.log('expectedCommand', expectedCommand );
       if (!command.startsWith(expectedCommand)) { throw errPrefix + 'unknown command "' + command + '", expecting "' + expectedCommand + '": "' + req.url + '"'; }
       if (!command.includes(expectedCommand + '?')) { throw errPrefix + 'query character "?" missing in "' + command + '", expecting "' + expectedCommand + '?<query>": "' + req.url + '"'; }
       if (command.endsWith(expectedCommand + '?')) { throw errPrefix + 'query missing in "' + command + '", expecting "' + expectedCommand + '?<query>": "' + req.url + '"'; }
@@ -100,25 +98,36 @@ app.use('/api/' + username, (req, res) => {
       throw errPrefix + (urlQueryParts.length - 1).toString() + ' "?" delimiters found, expecting 1: "' + req.url + '"';
     }
 
+
+
     // if a query exists, split the query part [1] into name-value pairs on &, loop and construct a json result
     var dataObj;
     if (urlQueryParts.length > 1){
       var result = '{';
       errPrefix = 'url query syntax error, ';
       urlQueryParts[1].split('&').forEach(function(nameValuePair) {
+        
+        //console.log('nameValuePair', nameValuePair );
+
         const pair = nameValuePair.split('=');
         if (pair.length != 2){ throw errPrefix + (pair.length - 1).toString() + ' "=" delimiters found, expecting 1: "' + nameValuePair + '"';}
         if ((pair[0] || '').length == 0){ throw errPrefix + 'pair name not found": "' + nameValuePair + '"';}
       
         var pairValue = decodeURIComponent(pair[1] || '');
+        //console.log('pairValue', pairValue );
         if (pairValue.length == 0){ throw errPrefix + 'pair value not found": "' + nameValuePair + '"';}
 
         // enclose string in "", leave boolean and number unchanged. Hue accepts: {"name":booleanOrNumber, "name":"String"}
-        if ((pairValue != 'true') && (pairValue != 'false') && (isNaN(pairValue))) { pairValue = '"' + pairValue + '"'; }
+        if (
+          (pairValue != 'true') && (pairValue != 'false') && (isNaN(pairValue))
+          && (!pairValue.startsWith('[')) && (!pairValue.endsWith(']')) // for xy arrays
+          ) { pairValue = '"' + pairValue + '"'; 
+        }
 
         result = result + ',"' + pair[0] + '":' + pairValue;
       });
       result = result.replace('{,','{') + '}'; // clean up, add brackets
+      //console.log('result', result );
       dataObj = JSON.parse(result);
     }
 
@@ -129,7 +138,7 @@ app.use('/api/' + username, (req, res) => {
     var url = 'http://' + ipAddress + '/api/' + username + '/' + resource;
     if (id) { url = url + '/' + id; } // add id if supplied
     if (dataObj){
-      console.log('sending: PUT %s %s', url + '/' + expectedCommand, dataObj || '');
+      console.log('sending PUT: %s %s', url + '/' + expectedCommand, dataObj || '');
       axios.put(url + '/' + expectedCommand, dataObj)
         .then(response => {
           console.log('PUT response:', response.status, response.statusText, JSON.stringify(response.data) );
@@ -141,7 +150,7 @@ app.use('/api/' + username, (req, res) => {
           res.json({ error: errText });
         });
       } else {
-        console.log('sending: GET %s', url);
+        console.log('sending GET: %s', url);
         axios.get(url)
           .then(response => {
             console.log('GET response:', response.status, response.statusText, JSON.stringify(response.data) );
