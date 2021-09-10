@@ -173,6 +173,10 @@ Note that this contains the last alert sent to the light and not its current sta
 ## colormode
 Exact use unknown. Looks like it sets a color mode. Observed values are: xy
 
+## mode
+Exact use unknown. Looks like it sets an operating mode. Observed values are: homeautomation
+
+
 ## Further commands
 See the API documentation
 
