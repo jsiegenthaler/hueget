@@ -73,6 +73,7 @@ $ pm2 start hueget.js -- -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZV
 ```
 Managing hueget in pm2 is straigtforward:
 ```
+$ pm2 status
 $ pm2 stop hueget
 $ pm2 restart hueget
 $ pm2 delete hueget
