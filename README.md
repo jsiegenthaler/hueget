@@ -49,15 +49,15 @@ The following options are supported:
   -u, --username        Philips Hue username (required)
   -p, --port            port number to listen on ("3000" by default)
 ```  
-You must enter the options in the order -i, -k, -p
+You must enter the options in the order -i, -u, -p
 
 Example to run hueget on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue username of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
 ```
-$ node hueget.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+$ node hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 The same again, but using port 1234:
 ```
-$ node hueget.js -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
+$ node hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
 ```
 A successful start of hueget will show:
 ```
@@ -69,7 +69,7 @@ listening on port 1234
 You can configure your system to automatically start hueget when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process manager 2).
 To start hueget with pm2, and have it daemonized, monitored and kept alive forever, enter:
 ```
-$ pm2 start hueget.js -- -i 192.168.0.50 -k UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
+$ pm2 start hueget.js -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 ```
 Managing hueget in pm2 is straigtforward:
 ```
