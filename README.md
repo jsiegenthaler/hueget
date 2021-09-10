@@ -1,5 +1,6 @@
 # hueget
 A simple API to control Philips Hue lamps with http GET requests.
+Written in September 2021.
 
 # Background
 The existing Philips Hue REST API requires a PUT request to control the Hue lights and groups. 
