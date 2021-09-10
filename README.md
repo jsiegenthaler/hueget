@@ -160,7 +160,7 @@ When sending the xy array, you **must** url encode the comma to %2c (or %2C). He
 * Set light 31 to xy of \[0.25,0.52\]: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?xy=[0.25%2c0.52]
 
 ## ct
-The Mired color temperature of the light. Ranges from 153 (6500K) to 500 (2000K).
+The [Mired](https://en.wikipedia.org/wiki/Mired) (micro reciprocal degree) color temperature of the light. Ranges from 153 (6500K) to 500 (2000K). To calculate the mired, use the formula mired = 1000000/K, where K is the desired color temperature. Example: 6500K = 153 mired, calculation 1000000/6500 = 153.8
 
 ## alert
 The alert effect, this is a temporary change to the bulb’s state, and has one of the following values:
