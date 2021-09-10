@@ -106,6 +106,7 @@ Examples:
 * Turn light 31 off: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=false
 * Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=50
 * Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100
+* Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
 * Identify light 31 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=select
 * Identify light 31 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=lselect
 
@@ -114,31 +115,71 @@ Examples:
 * Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=false
 * Turn group 2 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=50
 * Turn group 2 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=100
+* Turn group 2 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/state?on=true&bri=100&xy=[0.5%2c0.6]
 * Identify group 2 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=select
 * Identify group 2 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=lselect
 
-Groups are collections of lights, commonly called Rooms in the Hue app.
+Groups are collections of lights, and are used for Rooms and Zones in the Hue app.
 
 # Supported Keywords
-The API is transparent to all keywords, but it is a simple API. It does not do any nesting of JSON syntax.
+The API is transparent to all Philips Hue keywords. It expects all name=value pairs to be separated by a comma. If any comma is required inside a value, eg: for the xy command which expects a value array, then you must url encode the comma to %2c.
 
 The full JSON response for a light looks like this:
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500,"alert":"select","colormode":"xy","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2021-08-21T01:50:00"},"type":"Extended color light","name":"Standard Lamp","modelid":"LCA001","manufacturername":"Signify Netherlands B.V.","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":200,"maxlumen":800,"colorgamuttype":"C","colorgamut":[[0.6915,0.3083],[0.1700,0.7000],[0.1532,0.0475]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"floorshade","function":"mixed","direction":"omnidirectional","startup":{"mode":"safety","configured":true}},"uniqueid":"00:17:88:01:08:ff:ff:ff-0b","swversion":"1.90.1","swconfigid":"35F80D40","productid":"Philips-LCA001-4-A19ECLv6"}
 ```
-As you can see, the available state keywords for state are:
-on, bri, hue, sat, effect, ct, alert, colormode, mode
 
 The full JSON response for a group looks like this:
 ```
 {"name":"Lounge","lights":["9","1","2"],"sensors":[],"type":"Room","state":{"all_on":false,"any_on":false},"recycle":false,"class":"Lounge","action":{"on":false,"bri":0,"hue":7800,"sat":138,"effect":"none","xy":[0.5302,0.392],"ct":153,"alert":"select","colormode":"xy"}}
 ```
-As you can see, the available action keywords for state are:
-on, bri, hue, sat, effect, ct, alert, colormode, mode
+The available action keywords for state or group are:
+on, bri, hue, sat, effect, xy, ct, alert, colormode, mode (lights only)
 
+## on
+Turn a light on or off. On=true, Off=false.
+Valid for light or group.
 
+## bri
+The brightness value to set the light to. Brightness is a scale from 1 (the minimum the light is capable of) to 254 (the maximum).
+
+## hue
+The hue value to set the light to. The hue value is a wrapping value between 0 and 65535. Both 0 and 65535 are red, 25500 is green and 46920 is blue.
+
+## sat
+Saturation of the light. 254 is the most saturated (colored) and 0 is the least saturated (white).
+
+## effect
+The dynamic effect of the light. “none” and “colorloop” are supported. Other values will generate an error of type 7. Setting the effect to colorloop will cycle through all hues using the current brightness and saturation settings.
+
+## xy
+The xy values represent x and y coordinates of a color in CIE color space. The first value is the x coordinate and the second value is the y coordinate. Both x and y must be between 0 and 1, and will be rounded to 4 decimal places by the Hue bridge, eg: 0.666666 becomes 0.6667.
+If the specified coordinates are not in the CIE color space, the closest color to the coordinates will be chosen.
+
+When sending the xy array, you **must** url encode the comma to %2c (or %2C). Here is an example for "xy":\[0.25,0.52\] :
+* Set light 31 to xy of \[0.25,0.52\]: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?xy=[0.25%2c0.52]
+
+## ct
+The Mired color temperature of the light. Ranges from 153 (6500K) to 500 (2000K).
+
+## alert
+The alert effect, this is a temporary change to the bulb’s state, and has one of the following values:
+* “none” – The light is not performing an alert effect.
+* “select” – The light is performing one breathe cycle.
+* “lselect” – The light is performing breathe cycles for 15 seconds or until an "alert": "none" command is received.
+
+Note that this contains the last alert sent to the light and not its current state. i.e. After the breathe cycle has finished the bridge does not reset the alert to “none“.
+
+## colormode
+Exact use unknown. Looks like it sets a color mode. Observed values are: xy
+
+## Further commands
+See the API documentation
+
+## API Documentation
 For full details of the control capabilities, please see the [official Philips Hue API reference](https://developers.meethue.com/develop/hue-api/).
-An [alternative unoffical reference](http://www.burgestrand.se/hue-api/) also exists.
+An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewhat outdated also exists.
+
 
 # Finding your Light or Group ids
 You need to know the light id or the group id of the light or group you wish to control.
