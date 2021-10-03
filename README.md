@@ -46,11 +46,11 @@ hueget shows the following response:
 ```
 USAGE: node hueget.js [OPTION1] [OPTION2]... arg1 arg2...
 The following options are supported:
-  -i, --ip              Philips Hue bridge IP address (required)
-  -u, --username        Philips Hue username (required)
-  -p, --port            port number to listen on ("3000" by default)
+  -i, --ip <ARG1>               Philips Hue bridge IP address (required)
+  -u, --username <ARG1>         Philips Hue api username (required)
+  -p, --port <ARG1>             port number to listen on ("3000" by default)
 ```  
-You must enter the options in the order -i, -u, -p
+Options can be entered in any order
 
 Example to run hueget on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue username of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
 ```
@@ -82,7 +82,7 @@ $ pm2 delete hueget
 For more information about pm2, see https://github.com/Unitech/pm2
 
 # Getting your Philips Hue Bridge Username
-If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge username
+If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge api username
 ```
 "users": {
   "ECB5FAFFFEFFFFFF": "yourPhilipsHueBridgeUsername"
