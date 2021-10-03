@@ -35,14 +35,20 @@ Flash lights in a room or in any group (zone, room) when someone comes home. The
 # Installing hueget
 I run hueget on my raspberry pi. To install the latest version with NPM:
 ```
-$ sudo npm install hueget -g
+$ sudo npm install -g hueget
 ```
 Or for the latest beta version:
 ```
-$ sudo npm install hueget@beta -g
+$ sudo npm install -g hueget@beta
 ```
 
 npm installs hueget in `/usr/lib/node_modules/hueget/`.
+
+# Updating hueget
+To update hueget to the latest version:
+```
+$ sudo npm update  -g hueget
+```
 
 
 # Starting hueget
