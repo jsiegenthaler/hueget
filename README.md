@@ -1,4 +1,10 @@
 # hueget
+
+[![npm](https://badgen.net/npm/dt/hueget)](https://www.npmjs.com/package/hueget)
+[![npm](https://img.shields.io/npm/v/hueget)](https://www.npmjs.com/package/hueget)
+[![GitHub issues](https://img.shields.io/github/issues/jsiegenthaler/hueget)](https://github.com/jsiegenthaler/hueget/issues)
+[![donate](https://badgen.net/badge/donate/paypal/91BE09)](https://www.paypal.com/donate?hosted_button_id=CNEDGHRUER468)
+
 A simple API to control Philips Hue lamps with http GET requests.
 Written in September 2021.
 
