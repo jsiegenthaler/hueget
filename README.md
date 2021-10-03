@@ -96,6 +96,7 @@ Managing hueget in pm2 is straigtforward:
 ```
 $ pm2 status
 $ pm2 start hueget -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
+$ pm2 save
 $ pm2 stop hueget
 $ pm2 restart hueget
 $ pm2 delete hueget
