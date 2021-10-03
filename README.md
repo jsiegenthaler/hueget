@@ -79,7 +79,7 @@ $ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFw
 ```
 A successful start of hueget will show:
 ```
-hueget v1.0.0
+hueget v0.5.1
 commands will be sent to 192.168.0.50 with username UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
