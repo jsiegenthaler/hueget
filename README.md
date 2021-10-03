@@ -42,7 +42,7 @@ Or for the latest beta version:
 $ sudo npm install hueget@beta -g
 ```
 
-npm installs hueget in `/usr/lib/node_modules/hueget/`..
+npm installs hueget in `/usr/lib/node_modules/hueget/`.
 
 
 # Starting hueget
