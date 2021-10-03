@@ -33,10 +33,15 @@ Flash lights in a room or in any group (zone, room) when someone comes home. The
 
 
 # Installing hueget
-I run hueget on my raspberry pi. To install with NPM:
+I run hueget on my raspberry pi. To install the latest version with NPM:
 ```
 $ sudo npm install hueget -g
 ```
+Or for the latest beta version:
+```
+$ sudo npm install hueget@beta -g
+```
+
 On my raspberry pi, hueget is installed in `/usr/lib/node_modules/hueget/`. Your location may be different.
 
 
@@ -73,7 +78,7 @@ commands will be sent to 192.168.0.50 with username UBxWZChHseyjeFwAkwgbdQ08x9XA
 listening on port 1234
 ```
 # Starting hueget as a Service
-You can configure your system to automatically start hueget when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process manager 2).
+You can configure your system to automatically start hueget when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (Process Management Module).
 To start hueget with pm2, and have it daemonized, monitored and kept alive forever, enter:
 ```
 $ pm2 start hueget.js -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
@@ -81,6 +86,7 @@ $ pm2 start hueget.js -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZV
 Managing hueget in pm2 is straigtforward:
 ```
 $ pm2 status
+$ pm2 start hueget -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 $ pm2 stop hueget
 $ pm2 restart hueget
 $ pm2 delete hueget
