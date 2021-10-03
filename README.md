@@ -79,10 +79,19 @@ listening on port 1234
 ```
 # Starting hueget as a Service
 You can configure your system to automatically start hueget when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (Process Management Module).
-To start hueget with pm2, and have it daemonized, monitored and kept alive forever, enter:
+Start hueget with pm2, and have it daemonized, monitored and kept alive forever:
 ```
 $ pm2 start hueget.js -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 ```
+Check that hueget has started:
+```
+$ pm2 status
+```
+Save the pm2 config so that hueget automatically loads when the server restarts:
+```
+$ pm2 save
+```
+
 Managing hueget in pm2 is straigtforward:
 ```
 $ pm2 status
