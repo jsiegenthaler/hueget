@@ -47,7 +47,7 @@ npm installs hueget in `/usr/lib/node_modules/hueget/`.
 # Updating hueget
 To update hueget to the latest version:
 ```
-$ sudo npm update  -g hueget
+$ sudo npm update -g hueget
 ```
 
 
