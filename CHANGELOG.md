@@ -7,6 +7,10 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 ## Current In-Work List (Future Releases)
 Cleanup to get ready for v1.0.0
 
+## 0.5.1 (2021-10-03)
+* Cleaned up some package.json entries
+* Improved documentation
+
 ## 0.5.0 (2021-10-03)
 * Fixed parsing of input options and arguments
 * Bumped dependencies
