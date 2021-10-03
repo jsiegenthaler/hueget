@@ -1,6 +1,6 @@
 {
   "name": "hueget",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "A simple API that converts the Philips Hue API PUT to GET requests, allowing control of Philips Hue lights via http GET requests",
   "main": "hueget.js",
   "scripts": {
@@ -21,11 +21,11 @@
   "author": "Jochen Siegenthaler (https://github.com/jsiegenthaler)",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.4",
+    "axios": "^0.22.0",
     "express": "^4.17.1",
     "stdio": "^2.1.1"
   },
   "engines": {
-    "node": ">=14.17.6"
+    "node": ">=14.18.0"
   }
 }

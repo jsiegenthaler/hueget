@@ -10,18 +10,16 @@ const app = express();
 
 // handle arguments
 var options = stdio.getopt({
-  'ip':         {key: 'i', required: true, description: 'Philips Hue bridge IP address'}, // option 0
-  'username':   {key: 'u', required: true, description: 'Philips Hue username'}, // option 1
-  'port':       {key: 'p', required: false, default: 3000, description: 'port number to listen on'} // option 2
-  //'version': {key: 'v', required: false, description: 'display version info'}
+  ip: { key: 'i', description: 'Philips Hue bridge IP address', args: 1, required: true },
+  username: { key: 'u', description: 'Philips Hue api username', args: 1, required: true },
+  port: { key: 'p', description: 'port number to listen on', args: 1, required: false, default: 3000 }
 });
-const ipAddress = options.args[0];
-const username = options.args[1];
-const port = options.args[2] || 3000;
+//console.log('%s options', packagejson.name, options);
+
 
 // show version and arguments
 console.log('%s v%s', packagejson.name, packagejson.version);
-console.log('commands will be sent to %s with username %s', options.args[0], options.args[1]);
+console.log('commands will be sent to %s with username %s', options.ip, options.username);
 
 
 
@@ -32,7 +30,7 @@ console.log('commands will be sent to %s with username %s', options.args[0], opt
 // translates a received GET command into a PUT command
 // GET: http://192.168.x.x/api/<username>/lights/31/state?on=true
 // PUT: http://192.168.x.x/api/<username>/lights/31/state --data "{""on"":true}"
-app.use('/api/' + username, (req, res) => {
+app.use('/api/' + options.username, (req, res) => {
   const reqUrl = req.url;
   console.log('parsing url:', reqUrl);
 
@@ -135,7 +133,7 @@ app.use('/api/' + username, (req, res) => {
     // if a dataObj exists, send PUT; otherwise, send a GET
     // GET http://192.168.0.101/api/<username>/lights/31
     // PUT http://192.168.0.101/api/<username>/lights/31/state --data "{""on"":true}"
-    var url = 'http://' + ipAddress + '/api/' + username + '/' + resource;
+    var url = 'http://' + options.ip + '/api/' + options.username + '/' + resource;
     if (id) { url = url + '/' + id; } // add id if supplied
     if (dataObj){
       console.log('sending PUT: %s %s', url + '/' + expectedCommand, dataObj || '');
@@ -175,6 +173,6 @@ app.use('/api/' + username, (req, res) => {
 })
 
 // the api listener
-app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+app.listen(options.port, () => {
+  console.log(`listening on port ${options.port}`);
 })
