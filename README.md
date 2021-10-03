@@ -33,11 +33,22 @@ Flash lights in a room or in any group (zone, room) when someone comes home. The
 
 
 # Installing hueget
-I run hueget on my raspberry pi. To install with NPM:
+I run hueget on my raspberry pi. To install the latest version with NPM:
 ```
-$ sudo npm install hueget -g
+$ sudo npm install -g hueget
 ```
-On my raspberry pi, hueget is installed in `/usr/lib/node_modules/hueget/`. Your location may be different.
+Or for the latest beta version:
+```
+$ sudo npm install -g hueget@beta
+```
+
+npm installs hueget in `/usr/lib/node_modules/hueget/`.
+
+# Updating hueget
+To update hueget to the latest version:
+```
+$ sudo npm update -g hueget
+```
 
 
 # Starting hueget
@@ -45,7 +56,7 @@ The following examples assume you have hueget in a folder that your system can f
 
 To see the help text, start hueget without any arguments as follows:
 ```
-$ node hueget.js
+$ node /usr/lib/node_modules/hueget/hueget.js
 ```
 
 hueget shows the following response:
@@ -60,34 +71,45 @@ Note that options can be entered in any order.
 
 Example to run hueget on a raspberry pi with ip address `192.168.0.50`, default port `3000`, and with a Hue username of `UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj`:
 ```
-$ node hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+$ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 The same again, but using port `1234`:
 ```
-$ node hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
+$ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
 ```
 A successful start of hueget will show:
 ```
-hueget v1.0.0
+hueget v0.5.1
 commands will be sent to 192.168.0.50 with username UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
 # Starting hueget as a Service
-You can configure your system to automatically start hueget when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (process manager 2).
-To start hueget with pm2, and have it daemonized, monitored and kept alive forever, enter:
+Ideally hueget will run all the time. You need a tool to start hueget when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (Process Management Module).
+To start hueget with pm2, and have it daemonized, monitored and kept alive forever:
 ```
 $ pm2 start hueget.js -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 ```
+Check that hueget has started:
+```
+$ pm2 status
+```
+Save the pm2 config so that hueget automatically loads when the server restarts:
+```
+$ pm2 save
+```
+
 Managing hueget in pm2 is straigtforward:
 ```
 $ pm2 status
+$ pm2 start hueget -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
+$ pm2 save
 $ pm2 stop hueget
 $ pm2 restart hueget
 $ pm2 delete hueget
 ```
 For more information about pm2, see https://github.com/Unitech/pm2
 
-# Getting your Philips Hue Bridge Username
+# Getting your Philips Hue Bridge API Username
 If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge api username
 ```
 "users": {
