@@ -31,7 +31,7 @@ I run hueget on my raspberry pi. To install with NPM:
 ```
 $ sudo npm install hueget -g
 ```
-On my raspberry pi, hueget is installed in /usr/lib/node_modules/hueget/. Your location may be different.
+On my raspberry pi, hueget is installed in `/usr/lib/node_modules/hueget/`. Your location may be different.
 
 
 # Starting hueget
@@ -50,13 +50,13 @@ The following options are supported:
   -u, --username <ARG1>         Philips Hue api username (required)
   -p, --port <ARG1>             port number to listen on ("3000" by default)
 ```  
-Options can be entered in any order
+Note that options can be entered in any order.
 
-Example to run hueget on a raspberry pi with ip address 192.168.0.50, default port 3000, and with a Hue username of UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj:
+Example to run hueget on a raspberry pi with ip address `192.168.0.50`, default port `3000`, and with a Hue username of `UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj`:
 ```
 $ node hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
-The same again, but using port 1234:
+The same again, but using port `1234`:
 ```
 $ node hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
 ```
