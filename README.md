@@ -141,11 +141,15 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 
 # Reading the Status of Philips Hue with hueget
+## API V1
+(old text)
+
+## API V2 (from hueget v1.x and later)
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The id is the id (UUID) of the resource (light, room, scene, etc).
 
 Examples:
 
-* Get status of light <id>: http://192.168.x.x:3000/clip/v2/resource/light/<id>
+* Get status of light \<id\>: http://192.168.x.x:3000/clip/v2/resource/light/<id>
 * Get status of group id: http://192.168.x.x:3000/clip/v2/resource/group/id
 
 # Controlling Philips Hue with hueget
