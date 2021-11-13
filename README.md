@@ -141,23 +141,25 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 
 # Reading the Status of Philips Hue with hueget
-Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The id is the id (UUID) of the resource (light, room, scene, etc).
+
 Examples:
 
-* Get status of light a52cca28-d35b-4ece-8705-aa7e8a21aa21: http://192.168.x.x:3000/clip/v2/resource/light/a52cca28-d35b-4ece-8705-aa7e8a21aa21
-* Get status of group a52cca28-d35b-4ece-8705-aa7e8a21aa21: http://192.168.x.x:3000/clip/v2/resource/group/a52cca28-d35b-4ece-8705-aa7e8a21aa21
+* Get status of light <id>: http://192.168.x.x:3000/clip/v2/resource/light/<id>
+* Get status of group id: http://192.168.x.x:3000/clip/v2/resource/group/id
 
 # Controlling Philips Hue with hueget
-Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The id is the id (UUID) of the resource (light, room, scene, etc).
+
 Examples:
 ## Lights
-* Turn light 31 on: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=true
-* Turn light 31 off: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=false
-* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=true&bri=50
-* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=true&bri=100
-* Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
-* Identify light 31 with a single blink: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?alert=select
-* Identify light 31 with 15 seconds of blinking: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?alert=lselect
+* Turn light id on: http://192.168.x.x:3000/clip/v2/resource/light/id/on?on=true
+* Turn light id off: http://192.168.x.x:3000/clip/v2/resource/light/id/on/on=false
+* Turn light id on at 50% brightness: http://192.168.x.x:3000/clip/v2/resource/light/31/state?on=true&bri=50
+* Turn light id on at 100% brightness: http://192.168.x.x:3000/clip/v2/resource/light/31/state?on=true&bri=100
+* Turn light id on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Identify light id with a single blink: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?alert=select
+* Identify light id with 15 seconds of blinking: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?alert=lselect
 
 ## Groups
 * Turn group 2 on: http://192.168.x.x:3000/clip/v2/resource/groups/2/action?on=true
