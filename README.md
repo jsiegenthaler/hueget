@@ -148,7 +148,7 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 (insert old text here, or maybe on another page?)
 
 ## API V2 (from hueget v1.x and later)
-Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The \<id\> is the id (UUID) of the resource (light, room, scene, etc). A resource \<id\> looks like this: ```a52cca28-d35b-4ece-8705-aa7e8a21aa21```
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. In the examples below, ```aaaa-bbbb-cccc-eeee-ffff``` is used to indicate the resource id (light, room, scene, etc). A real resource id looks like this: ```a52cca28-d35b-4ece-8705-aa7e8a21aa21```.
 
 Examples:
 
@@ -157,18 +157,22 @@ Examples:
 
 # Controlling Philips Hue with hueget
 
-Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The id is the id (UUID) of the resource (light, room, scene, etc).
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. In the examples below, ```aaaa-bbbb-cccc-eeee-ffff``` is used to indicate the resource id (light, room, scene, etc). A real resource id looks like this: ```a52cca28-d35b-4ece-8705-aa7e8a21aa21```.
 
 Examples:
 ## Lights
 * Turn light aaaa-bbbb-cccc-eeee-ffff on: 
-http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on?on=true
-* Turn light aaaa-bbbb-cccc-eeee-ffff off: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on?on=false
-* Turn light aaaa-bbbb-cccc-eeee-ffff on at 50% brightness: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on?on=true&bri=50
-* Turn light aaaa-bbbb-cccc-eeee-ffff on at 100% brightness: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on?on=true&bri=100
-* Turn light aaaa-bbbb-cccc-eeee-ffff on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff/bri=100&xy=[0.5%2c0.6]
-* Identify light aaaa-bbbb-cccc-eeee-ffff with a single blink: http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff/state?alert=select
-* Identify light aaaa-bbbb-cccc-eeee-ffff with 15 seconds of blinking: http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff/state?alert=lselect
+http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff?object=on&on=true
+* Turn light aaaa-bbbb-cccc-eeee-ffff off: 
+http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff?object=on&on=false
+* Turn light aaaa-bbbb-cccc-eeee-ffff on at 50% brightness: 
+http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff?object=on&on=true&object=dimming&brightness=50
+* Turn light aaaa-bbbb-cccc-eeee-ffff on at 100% brightness: 
+http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff?object=on&on=true&object=dimming&brightness=100
+* Turn light aaaa-bbbb-cccc-eeee-ffff on at 100% brightness, 0.5,0.6 xy: 
+http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff?object=dimming&brightness=100&object=color&x=0.5%2cy=0.6  NEEDS TESTING
+* Identify light aaaa-bbbb-cccc-eeee-ffff with 15 seconds of blinking: 
+http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff?object=alert&action=breathe
 
 ## Groups
 * Turn group 2 on: http://192.168.x.x:3000/clip/v2/resource/groups/2/action?on=true
