@@ -7,6 +7,9 @@
 
 A simple API to control Philips Hue lamps with http GET requests.
 Written in September 2021.
+Adapted to support Philips Hue API V2 in November 2021.
+
+BRANCH CREATED 13.11.2021 - WORK IN PROGRESS
 
 # Background
 The existing Philips Hue REST API requires a PUT request to control the Hue lights and groups. 
@@ -64,12 +67,12 @@ hueget shows the following response:
 USAGE: node hueget.js [OPTION1] [OPTION2]... arg1 arg2...
 The following options are supported:
   -i, --ip <ARG1>               Philips Hue bridge IP address (required)
-  -u, --username <ARG1>         Philips Hue api username (required)
+  -k, --appkey <ARG1>           Philips Hue appkey (required)
   -p, --port <ARG1>             port number to listen on ("3000" by default)
 ```  
 Note that options can be entered in any order.
 
-Example to run hueget on a raspberry pi with ip address `192.168.0.50`, default port `3000`, and with a Hue username of `UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj`:
+Example to run hueget on a raspberry pi with ip address `192.168.0.50`, default port `3000`, and with a Hue appkey of `UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj`:
 ```
 $ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
@@ -80,7 +83,7 @@ $ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFw
 A successful start of hueget will show:
 ```
 hueget v0.5.1
-commands will be sent to 192.168.0.50 with username UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+commands will be sent to 192.168.0.50 with appkey UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
 # Starting hueget as a Service
@@ -109,14 +112,17 @@ $ pm2 delete hueget
 ```
 For more information about pm2, see https://github.com/Unitech/pm2
 
-# Getting your Philips Hue Bridge API Username
-If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge api username
+# Getting your Philips Hue Bridge appkey
+Philips Hue API documentation states: "The ‘username’ for bridge access has been renamed to ‘application key’ to emphasize it is a key that must be kept secret... The same username retrieved on the V1 API will remain valid to be used as application key on the V2 API."
+
+This documentation has been updated to now refer to the username as "appkey"
+If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge api username. The username is the appkey.
 ```
 "users": {
   "ECB5FAFFFEFFFFFF": "yourPhilipsHueBridgeUsername"
  },
 ```
-The username will look something like this:
+The appkey (username) will look something like this:
 ```
 UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
@@ -125,29 +131,29 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
-* Get status of light 31: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31
-* Get status of group 2: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2
+* Get status of light 31: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31
+* Get status of group 2: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2
 
 # Controlling your Hue Lights or Groups with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 ## Lights
-* Turn light 31 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true
-* Turn light 31 off: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=false
-* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=50
-* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100
-* Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
-* Identify light 31 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=select
-* Identify light 31 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=lselect
+* Turn light 31 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?on=true
+* Turn light 31 off: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?on=false
+* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?on=true&bri=50
+* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?on=true&bri=100
+* Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Identify light 31 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?alert=select
+* Identify light 31 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?alert=lselect
 
 ## Groups
-* Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true
-* Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=false
-* Turn group 2 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=50
-* Turn group 2 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=100
-* Turn group 2 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/state?on=true&bri=100&xy=[0.5%2c0.6]
-* Identify group 2 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=select
-* Identify group 2 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=lselect
+* Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?on=true
+* Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?on=false
+* Turn group 2 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?on=true&bri=50
+* Turn group 2 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?on=true&bri=100
+* Turn group 2 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Identify group 2 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?alert=select
+* Identify group 2 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?alert=lselect
 
 Groups are collections of lights, and are used for Rooms and Zones in the Hue app.
 
