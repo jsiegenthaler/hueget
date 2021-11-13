@@ -145,12 +145,12 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 (old text)
 
 ## API V2 (from hueget v1.x and later)
-Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The id is the id (UUID) of the resource (light, room, scene, etc).
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The \<id\> is the id (UUID) of the resource (light, room, scene, etc). A \<id\> looks like this: ```a52cca28-d35b-4ece-8705-aa7e8a21aa21```
 
 Examples:
 
-* Get status of light \<id\>: http://192.168.x.x:3000/clip/v2/resource/light/<id>
-* Get status of group id: http://192.168.x.x:3000/clip/v2/resource/group/id
+* Get status of light \<id\>: http://192.168.x.x:3000/clip/v2/resource/light/\<id\>
+* Get status of group \<id\>: http://192.168.x.x:3000/clip/v2/resource/group/\<id\>
 
 # Controlling Philips Hue with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The id is the id (UUID) of the resource (light, room, scene, etc).
