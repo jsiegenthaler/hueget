@@ -129,7 +129,7 @@ This documentation has been updated to now refer to the username as "appkey"
 If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge api username. The username is the appkey.
 ```
 "users": {
-  "ECB5FAFFFEFFFFFF": "yourPhilipsHueBridgeUsername"
+  "ECB5FAFFFEFFFFFF": "yourPhilipsHueBridgeAppkey"
  },
 ```
 The appkey (username) will look something like this:
@@ -137,24 +137,24 @@ The appkey (username) will look something like this:
 UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 
-# Reading the Status of your Hue Lights or Groups with hueget
+# Reading the Status of Philips Hue with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
-* Get status of light 31: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31
-* Get status of group 2: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2
+* Get status of light a52cca28-d35b-4ece-8705-aa7e8a21aa21: http://192.168.x.x:3000/clip/v2/resource/light/a52cca28-d35b-4ece-8705-aa7e8a21aa21
+* Get status of group a52cca28-d35b-4ece-8705-aa7e8a21aa21: http://192.168.x.x:3000/clip/v2/resource/group/a52cca28-d35b-4ece-8705-aa7e8a21aa21
 
-# Controlling your Hue Lights or Groups with hueget
+# Controlling Philips Hue with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 ## Lights
-* Turn light 31 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?on=true
-* Turn light 31 off: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?on=false
-* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?on=true&bri=50
-* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?on=true&bri=100
-* Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
-* Identify light 31 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?alert=select
-* Identify light 31 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/lights/31/state?alert=lselect
+* Turn light 31 on: http://192.168.x.x:3000/api/resource/lights/31/state?on=true
+* Turn light 31 off: http://192.168.x.x:3000/api/resource/lights/31/state?on=false
+* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/resource/lights/31/state?on=true&bri=50
+* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/resource/lights/31/state?on=true&bri=100
+* Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/api/resource/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Identify light 31 with a single blink: http://192.168.x.x:3000/api/resource/lights/31/state?alert=select
+* Identify light 31 with 15 seconds of blinking: http://192.168.x.x:3000/api/resource/lights/31/state?alert=lselect
 
 ## Groups
 * Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?on=true
@@ -203,7 +203,7 @@ The xy values represent x and y coordinates of a color in CIE color space. The f
 If the specified coordinates are not in the CIE color space, the closest color to the coordinates will be chosen.
 
 When sending the xy array, you **must** url encode the comma to %2c (or %2C). Here is an example for "xy":\[0.25,0.52\] :
-* Set light 31 to xy of \[0.25,0.52\]: http://192.168.x.x:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?xy=[0.25%2c0.52]
+* Set light 31 to xy of \[0.25,0.52\]: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?xy=[0.25%2c0.52]
 
 ## ct
 The [Mired](https://en.wikipedia.org/wiki/Mired) (micro reciprocal degree) color temperature of the light. Ranges from 153 (6500K) to 500 (2000K). To calculate the mired, use the formula mired = 1000000/K, where K is the desired color temperature. Example: 6500K = 153 mired, calculation 1000000/6500 = 153.8
@@ -233,7 +233,7 @@ An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewh
 
 # Finding your Light or Group ids
 You need to know the light id or the group id of the light or group you wish to control.
-Go to http://192.168.x.x/api/yourPhilipsHueBridgeUsername/lights respectively http://192.168.x.x/api/yourPhilipsHueBridgeUsername/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
+Go to http://192.168.x.x/clip/v2/resource/lights respectively http://192.168.x.x/clip/v2/resource/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500," ...
 ```
