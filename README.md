@@ -63,9 +63,9 @@ Previously, hueget v0.x supported the Philips Hue API V1.
 From v1.x, hueget supports the Philips Hue API V2, released November 2021.
 This has resulted in the following breaking changes:
 
-1. Username changed to appkey. The previous `-u username` option is still supported at the moment for backwards compatibility, but will be removed in a future version.
+1. Identifiers changed from numbers to UUIDs (Universally Unique Identifiers (UUIDs)). You need to replace the numeric id with the new UUID. Start hueget with the `-d discover` option to get the entire light configuration, where you can see the new UUIDs
 
-2. Identifiers changed from numbers to UUIDs (Universally Unique Identifiers (UUIDs)). You need to replace the numeric id with the new UUID. Start hueget with the `-d discover` option to get the entire light configuration, where you can see the new UUIDs
+2. Username changed to appkey. The previous `-u username` option is still supported at the moment for backwards compatibility, but will be removed in a future version. Not yet a breaking change, as -u is still supported.
 
 
 # Starting hueget
