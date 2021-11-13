@@ -18,11 +18,14 @@ I needed GET, so I made a simple API to translate from GET to PUT. It also suppo
 
 hueget suports controlling lights as well as groups. A group is a collection of a number of lights, which in the Philips Hue app appears as a room.
 
-This is my first ever API javascript program, so if you see any way it can be improved, I'd be happy to receive your suggestions.
-
 If you like this tool, consider buying me a coffee!<br>
 <a target="blank" href="https://ko-fi.com/jsiegenthaler"><img src="https://img.shields.io/badge/Ko--Fi-Buy%20me%20a%20coffee-29abe0.svg?logo=ko-fi"/></a>
-            
+
+# Features
+* Secure connections to the Philips Hue bridge using https.
+* Supports all features of the Hue bridge
+
+ 
 # Creative Ways to use hueget
 
 ## Visual Door Bell
@@ -148,22 +151,22 @@ Examples:
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 ## Lights
-* Turn light 31 on: http://192.168.x.x:3000/api/resource/lights/31/state?on=true
-* Turn light 31 off: http://192.168.x.x:3000/api/resource/lights/31/state?on=false
-* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/api/resource/lights/31/state?on=true&bri=50
-* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/api/resource/lights/31/state?on=true&bri=100
-* Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/api/resource/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
-* Identify light 31 with a single blink: http://192.168.x.x:3000/api/resource/lights/31/state?alert=select
-* Identify light 31 with 15 seconds of blinking: http://192.168.x.x:3000/api/resource/lights/31/state?alert=lselect
+* Turn light 31 on: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=true
+* Turn light 31 off: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=false
+* Turn light 31 on at 50% brightness: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=true&bri=50
+* Turn light 31 on at 100% brightness: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=true&bri=100
+* Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Identify light 31 with a single blink: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?alert=select
+* Identify light 31 with 15 seconds of blinking: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?alert=lselect
 
 ## Groups
-* Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?on=true
-* Turn group 2 on: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?on=false
-* Turn group 2 on at 50% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?on=true&bri=50
-* Turn group 2 on at 100% brightness: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?on=true&bri=100
-* Turn group 2 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/state?on=true&bri=100&xy=[0.5%2c0.6]
-* Identify group 2 with a single blink: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?alert=select
-* Identify group 2 with 15 seconds of blinking: http://192.168.x.x:3000/api/yourPhilipsHueBridgeAppkey/groups/2/action?alert=lselect
+* Turn group 2 on: http://192.168.x.x:3000/clip/v2/resource/groups/2/action?on=true
+* Turn group 2 on: http://192.168.x.x:3000/clip/v2/resource/groups/2/action?on=false
+* Turn group 2 on at 50% brightness: http://192.168.x.x:3000/clip/v2/resource/groups/2/action?on=true&bri=50
+* Turn group 2 on at 100% brightness: http://192.168.x.x:3000/clip/v2/resource/groups/2/action?on=true&bri=100
+* Turn group 2 on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/clip/v2/resource/groups/2/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Identify group 2 with a single blink: http://192.168.x.x:3000/clip/v2/resource/groups/2/action?alert=select
+* Identify group 2 with 15 seconds of blinking: http://192.168.x.x:3000/clip/v2/resource/groups/2/action?alert=lselect
 
 Groups are collections of lights, and are used for Rooms and Zones in the Hue app.
 
