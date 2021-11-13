@@ -31,13 +31,13 @@ If you like this tool, consider buying me a coffee!<br>
 # Creative Ways to use hueget
 
 ## Visual Door Bell
-Flash your lights in the entire house when the doorbell rings. I have a Shelly1 as my doorbell. The doorbell connects to the Shelly1 SW input using a relay on the doorbell buzzer. Thus when the doorbell button is pressed, the Shelly1 sees an input, and calls a url, which flashes a group of lights for 15 seconds using the ```alert=lselect``` command. I use the Philips Hue app to determine what lights should be in the group.
+Flash your lights in the entire house when the doorbell rings. I have a Shelly1 as my doorbell. The doorbell connects to the Shelly1 SW input using a relay on the doorbell buzzer. Thus when the doorbell button is pressed, the Shelly1 sees an input, and calls a url, which flashes a group of lights for 15 seconds using the ```object=alert&action=breathe``` command. I use the Philips Hue app to determine what lights should be in the group.
 
 ## Control Hue Lights directly from Shelly Motion Sensors
 Anything that can call a url when triggered - such as a Shelly Motion Sensor - can be used to turn the lights on and off again. Make sure the motion sensor calls a url to turn lights on, and a url to turn lights off. The Shelly Motion Sensor is ideal for this, as you can activate call urls for different motion triggers.
 
 ## Be Home Soon Alert
-Flash lights in a room or in any group (zone, room) when someone comes home. The ```alert=lselect``` command is perfect to generate a 15 second long flash without any extra programming. Just call the URL from Apple HomeKit automations when a person arrives in your geofence.
+Flash lights in a room or in any group (zone, room) when someone comes home. The ```object=alert&action=breathe``` command is perfect to generate a 15 second long flash without any extra programming. Just call the URL from Apple HomeKit automations when a person arrives in your geofence.
 
 
 # Installing hueget
@@ -63,10 +63,9 @@ Previously, hueget v0.x supported the Philips Hue API V1.
 From v1.x, hueget supports the Philips Hue API V2, released November 2021.
 This has resulted in the following breaking changes:
 
-1. Username changed to appkey. The previous `-u username` option has changed to the `-a appkey` option. You need to update your commands accordingly.
+1. Username changed to appkey. The previous `-u username` option is still supported at the moment for backwards compatibility, but will be removed in a future version.
 
 2. Identifiers changed from numbers to UUIDs (Universally Unique Identifiers (UUIDs)). You need to replace the numeric id with the new UUID. Start hueget with the `-d discover` option to get the entire light configuration, where you can see the new UUIDs
-
 
 
 # Starting hueget
@@ -81,7 +80,6 @@ hueget shows the following response:
 ```
 Usage: node [options <arguments>]
   -a, --appkey <appkey>               Philips Hue bridge appkey (previously known as username)
-  -d, --discover                      discover all hue lights and output json
   -i, --ip <ipaddress>                Philips Hue bridge ip address
   -h, --help                          print hueget command line options
   -p, --port <portnumber>             port number to listen on (default 3000)
@@ -92,15 +90,15 @@ Note that options can be entered in any order.
 
 Example to run hueget on a raspberry pi with ip address `192.168.0.50`, default port `3000`, and with a Hue appkey of `UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj`:
 ```
-$ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+$ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -a UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 The same again, but using port `1234`:
 ```
-$ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
+$ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -a UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
 ```
 A successful start of hueget will show:
 ```
-hueget v0.5.1
+hueget v1.x.x
 commands will be sent to 192.168.0.50 with appkey UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
@@ -108,7 +106,7 @@ listening on port 1234
 Ideally hueget will run all the time. You need a tool to start hueget when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (Process Management Module).
 To start hueget with pm2, and have it daemonized, monitored and kept alive forever:
 ```
-$ pm2 start hueget.js -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
+$ pm2 start hueget.js -- -i 192.168.0.50 -a UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 ```
 Check that hueget has started:
 ```
@@ -122,7 +120,7 @@ $ pm2 save
 Managing hueget in pm2 is straigtforward:
 ```
 $ pm2 status
-$ pm2 start hueget -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
+$ pm2 start hueget -- -i 192.168.0.50 -a UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 $ pm2 save
 $ pm2 stop hueget
 $ pm2 restart hueget
@@ -133,7 +131,7 @@ For more information about pm2, see https://github.com/Unitech/pm2
 # Getting your Philips Hue Bridge appkey
 Philips Hue API documentation states: "The ‘username’ for bridge access has been renamed to ‘application key’ to emphasize it is a key that must be kept secret... The same username retrieved on the V1 API will remain valid to be used as application key on the V2 API."
 
-This documentation has been updated to now refer to the username as "appkey"
+The hueget documentation has been updated to now refer to the username as "appkey"
 If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge api username. The username is the appkey.
 ```
 "users": {
@@ -147,21 +145,10 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 
 # Reading the Status of Philips Hue with hueget
 ## API V1
-(old text)
+(insert old text here, or maybe on another page?)
 
 ## API V2 (from hueget v1.x and later)
-hueget transforms a standard query string to the body of the request. the query string must be in the form of ```command$name=value```
-
-Examples:
-
-```on$on=true``` is transformed to ```{"on": {"on": true}}```
-
-```dimming$brightness=50``` is transformed to ```{"dimming": {"brightness": 50}}```
-
-on$on=true&dimming$brightness=50  is transformed to ```{"on":{"on":true}, "dimming": {"brightness": 100}}```
-
-
-Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The \<id\> is the id (UUID) of the resource (light, room, scene, etc). A \<id\> looks like this: ```a52cca28-d35b-4ece-8705-aa7e8a21aa21```
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The \<id\> is the id (UUID) of the resource (light, room, scene, etc). A resource \<id\> looks like this: ```a52cca28-d35b-4ece-8705-aa7e8a21aa21```
 
 Examples:
 
@@ -169,6 +156,7 @@ Examples:
 * Get status of group aaaa-bbbb-cccc-eeee-ffff: http://192.168.x.x:3000/clip/v2/resource/group/aaaa-bbbb-cccc-eeee-ffff
 
 # Controlling Philips Hue with hueget
+
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The id is the id (UUID) of the resource (light, room, scene, etc).
 
 Examples:
@@ -192,6 +180,18 @@ http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on?on=tr
 * Identify group 2 with 15 seconds of blinking: http://192.168.x.x:3000/clip/v2/resource/groups/2/action?alert=lselect
 
 Groups are collections of lights, and are used for Rooms and Zones in the Hue app.
+
+## Notes about Query String Transformation
+The query string transformation techniques used is fully flexible and caters for all Philips hue API V2 commands. The standard query string is transformed into the body of the request. The query string must be in the form of ```object=objectname$name=value```
+
+Examples:
+
+```object=on$on=true``` is transformed to ```{"on": {"on": true}}```
+
+```object=dimming$brightness=50``` is transformed to ```{"dimming": {"brightness": 50}}```
+
+```object=on$on=true&object=dimming$brightness=50```  is transformed to ```{"on":{"on":true}, "dimming": {"brightness": 50}}```
+
 
 # Supported Keywords
 The API is transparent to all Philips Hue keywords. It expects all name=value pairs to be separated by a comma. If any comma is required inside a value, eg: for the xy command which expects a value array, then you must url encode the comma to %2c.
