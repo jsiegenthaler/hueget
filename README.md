@@ -23,8 +23,9 @@ If you like this tool, consider buying me a coffee!<br>
 <a target="blank" href="https://ko-fi.com/jsiegenthaler"><img src="https://img.shields.io/badge/Ko--Fi-Buy%20me%20a%20coffee-29abe0.svg?logo=ko-fi"/></a>
 
 # Features
-* Secure connections to the Philips Hue bridge using https.
+* Properly establishes secure connections to the Philips Hue bridge using https
 * Supports all features of the Hue bridge
+* Easy to use
 
  
 # Creative Ways to use hueget
