@@ -12,7 +12,7 @@ Adapted to support Philips Hue API V2 in November 2021.
 BRANCH CREATED 13.11.2021 - WORK IN PROGRESS
 
 # Background
-The existing Philips Hue REST API requires a PUT request to control the Hue lights and groups. 
+The existing Philips Hue REST API V2 requires PUT requests to control the Hue lights and groups. 
 
 I needed GET, so I made a simple API to translate from GET to PUT. It also supports the standard GET command so you can use hueget for both.
 
@@ -53,6 +53,16 @@ To update hueget to the latest version:
 $ sudo npm update -g hueget
 ```
 
+# Migrating hueget from v0.x to v1.x
+Previously, hueget v0.x supported the Philips Hue API V1.
+From v1.x, hueget supports the Philips Hue API V2, released November 2021.
+This has resulted in the following breaking changes:
+
+1. Username changed to appkey. The previous `-u username` option has changed to the `-a appkey` option. You need to update your commands accordingly.
+
+2. Identifiers changed from numbers to UUIDs (Universally Unique Identifiers (UUIDs)). You need to replace the numeric id with the new UUID. Start hueget with the `-d discover` option to get the entire light configuration, where you can see the new UUIDs
+
+
 
 # Starting hueget
 The following examples assume you have hueget in a folder that your system can find. Update your PATH variables if needed.
@@ -67,7 +77,7 @@ hueget shows the following response:
 USAGE: node hueget.js [OPTION1] [OPTION2]... arg1 arg2...
 The following options are supported:
   -i, --ip <ARG1>               Philips Hue bridge IP address (required)
-  -k, --appkey <ARG1>           Philips Hue appkey (required)
+  -a, --appkey <ARG1>           Philips Hue appkey (required)
   -p, --port <ARG1>             port number to listen on ("3000" by default)
 ```  
 Note that options can be entered in any order.
