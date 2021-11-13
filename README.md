@@ -10,6 +10,7 @@ Written in September 2021.
 Adapted to support Philips Hue API V2 in November 2021.
 
 BRANCH CREATED 13.11.2021 - WORK IN PROGRESS
+THIS DOCUMENTATION IS NOT CURRENT
 
 # Background
 The existing Philips Hue REST API V2 requires PUT requests to control the Hue lights and groups. 
@@ -77,11 +78,14 @@ $ node /usr/lib/node_modules/hueget/hueget.js
 
 hueget shows the following response:
 ```
-USAGE: node hueget.js [OPTION1] [OPTION2]... arg1 arg2...
-The following options are supported:
-  -i, --ip <ARG1>               Philips Hue bridge IP address (required)
-  -a, --appkey <ARG1>           Philips Hue appkey (required)
-  -p, --port <ARG1>             port number to listen on ("3000" by default)
+Usage: node [options <arguments>]
+  -a, --appkey <appkey>               Philips Hue bridge appkey (previously known as username)
+  -d, --discover                      discover all hue lights and output json
+  -i, --ip <ipaddress>                Philips Hue bridge ip address
+  -h, --help                          print hueget command line options
+  -p, --port <portnumber>             port number to listen on (default 3000)
+  -u, --username <username>           Philips Hue bridge username (deprecated, use appkey)
+  -v, --version                       print hueget version
 ```  
 Note that options can be entered in any order.
 
@@ -145,6 +149,17 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 (old text)
 
 ## API V2 (from hueget v1.x and later)
+hueget transforms a standard query string to the body of the request. the query string must be in the form of ```command$name=value```
+
+Examples:
+
+```on$on=true``` is transformed to ```{"on": {"on": true}}```
+
+```dimming$brightness=50``` is transformed to ```{"dimming": {"brightness": 50}}```
+
+on$on=true&dimming$brightness=50  is transformed to ```{"on":{"on":true}, "dimming": {"brightness": 100}}```
+
+
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The \<id\> is the id (UUID) of the resource (light, room, scene, etc). A \<id\> looks like this: ```a52cca28-d35b-4ece-8705-aa7e8a21aa21```
 
 Examples:
@@ -159,10 +174,10 @@ Examples:
 ## Lights
 * Turn light aaaa-bbbb-cccc-eeee-ffff on: 
 http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on?on=true
-* Turn light aaaa-bbbb-cccc-eeee-ffff off: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on/on=false
-* Turn light aaaa-bbbb-cccc-eeee-ffff on at 50% brightness: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/state?on=true&bri=50
-* Turn light aaaa-bbbb-cccc-eeee-ffff on at 100% brightness: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/state?on=true&bri=100
-* Turn light aaaa-bbbb-cccc-eeee-ffff on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Turn light aaaa-bbbb-cccc-eeee-ffff off: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on?on=false
+* Turn light aaaa-bbbb-cccc-eeee-ffff on at 50% brightness: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on?on=true&bri=50
+* Turn light aaaa-bbbb-cccc-eeee-ffff on at 100% brightness: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on?on=true&bri=100
+* Turn light aaaa-bbbb-cccc-eeee-ffff on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff/bri=100&xy=[0.5%2c0.6]
 * Identify light aaaa-bbbb-cccc-eeee-ffff with a single blink: http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff/state?alert=select
 * Identify light aaaa-bbbb-cccc-eeee-ffff with 15 seconds of blinking: http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff/state?alert=lselect
 
