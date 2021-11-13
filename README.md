@@ -149,21 +149,22 @@ Enter a URL (in the format shown below) into your browser and press Enter. The i
 
 Examples:
 
-* Get status of light \<id\>: http://192.168.x.x:3000/clip/v2/resource/light/\<id\>
-* Get status of group \<id\>: http://192.168.x.x:3000/clip/v2/resource/group/\<id\>
+* Get status of light aaaa-bbbb-cccc-eeee-ffff: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff
+* Get status of group aaaa-bbbb-cccc-eeee-ffff: http://192.168.x.x:3000/clip/v2/resource/group/aaaa-bbbb-cccc-eeee-ffff
 
 # Controlling Philips Hue with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi. The id is the id (UUID) of the resource (light, room, scene, etc).
 
 Examples:
 ## Lights
-* Turn light id on: http://192.168.x.x:3000/clip/v2/resource/light/id/on?on=true
-* Turn light id off: http://192.168.x.x:3000/clip/v2/resource/light/id/on/on=false
-* Turn light id on at 50% brightness: http://192.168.x.x:3000/clip/v2/resource/light/31/state?on=true&bri=50
-* Turn light id on at 100% brightness: http://192.168.x.x:3000/clip/v2/resource/light/31/state?on=true&bri=100
-* Turn light id on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
-* Identify light id with a single blink: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?alert=select
-* Identify light id with 15 seconds of blinking: http://192.168.x.x:3000/clip/v2/resource/lights/31/state?alert=lselect
+* Turn light aaaa-bbbb-cccc-eeee-ffff on: 
+http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on?on=true
+* Turn light aaaa-bbbb-cccc-eeee-ffff off: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/on/on=false
+* Turn light aaaa-bbbb-cccc-eeee-ffff on at 50% brightness: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/state?on=true&bri=50
+* Turn light aaaa-bbbb-cccc-eeee-ffff on at 100% brightness: http://192.168.x.x:3000/clip/v2/resource/light/aaaa-bbbb-cccc-eeee-ffff/state?on=true&bri=100
+* Turn light aaaa-bbbb-cccc-eeee-ffff on at 100% brightness, 0.5,0.6 xy: http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Identify light aaaa-bbbb-cccc-eeee-ffff with a single blink: http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff/state?alert=select
+* Identify light aaaa-bbbb-cccc-eeee-ffff with 15 seconds of blinking: http://192.168.x.x:3000/clip/v2/resource/lights/aaaa-bbbb-cccc-eeee-ffff/state?alert=lselect
 
 ## Groups
 * Turn group 2 on: http://192.168.x.x:3000/clip/v2/resource/groups/2/action?on=true
