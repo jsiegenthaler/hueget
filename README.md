@@ -78,7 +78,7 @@ $ node /usr/lib/node_modules/hueget/hueget.js
 
 hueget shows the following response:
 ```
-Usage: node [options <arguments>]
+Usage: hueget [options <arguments>]
   -a, --appkey <appkey>               Philips Hue bridge appkey (previously known as username)
   -i, --ip <ipaddress>                Philips Hue bridge ip address
   -h, --help                          print hueget command line options
