@@ -7,7 +7,6 @@
 [![donate](https://badgen.net/badge/donate/paypal/91BE09)](https://www.paypal.com/donate?hosted_button_id=CNEDGHRUER468)
 
 A simple API to control Philips Hue lamps with http GET requests.
-Written in September 2021.
 
 # Background
 The existing Philips Hue REST API requires a PUT request to control the Hue lights and groups. 
