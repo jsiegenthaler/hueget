@@ -7,6 +7,18 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 ## Current In-Work List (Future Releases)
 Cleanup to get ready for v1.0.0
 
+## 0.5.5 (2022-02-26)
+* Bumped dependencies (axios, express)
+
+## 0.5.4 (2022-01-24)
+* Bumped dependencies (node)
+
+## 0.5.3 (2022-01-21)
+* Bumped dependencies (axios)
+
+## 0.5.2 (2022-01-17)
+* Bumped dependencies (express, request)
+
 ## 0.5.1 (2021-10-03)
 * Cleaned up some package.json entries
 * Improved documentation
