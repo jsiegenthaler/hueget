@@ -25,7 +25,7 @@
   "author": "Jochen Siegenthaler (https://github.com/jsiegenthaler)",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.25.0",
+    "axios": "^0.26.1",
     "express": "^4.17.2",
     "stdio": "^2.1.1"
   },
