@@ -217,7 +217,7 @@ An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewh
 
 # Finding your Light or Group ids
 You need to know the light id or the group id of the light or group you wish to control.
-Go to http://192.168.0.50/api/yourPhilipsHueBridgeUsername/lights respectively http://192.168.0.50/api/yourPhilipsHueBridgeUsername/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
+Go to http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights respectively http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500," ...
 ```
