@@ -8,6 +8,9 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 Cleanup to get ready for v1.0.0
 
 
+## 0.6.0 (2023-01-04)
+* Fixed some more documentation errors in the README.md
+
 ## 0.5.7 (2023-01-04)
 * Corrected some mistakes in the README.md
 
