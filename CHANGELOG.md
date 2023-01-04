@@ -8,6 +8,9 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 Cleanup to get ready for v1.0.0
 
 
+## 0.5.7 (2023-01-04)
+* Corrected some mistakes in the README.md
+
 ## 0.5.6 (2023-01-04)
 * Bumped dependencies (node, axios, express)
 
