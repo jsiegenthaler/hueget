@@ -52,7 +52,7 @@ $ sudo npm update -g hueget
 
 
 # Starting hueget
-The following examples assume you have hueget in a folder that your system can find. Update your PATH variables if needed. the folloiwng examples use an IP address of 192.168.0.50. Adjust to match the IP address of your hue bridge.
+The following examples assume you have hueget in a folder that your system can find. Update your PATH variables if needed. The following examples use a Philips Hue bridge IP address of 192.168.0.101. Adjust to match the IP address of your Hue bridge.
 
 To see the help text, start hueget without any arguments as follows:
 ```
@@ -69,25 +69,25 @@ The following options are supported:
 ```  
 Note that options can be entered in any order.
 
-Example to run hueget on a raspberry pi with ip address `192.168.0.50`, default port `3000`, and with a Hue username of `UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj`:
+Example to run hueget on a raspberry pi to connect to a Philips Hue bridge with ip address `192.168.0.101`, default port `3000`, and with a Hue username of `UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj`:
 ```
-$ node /usr/local/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+$ node /usr/local/lib/node_modules/hueget/hueget.js -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 The same again, but using port `1234`:
 ```
-$ node /usr/local/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
+$ node /usr/local/lib/node_modules/hueget/hueget.js -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
 ```
 A successful start of hueget will show:
 ```
-hueget v0.5.5
-commands will be sent to 192.168.0.50 with username UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+hueget v0.5.8
+commands will be sent to 192.168.0.101 with username UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
 # Starting hueget as a Service
 Ideally hueget will run all the time. You need a tool to start hueget when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (Process Management Module).
 To start hueget with pm2, and have it daemonized, monitored and kept alive forever:
 ```
-$ pm2 start /usr/local/lib/node_modules/hueget/hueget.js -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
+$ pm2 start /usr/local/lib/node_modules/hueget/hueget.js -- -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 ```
 Check that hueget has started:
 ```
@@ -101,7 +101,7 @@ $ pm2 save
 Managing hueget in pm2 is straigtforward:
 ```
 $ pm2 status
-$ pm2 start /usr/local/lib/node_modules/hueget/hueget.js -- -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
+$ pm2 start /usr/local/lib/node_modules/hueget/hueget.js -- -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 $ pm2 save
 $ pm2 stop hueget
 $ pm2 restart hueget
@@ -125,29 +125,29 @@ UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
-* Get status of light 31: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights/31
-* Get status of group 2: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/groups/2
+* Get status of light 31: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31
+* Get status of group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2
 
 # Controlling your Hue Lights or Groups with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 ## Lights
-* Turn light 31 on: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true
-* Turn light 31 off: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=false
-* Turn light 31 on at 50% brightness: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=50
-* Turn light 31 on at 100% brightness: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100
-* Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
-* Identify light 31 with a single blink: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=select
-* Identify light 31 with 15 seconds of blinking: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=lselect
+* Turn light 31 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true
+* Turn light 31 off: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=false
+* Turn light 31 on at 50% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=50
+* Turn light 31 on at 100% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100
+* Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Identify light 31 with a single blink: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=select
+* Identify light 31 with 15 seconds of blinking: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=lselect
 
 ## Groups
-* Turn group 2 on: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true
-* Turn group 2 on: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=false
-* Turn group 2 on at 50% brightness: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=50
-* Turn group 2 on at 100% brightness: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=100
-* Turn group 2 on at 100% brightness, 0.5,0.6 xy: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/groups/2/state?on=true&bri=100&xy=[0.5%2c0.6]
-* Identify group 2 with a single blink: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=select
-* Identify group 2 with 15 seconds of blinking: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=lselect
+* Turn group 2 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true
+* Turn group 2 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=false
+* Turn group 2 on at 50% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=50
+* Turn group 2 on at 100% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=100
+* Turn group 2 on at 100% brightness, 0.5,0.6 xy: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Identify group 2 with a single blink: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=select
+* Identify group 2 with 15 seconds of blinking: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?alert=lselect
 
 Groups are collections of lights, and are used for Rooms and Zones in the Hue app.
 
@@ -187,7 +187,7 @@ The xy values represent x and y coordinates of a color in CIE color space. The f
 If the specified coordinates are not in the CIE color space, the closest color to the coordinates will be chosen.
 
 When sending the xy array, you **must** url encode the comma to %2c (or %2C). Here is an example for "xy":\[0.25,0.52\] :
-* Set light 31 to xy of \[0.25,0.52\]: http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?xy=[0.25%2c0.52]
+* Set light 31 to xy of \[0.25,0.52\]: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?xy=[0.25%2c0.52]
 
 ## ct
 The [Mired](https://en.wikipedia.org/wiki/Mired) (micro reciprocal degree) color temperature of the light. Ranges from 153 (6500K) to 500 (2000K). To calculate the mired, use the formula mired = 1000000/K, where K is the desired color temperature. Example: 6500K = 153 mired, calculation 1000000/6500 = 153.8
@@ -217,7 +217,7 @@ An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewh
 
 # Finding your Light or Group ids
 You need to know the light id or the group id of the light or group you wish to control.
-Go to http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/lights respectively http://192.168.0.50:3000/api/yourPhilipsHueBridgeUsername/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
+Go to http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights respectively http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500," ...
 ```
