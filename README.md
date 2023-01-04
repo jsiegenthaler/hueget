@@ -42,7 +42,7 @@ Or for the latest beta version:
 $ sudo npm install -g hueget@beta
 ```
 
-npm installs hueget in `/usr/lib/node_modules/hueget/`.
+npm installs hueget in `/usr/local/lib/node_modules/hueget/`.
 
 # Updating hueget
 To update hueget to the latest version:
@@ -56,7 +56,7 @@ The following examples assume you have hueget in a folder that your system can f
 
 To see the help text, start hueget without any arguments as follows:
 ```
-$ node /usr/lib/node_modules/hueget/hueget.js
+$ node /usr/local/lib/node_modules/hueget/hueget.js
 ```
 
 hueget shows the following response:
@@ -71,11 +71,11 @@ Note that options can be entered in any order.
 
 Example to run hueget on a raspberry pi with ip address `192.168.0.50`, default port `3000`, and with a Hue username of `UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj`:
 ```
-$ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+$ node /usr/local/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 The same again, but using port `1234`:
 ```
-$ node /usr/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
+$ node /usr/local/lib/node_modules/hueget/hueget.js -i 192.168.0.50 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
 ```
 A successful start of hueget will show:
 ```
