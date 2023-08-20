@@ -10,7 +10,7 @@ Cleanup to get ready for v1.0.0
 
 ## 0.6.1 (2023-08-20)
 * Bumped dependencies: "axios": "^1.4.0"
-* Bumped dependencies: "node": "^18.17.1"
+* Bumped dependencies: "node": ">=18.17.1"
 
 ## 0.6.0 (2023-01-04)
 * Fixed some more documentation errors in the README.md
