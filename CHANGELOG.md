@@ -8,6 +8,10 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 Cleanup to get ready for v1.0.0
 
 
+## 0.6.2 (2023-11-14)
+* Bumped dependencies: "axios": "^1.6.1"
+* Bumped dependencies: "node": "^20.9.0"
+
 ## 0.6.1 (2023-08-20)
 * Bumped dependencies: "axios": "^1.4.0"
 * Bumped dependencies: "node": ">=18.17.1"
