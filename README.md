@@ -145,8 +145,13 @@ Examples:
 * Identify light 31 with 15 seconds of blinking: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=lselect
 
 ## Groups
+### Group 0 (all lights)
+* Turn group 0 on (a special group for all lights in your home): http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/0/action?on=true
+* Turn group 0 off (a special group for all lights in your home): http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/0/action?on=false
+
+### Group 2 (example)
 * Turn group 2 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true
-* Turn group 2 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=false
+* Turn group 2 off: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=false
 * Turn group 2 on at 50% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=50
 * Turn group 2 on at 100% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=100
 * Turn group 2 on at 100% brightness, 0.5,0.6 xy: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/state?on=true&bri=100&xy=[0.5%2c0.6]
