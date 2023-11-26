@@ -136,6 +136,7 @@ Examples:
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 ## Lights
+### Light 31 (example)
 * Turn light 31 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true
 * Turn light 31 off: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=false
 * Turn light 31 on at 50% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=50
@@ -148,6 +149,8 @@ Examples:
 ### Group 0 (all lights)
 * Turn group 0 on (a special group for all lights in your home): http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/0/action?on=true
 * Turn group 0 off (a special group for all lights in your home): http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/0/action?on=false
+* Identify group 0 with 15 seconds of blinking: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/0/action?alert=lselect
+
 
 ### Group 2 (example)
 * Turn group 2 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true
