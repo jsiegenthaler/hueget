@@ -3,12 +3,18 @@ const packagejson = require('./package.json');
 //const appname = packagejson.name;
 //const version = packagejson.version;
 
-const express = require('express');
 const axios = require('axios');
 const stdio = require('stdio');
-const app = express();
 
-// handle arguments
+// for the http server
+const express = require('express');
+const http = require('http');
+const app = express();
+const server = http.createServer(app);
+
+
+
+// get startup arguments
 var options = stdio.getopt({
   ip: { key: 'i', description: 'Philips Hue bridge IP address', args: 1, required: true },
   username: { key: 'u', description: 'Philips Hue api username', args: 1, required: true },
@@ -16,10 +22,16 @@ var options = stdio.getopt({
 });
 //console.log('%s options', packagejson.name, options);
 
-
 // show version and arguments
 console.log('%s v%s', packagejson.name, packagejson.version);
 console.log('commands will be sent to %s with username %s', options.ip, options.username);
+
+
+// add an error handler event to the server
+server.on('error', function (err) {
+  // some error occured, show it
+  console.log('error:', err.code, err.syscall, err.address, err.port);
+});
 
 
 
@@ -172,7 +184,10 @@ app.use('/api/' + options.username, (req, res) => {
 
 })
 
+
+
+
 // the api listener
-app.listen(options.port, () => {
+server.listen(options.port, () => {
   console.log(`listening on port ${options.port}`);
 })
