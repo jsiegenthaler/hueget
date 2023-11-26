@@ -1,6 +1,6 @@
 {
   "name": "hueget",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "A simple API that converts the Philips Hue API PUT to GET requests, allowing control of Philips Hue lights via http GET requests",
   "main": "hueget.js",
   "scripts": {
@@ -30,6 +30,6 @@
     "stdio": "^2.1.1"
   },
   "engines": {
-    "node": "^20.10.0"
+    "node": "^20"
   }
 }
