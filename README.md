@@ -255,6 +255,6 @@ Go backwards in the text until you find the keyword **state**, this is at the st
 ... ,"31":{"state":{"on":true,"bri":100,"hue":65396 ...
 ```
 
-Use the same method for groups to find the group id of the room you wish to control.
+Use the same method for groups to find the group id of the room you wish to control. Note that group id 0 is a special group containing all lights in the system, and is not returned by the ‘get all groups’ command. Group 0 is not visible, and cannot be created, modified or deleted using the API.
 
 
