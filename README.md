@@ -167,36 +167,37 @@ The full JSON response for a group looks like this:
 ```
 {"name":"Lounge","lights":["9","1","2"],"sensors":[],"type":"Room","state":{"all_on":false,"any_on":false},"recycle":false,"class":"Lounge","action":{"on":false,"bri":0,"hue":7800,"sat":138,"effect":"none","xy":[0.5302,0.392],"ct":153,"alert":"select","colormode":"xy"}}
 ```
-The available action keywords for state or group are:
+The most common action keywords for state or group are:
 on, bri, hue, sat, effect, xy, ct, alert, colormode, mode (lights only)
+More keywords exist, see the API documentartion 
 
-## on
+## on (get and set)
 Turn a light on or off. On=true, Off=false.
 Valid for light or group.
 
-## bri
+## bri (get and set)
 The brightness value to set the light to. Brightness is a scale from 1 (the minimum the light is capable of) to 254 (the maximum).
 
-## hue
+## hue (get and set)
 The hue value to set the light to. The hue value is a wrapping value between 0 and 65535. Both 0 and 65535 are red, 25500 is green and 46920 is blue.
 
-## sat
+## sat (get and set)
 Saturation of the light. 254 is the most saturated (colored) and 0 is the least saturated (white).
 
-## effect
+## effect (get and set)
 The dynamic effect of the light. “none” and “colorloop” are supported. Other values will generate an error of type 7. Setting the effect to colorloop will cycle through all hues using the current brightness and saturation settings.
 
-## xy
+## xy (get and set)
 The xy values represent x and y coordinates of a color in CIE color space. The first value is the x coordinate and the second value is the y coordinate. Both x and y must be between 0 and 1, and will be rounded to 4 decimal places by the Hue bridge, eg: 0.666666 becomes 0.6667.
 If the specified coordinates are not in the CIE color space, the closest color to the coordinates will be chosen.
 
 When sending the xy array, you **must** url encode the comma to %2c (or %2C). Here is an example for "xy":\[0.25,0.52\] :
 * Set light 31 to xy of \[0.25,0.52\]: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?xy=[0.25%2c0.52]
 
-## ct
+## ct (get and set)
 The [Mired](https://en.wikipedia.org/wiki/Mired) (micro reciprocal degree) color temperature of the light. Ranges from 153 (6500K) to 500 (2000K). To calculate the mired, use the formula mired = 1000000/K, where K is the desired color temperature. Example: 6500K = 153 mired, calculation 1000000/6500 = 153.8
 
-## alert
+## alert (get and set)
 The alert effect, this is a temporary change to the bulb’s state, and has one of the following values:
 * “none” – The light is not performing an alert effect.
 * “select” – The light is performing one breathe cycle.
@@ -204,11 +205,34 @@ The alert effect, this is a temporary change to the bulb’s state, and has one 
 
 Note that this contains the last alert sent to the light and not its current state. i.e. After the breathe cycle has finished the bridge does not reset the alert to “none“.
 
-## colormode
-Exact use unknown. Looks like it sets a color mode. Observed values are: xy
+## effect (get and set)
+The dynamic effect of the light. Supported values:
+* “none”  - No effect
+* “colorloop” - Cycles through all hues using the current brightness and saturation settings.
 
-## mode
-Exact use unknown. Looks like it sets an operating mode. Observed values are: homeautomation
+## colormode (get only)
+Indicates the color mode in which the light is working, this is the last command type it received. Values are “hs” for Hue and Saturation, “xy” for XY and “ct” for Color Temperature. This parameter is only present when the light supports at least one of the values.
+
+## reachable (get only)
+Indicates if a light can be reached by the bridge.
+
+## transitiontime (set only)
+The duration of the transition from the light’s current state to the new state. This is given as a multiple of 100ms and defaults to 4 (400ms).
+
+## bri_inc (set only)
+Increments or decrements the value of the brightness.  bri_inc is ignored if the bri attribute is provided. Any ongoing bri transition is stopped. Setting a value of 0 also stops any ongoing transition. The bridge will return the bri value after the increment is performed. Range -254 to 254.
+
+## sat_inc (set only)
+Increments or decrements the value of the sat.  sat_inc is ignored if the sat attribute is provided. Any ongoing sat transition is stopped. Setting a value of 0 also stops any ongoing transition. The bridge will return the sat value after the increment is performed. Range -254 to 254.
+
+## hue_inc (set only)
+Increments or decrements the value of the ct. ct_inc is ignored if the ct attribute is provided. Any ongoing color transition is stopped. Setting a value of 0 also stops any ongoing transition. The bridge will return the ct value after the increment is performed.	Range -65534 to 65534.
+
+## xy_inc (set only)
+Increments or decrements the value of the xy.  xy_inc is ignored if the xy attribute is provided. Any ongoing color transition is stopped. Setting a value of 0 also stops any ongoing transition. Will stop at it’s gamut boundaries. The bridge will return the xy value after the increment is performed. List of xy values. Max value [0.5, 0.5].
+
+## mode (get only)
+Exact use unknown. Looks like it reflects an operating mode. Observed values are: homeautomation
 
 
 ## Further commands
