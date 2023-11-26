@@ -4,9 +4,10 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
-## Current In-Work List (Future Releases)
-Cleanup to get ready for v1.0.0
-
+## 0.6.3 (2023-11-26)
+* Added some README.md improvements
+* Bumped dependencies: "axios": "^1.6.2"
+* Bumped dependencies: "node": "^20.10.0"
 
 ## 0.6.2 (2023-11-14)
 * Bumped dependencies: "axios": "^1.6.1"
