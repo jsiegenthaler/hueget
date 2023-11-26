@@ -4,6 +4,9 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
+## 0.6.4 (2023-11-26)
+* Altered dependencies: "node": "^20"
+
 ## 0.6.3 (2023-11-26)
 * Added some README.md improvements
 * Bumped dependencies: "axios": "^1.6.2"
