@@ -184,9 +184,6 @@ The hue value to set the light to. The hue value is a wrapping value between 0 a
 ## sat (get and set)
 Saturation of the light. 254 is the most saturated (colored) and 0 is the least saturated (white).
 
-## effect (get and set)
-The dynamic effect of the light. “none” and “colorloop” are supported. Other values will generate an error of type 7. Setting the effect to colorloop will cycle through all hues using the current brightness and saturation settings.
-
 ## xy (get and set)
 The xy values represent x and y coordinates of a color in CIE color space. The first value is the x coordinate and the second value is the y coordinate. Both x and y must be between 0 and 1, and will be rounded to 4 decimal places by the Hue bridge, eg: 0.666666 becomes 0.6667.
 If the specified coordinates are not in the CIE color space, the closest color to the coordinates will be chosen.
