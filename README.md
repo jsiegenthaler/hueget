@@ -35,19 +35,20 @@ Flash lights in a room or in any group (zone, room) when someone comes home. The
 # Installing hueget
 I run hueget on my raspberry pi. To install the latest version with NPM:
 ```
-$ sudo npm install -g hueget
+$ npm install -g hueget
 ```
 Or for the latest beta version:
 ```
-$ sudo npm install -g hueget@beta
+$ npm install -g hueget@beta
 ```
 
-npm installs hueget in `/usr/local/lib/node_modules/hueget/`.
+You need to know where hueget was installed. Use `find -name hueget.js` to find the location of hueget.
+I prefer to install locally. In my case, on my Raspberry Pi and using the default user pi, hueget installs in `/home/pi/node_modules/hueget/`
 
 # Updating hueget
 To update hueget to the latest version:
 ```
-$ sudo npm update -g hueget
+$ npm update -g hueget
 ```
 
 
@@ -56,11 +57,12 @@ The following examples assume you have hueget in a folder that your system can f
 
 To see the help text, start hueget without any arguments as follows:
 ```
-$ node /usr/local/lib/node_modules/hueget/hueget.js
+$ node /home/pi/node_modules/hueget/hueget.js
 ```
 
 hueget shows the following response:
 ```
+Missing option: "--ip"
 USAGE: node hueget.js [OPTION1] [OPTION2]... arg1 arg2...
 The following options are supported:
   -i, --ip <ARG1>               Philips Hue bridge IP address (required)
@@ -71,11 +73,11 @@ Note that options can be entered in any order.
 
 Example to run hueget on a raspberry pi to connect to a Philips Hue bridge with ip address `192.168.0.101`, default port `3000`, and with a Hue username of `UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj`:
 ```
-$ node /usr/local/lib/node_modules/hueget/hueget.js -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
+$ node /home/pi/node_modules/hueget/hueget.js -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 The same again, but using port `1234`:
 ```
-$ node /usr/local/lib/node_modules/hueget/hueget.js -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
+$ node /home/pi/node_modules/hueget/hueget.js -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 1234 
 ```
 A successful start of hueget (using the above command to specify ip address 192.168.0.100 and port 1234) will show:
 ```
@@ -91,7 +93,7 @@ $ pm2 startup
 
 To start hueget with pm2, and have it daemonized, monitored and kept alive forever:
 ```
-$ pm2 start /usr/local/lib/node_modules/hueget/hueget.js -- -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
+$ pm2 start /home/pi/node_modules/hueget/hueget.js -- -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 ```
 Check that hueget has started:
 ```
@@ -105,7 +107,7 @@ $ pm2 save
 Managing hueget in pm2 is straightforward:
 ```
 $ pm2 status
-$ pm2 start /usr/local/lib/node_modules/hueget/hueget.js -- -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
+$ pm2 start /home/pi/node_modules/hueget/hueget.js.js -- -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 $ pm2 save
 $ pm2 stop hueget
 $ pm2 restart hueget
