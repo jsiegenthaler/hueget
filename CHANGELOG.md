@@ -4,8 +4,8 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
-## 0.6.5 (2023-11-26)
-* Added proper error handling to catch listener errors
+## 0.6.5 (2023-11-27)
+* Added error handling to catch listener errors (e.g. port in use)
 * Added some more README.md improvements
 
 ## 0.6.4 (2023-11-26)
