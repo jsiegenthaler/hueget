@@ -4,6 +4,10 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
+## 0.7.0 (2024-01-06)
+* Added toggle capability for lights and groups
+* Bumped dependencies: "axios": "^1.6.5"
+
 ## 0.6.6 (2023-11-27)
 * Added some more README.md improvements
 
