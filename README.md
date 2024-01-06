@@ -173,6 +173,7 @@ Groups are collections of lights, and are used for Rooms and Zones in the Hue ap
 
 ## Special Commands
 The hueget server supports a special toggle command, which does not exist natively in the Philips Hue bridge. This toggles (changes the state) of a specified light or a group, allowing you to toggle the light/group state with a single URL.
+
 Syntax:
 * Toggle light 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/1/toggle
 * Toggle group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/toggle
