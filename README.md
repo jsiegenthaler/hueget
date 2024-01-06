@@ -171,17 +171,16 @@ Examples:
 
 Groups are collections of lights, and are used for Rooms and Zones in the Hue app.
 
-# Special Commands
+## Special Commands
 The hueget server supports a special toggle command, which does not exist natively in the Philips Hue bridge. This toggles (changes the state) of a specified light or a group, allowing you to toggle the light/group state with a single URL.
 Syntax:
 * Toggle light 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/1/toggle
 * Toggle group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/toggle
 
 
-# Supported Keywords
+## Supported Keywords
 The API is transparent to all Philips Hue keywords. It expects all name=value pairs to be separated by a comma. If any comma is required inside a value, eg: for the xy command which expects a value array, then you must url encode the comma to %2c.
 
-# Example JSON Responses
 The full JSON response for a light looks like this:
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500,"alert":"select","colormode":"xy","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2021-08-21T01:50:00"},"type":"Extended color light","name":"Standard Lamp","modelid":"LCA001","manufacturername":"Signify Netherlands B.V.","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":200,"maxlumen":800,"colorgamuttype":"C","colorgamut":[[0.6915,0.3083],[0.1700,0.7000],[0.1532,0.0475]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"floorshade","function":"mixed","direction":"omnidirectional","startup":{"mode":"safety","configured":true}},"uniqueid":"00:17:88:01:08:ff:ff:ff-0b","swversion":"1.90.1","swconfigid":"35F80D40","productid":"Philips-LCA001-4-A19ECLv6"}}
