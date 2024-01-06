@@ -28,6 +28,9 @@ Flash your lights in the entire house when the doorbell rings. I have a Shelly1 
 ## Control Hue Lights directly from Shelly Motion Sensors
 Anything that can call a url when triggered - such as a Shelly Motion Sensor - can be used to turn the lights on and off again. Make sure the motion sensor calls a url to turn lights on, and a url to turn lights off. The Shelly Motion Sensor is ideal for this, as you can activate call urls for different motion triggers.
 
+## Toggle lights from a Shelly Button 1
+Toggle a light or group of lights from a button that sends a non-changing URL. The ```toggle``` command is perfect for any pushbutton controller that does not know (or can not know) the current light state, and only sends a non-changing static URL, such as a Shelly Button 1.
+
 ## Be Home Soon Alert
 Flash lights in a room or in any group (zone, room) when someone comes home. The ```alert=lselect``` command is perfect to generate a 15 second long flash without any extra programming. Just call the URL from Apple HomeKit automations when a person arrives in your geofence.
 
@@ -144,6 +147,7 @@ Examples:
 * Turn light 31 on at 50% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=50
 * Turn light 31 on at 100% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100
 * Turn light 31 on at 100% brightness, 0.5,0.6 xy: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?on=true&bri=100&xy=[0.5%2c0.6]
+* Toggle light 31: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/toggle
 * Identify light 31 with a single blink: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=select
 * Identify light 31 with 15 seconds of blinking: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31/state?alert=lselect
 
@@ -151,12 +155,14 @@ Examples:
 ### Group 0 (a special group for all lights in your home)
 * Turn group 0 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/0/action?on=true
 * Turn group 0 off: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/0/action?on=false
+* Toggle group 0: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/0/toggle
 * Identify group 0 with 15 seconds of blinking: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/0/action?alert=lselect
 
 
 ### Group 2 (example)
 * Turn group 2 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true
 * Turn group 2 off: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=false
+* Toggle group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/toggle
 * Turn group 2 on at 50% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=50
 * Turn group 2 on at 100% brightness: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/action?on=true&bri=100
 * Turn group 2 on at 100% brightness, 0.5,0.6 xy: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/state?on=true&bri=100&xy=[0.5%2c0.6]
@@ -165,7 +171,15 @@ Examples:
 
 Groups are collections of lights, and are used for Rooms and Zones in the Hue app.
 
-# Supported Keywords
+## Special Commands
+The hueget server supports a special toggle command, which does not exist natively in the Philips Hue bridge. This toggles (changes the state) of a specified light or a group, allowing you to toggle the light/group state with a single URL.
+
+Syntax:
+* Toggle light 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/1/toggle
+* Toggle group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/toggle
+
+
+## Supported Keywords
 The API is transparent to all Philips Hue keywords. It expects all name=value pairs to be separated by a comma. If any comma is required inside a value, eg: for the xy command which expects a value array, then you must url encode the comma to %2c.
 
 The full JSON response for a light looks like this:
@@ -178,12 +192,12 @@ The full JSON response for a group looks like this:
 {"name":"Lounge","lights":["9","1","2"],"sensors":[],"type":"Room","state":{"all_on":false,"any_on":false},"recycle":false,"class":"Lounge","action":{"on":false,"bri":0,"hue":7800,"sat":138,"effect":"none","xy":[0.5302,0.392],"ct":153,"alert":"select","colormode":"xy"}}
 ```
 The most common action keywords for state or group are:
-on, bri, hue, sat, effect, xy, ct, alert, colormode, mode (lights only)
+on, bri, hue, sat, effect, xy, ct, alert, colormode, mode (lights only).
 More keywords exist, see the [API documentation](#api-documentation).
 
 ## on (get and set)
 Turn a light on or off. On=true, Off=false.
-Valid for light or group.
+Valid for light or group. A group also supports all_on and any_on.
 
 ## bri (get and set)
 The brightness value to set the light to. Brightness is a scale from 1 (the minimum the light is capable of) to 254 (the maximum).
@@ -247,7 +261,7 @@ See the [API documentation](#api-documentation).
 
 ## API Documentation
 For full details of the control capabilities, please see the [official Philips Hue API reference](https://developers.meethue.com/develop/hue-api/).
-An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewhat outdated also exists.
+An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewhat outdated, also exists.
 
 
 # Finding your Light or Group ids
@@ -265,6 +279,6 @@ Go backwards in the text until you find the keyword **state**, this is at the st
 ... ,"31":{"state":{"on":true,"bri":100,"hue":65396 ...
 ```
 
-Use the same method for groups to find the group id of the room you wish to control. Note that group id 0 is a special group containing all lights in the system, and is not returned by the ‘get all groups’ command. Group 0 is not visible, and cannot be created, modified or deleted using the API.
+Use the same method for groups to find the group id of the room you wish to control. Note that group id 0 is a special group containing all lights in the system, and is not returned by the ‘get all groups’ command. Group 0 is not visible, and cannot be created, modified or deleted using the API, but group 0 can be controlled by the API.
 
 

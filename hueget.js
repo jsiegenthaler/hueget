@@ -96,9 +96,12 @@ app.use('/api/' + options.username, (req, res) => {
           break;
       }
       //console.log('expectedCommand', expectedCommand );
-      if (!command.startsWith(expectedCommand)) { throw errPrefix + 'unknown command "' + command + '", expecting "' + expectedCommand + '": "' + req.url + '"'; }
-      if (!command.includes(expectedCommand + '?')) { throw errPrefix + 'query character "?" missing in "' + command + '", expecting "' + expectedCommand + '?<query>": "' + req.url + '"'; }
-      if (command.endsWith(expectedCommand + '?')) { throw errPrefix + 'query missing in "' + command + '", expecting "' + expectedCommand + '?<query>": "' + req.url + '"'; }
+      // toggle is a special case, raise error for anything else that does not fit the syntax
+      if (command != 'toggle') {
+        if (!command.startsWith(expectedCommand)) { throw errPrefix + 'unknown command "' + command + '", expecting "' + expectedCommand + '": "' + req.url + '"'; }
+        if (!command.includes(expectedCommand + '?')) { throw errPrefix + 'query character "?" missing in "' + command + '", expecting "' + expectedCommand + '?<query>": "' + req.url + '"'; }
+        if (command.endsWith(expectedCommand + '?')) { throw errPrefix + 'query missing in "' + command + '", expecting "' + expectedCommand + '?<query>": "' + req.url + '"'; }
+      }
     }
 
 
@@ -137,9 +140,11 @@ app.use('/api/' + options.username, (req, res) => {
         result = result + ',"' + pair[0] + '":' + pairValue;
       });
       result = result.replace('{,','{') + '}'; // clean up, add brackets
-      //console.log('result', result );
+      console.log('result', result );
       dataObj = JSON.parse(result);
     }
+
+
 
 
     // if a dataObj exists, send PUT; otherwise, send a GET
@@ -147,31 +152,79 @@ app.use('/api/' + options.username, (req, res) => {
     // PUT http://192.168.0.101/api/<username>/lights/31/state --data "{""on"":true}"
     var url = 'http://' + options.ip + '/api/' + options.username + '/' + resource;
     if (id) { url = url + '/' + id; } // add id if supplied
-    if (dataObj){
-      console.log('sending PUT: %s %s', url + '/' + expectedCommand, dataObj || '');
-      axios.put(url + '/' + expectedCommand, dataObj)
+
+
+    // special handling for toggle command, this toggles a light or group state
+    if (command == 'toggle') {
+      console.log('toggling current state')
+      // Get actual state
+      console.log('sending GET: %s', url);
+      axios.get(url)
         .then(response => {
-          console.log('PUT response:', response.status, response.statusText, JSON.stringify(response.data) );
-          res.json(response.data);
-        })
-        .catch(error => {
-          const errText = error.syscall + ' ' + error.code + ' ' + error.address + ':' + error.port;
-          console.log('PUT error:', errText);
-          res.json({ error: errText });
-        });
-      } else {
-        console.log('sending GET: %s', url);
-        axios.get(url)
+          // for lights  /lights/<id>  state = on     true/false
+          // for groups, /groups/<id>  state = all_on true/false
+          switch(resource) {
+            case 'lights':
+              console.log('GET response:', response.status, response.statusText, "state:on="+response.data["state"]["on"]  );
+              state = !response.data["state"]["on"] // get the current on state , as a boolean, and invert it
+              expectedCommand = 'state'
+              break;
+            case 'groups':
+              console.log('GET response:', response.status, response.statusText, "state:all_on="+response.data["state"]["all_on"]  );
+              state = !response.data["state"]["all_on"] // get the current all_on state, as a boolean, and invert it
+              expectedCommand = 'action'
+              break;
+          }
+          // toggle light or group state
+          // lights: http://localhost:3000/api/<username>/lights/31/state?on=true
+          // groups: http://localhost:3000/api/<username>/groups/0/action?on=true
+          console.log('sending PUT: %s%s', url + '/' + "state?on=", state.toString() || '');
+          axios.put(url + '/' + expectedCommand,'{"on":' + state.toString() + '}')
           .then(response => {
-            console.log('GET response:', response.status, response.statusText, JSON.stringify(response.data) );
+            console.log('PUT response:', response.status, response.statusText, JSON.stringify(response.data) );
             res.json(response.data);
           })
           .catch(error => {
             const errText = error.syscall + ' ' + error.code + ' ' + error.address + ':' + error.port;
-            console.log('GET error:', errText);
+            console.log('PUT error:', errText);
             res.json({ error: errText });
           });
+            })
+        .catch(error => {
+          const errText = error.syscall + ' ' + error.code + ' ' + error.address + ':' + error.port;
+          console.log('GET error:', errText);
+          res.json({ error: errText });
+        });
+
+
+    // normal handling for non-toggle commands
+    } else {    
+      if (dataObj){
+        console.log('sending PUT: %s %s', url + '/' + expectedCommand, dataObj || '');
+        axios.put(url + '/' + expectedCommand, dataObj)
+          .then(response => {
+            console.log('PUT response:', response.status, response.statusText, JSON.stringify(response.data) );
+            res.json(response.data);
+          })
+          .catch(error => {
+            const errText = error.syscall + ' ' + error.code + ' ' + error.address + ':' + error.port;
+            console.log('PUT error:', errText);
+            res.json({ error: errText });
+          });
+      } else {
+          console.log('sending GET: %s', url);
+          axios.get(url)
+            .then(response => {
+              console.log('GET response:', response.status, response.statusText, JSON.stringify(response.data) );
+              res.json(response.data);
+            })
+            .catch(error => {
+              const errText = error.syscall + ' ' + error.code + ' ' + error.address + ':' + error.port;
+              console.log('GET error:', errText);
+              res.json({ error: errText });
+            });
       }
+    }
     return;
 
 
