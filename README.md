@@ -192,7 +192,7 @@ The full JSON response for a group looks like this:
 {"name":"Lounge","lights":["9","1","2"],"sensors":[],"type":"Room","state":{"all_on":false,"any_on":false},"recycle":false,"class":"Lounge","action":{"on":false,"bri":0,"hue":7800,"sat":138,"effect":"none","xy":[0.5302,0.392],"ct":153,"alert":"select","colormode":"xy"}}
 ```
 The most common action keywords for state or group are:
-on, bri, hue, sat, effect, xy, ct, alert, colormode, mode (lights only)
+on, bri, hue, sat, effect, xy, ct, alert, colormode, mode (lights only).
 More keywords exist, see the [API documentation](#api-documentation).
 
 ## on (get and set)
@@ -261,7 +261,7 @@ See the [API documentation](#api-documentation).
 
 ## API Documentation
 For full details of the control capabilities, please see the [official Philips Hue API reference](https://developers.meethue.com/develop/hue-api/).
-An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewhat outdated also exists.
+An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewhat outdated, also exists.
 
 
 # Finding your Light or Group ids
@@ -279,6 +279,6 @@ Go backwards in the text until you find the keyword **state**, this is at the st
 ... ,"31":{"state":{"on":true,"bri":100,"hue":65396 ...
 ```
 
-Use the same method for groups to find the group id of the room you wish to control. Note that group id 0 is a special group containing all lights in the system, and is not returned by the ‘get all groups’ command. Group 0 is not visible, and cannot be created, modified or deleted using the API.
+Use the same method for groups to find the group id of the room you wish to control. Note that group id 0 is a special group containing all lights in the system, and is not returned by the ‘get all groups’ command. Group 0 is not visible, and cannot be created, modified or deleted using the API, but group 0 can be controlled by the API.
 
 
