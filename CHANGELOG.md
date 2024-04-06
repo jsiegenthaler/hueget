@@ -9,7 +9,6 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 * Bumped dependencies: "express": "^4.19.2"
 * Bumped dependencies: "stdio": "^2.1.3"
 
-
 ## 0.7.0 (2024-01-06)
 * Added toggle capability for lights and groups
 * Bumped dependencies: "axios": "^1.6.5"
