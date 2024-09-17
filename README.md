@@ -84,7 +84,7 @@ $ node /home/pi/node_modules/hueget/hueget.js -i 192.168.0.101 -u UBxWZChHseyjeF
 ```
 A successful start of hueget (using the above command to specify ip address 192.168.0.100 and port 1234) will show:
 ```
-hueget v0.7.0
+hueget v0.7.3
 commands will be sent to 192.168.0.101 with username UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
