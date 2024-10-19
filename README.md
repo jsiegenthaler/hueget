@@ -115,6 +115,7 @@ $ pm2 save
 $ pm2 stop hueget
 $ pm2 restart hueget
 $ pm2 delete hueget
+$ pm2 describe hueget
 ```
 For more information about pm2, see https://github.com/Unitech/pm2
 
