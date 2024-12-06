@@ -8,15 +8,15 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 ## 0.7.5 (2024-12-06)
 * Bumped dependencies: "node": "^22"
 * Bumped dependencies: "axios": "^1.7.9"
-* Bumped dependencies: "express": "^4.21.2",
+* Bumped dependencies: "express": "^4.21.2"
 
 ## 0.7.4 (2024-10-19)
 * Added pm2 describe example to the Readme file
-* Bumped dependencies: "express": "^4.21.1",
+* Bumped dependencies: "express": "^4.21.1"
 
 ## 0.7.3 (2024-09-17)
 * Bumped dependencies: "axios": "^1.7.7"
-* Bumped dependencies: "express": "^4.21.0",
+* Bumped dependencies: "express": "^4.21.0"
 
 ## 0.7.2 (2024-08-17)
 * Bumped dependencies: "axios": "^1.7.4"
