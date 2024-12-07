@@ -119,6 +119,20 @@ $ pm2 describe hueget
 ```
 For more information about pm2, see https://github.com/Unitech/pm2
 
+# Running hueget with Docker
+You can run `hueget` easily using Docker and Docker Compose. This approach simplifies the setup and ensures `hueget` is isolated and always running reliably.
+
+## Prerequisites
+- Install [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/).
+
+## Steps
+1. Use the provided `HUE_BRIDGE_IP` and `HUE_USERNAME` environment variables in the `docker-compose.yml` file to configure your Philips Hue Bridge connection.
+
+2. Build and run the Docker container:
+   ```bash
+   docker compose up -d
+   ```
+
 # Getting your Philips Hue Bridge API Username
 If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge api username
 ```
