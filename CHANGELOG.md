@@ -7,7 +7,7 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 ## 0.7.6 (2024-12-13)
 * Added Docker config (thanks @Yannis4444)
-
+* Updated README.md to include Docker notes
 
 ## 0.7.5 (2024-12-06)
 * Bumped dependencies: "node": "^22"
