@@ -1,0 +1,11 @@
+services:
+  hueget:
+    build:
+      context: .
+    container_name: hueget
+    ports:
+      - "3000:3000"
+    environment:
+      HUE_BRIDGE_IP: "yourPhilipsHueBridgeIpAddress" # Replace with your Philips Hue bridge IP address
+      HUE_USERNAME: "yourPhilipsHueApiUsername" # Replace with your Philips Hue api username
+    restart: unless-stopped
