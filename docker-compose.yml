@@ -6,6 +6,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      HUE_BRIDGE_IP: "192.168.0.101" # Replace with your Hue Bridge IP
-      HUE_USERNAME: "yourPhilipsHueBridgeUsername" # Replace with your Hue username
+      HUE_BRIDGE_IP: "yourPhilipsHueBridgeIpAddress" # Replace with your Philips Hue bridge IP address
+      HUE_USERNAME: "yourPhilipsHueApiUsername" # Replace with your Philips Hue api username
     restart: unless-stopped
