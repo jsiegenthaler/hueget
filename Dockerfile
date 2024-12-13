@@ -1,7 +1,7 @@
 FROM node:22-slim
 
-ENV HUE_BRIDGE_IP="192.168.0.101"
-ENV HUE_USERNAME="yourPhilipsHueBridgeUsername"
+ENV HUE_BRIDGE_IP="yourPhilipsHueBridgeIpAddress"
+ENV HUE_USERNAME="yourPhilipsHueApiUsername"
 ENV PORT=3000
 
 WORKDIR /usr/src/app
