@@ -5,6 +5,10 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 # Bug Fixes and Improvements
 
 
+## 0.7.6 (2024-12-13)
+* Added Docker config (thanks @Yannis4444)
+
+
 ## 0.7.5 (2024-12-06)
 * Bumped dependencies: "node": "^22"
 * Bumped dependencies: "axios": "^1.7.9"
