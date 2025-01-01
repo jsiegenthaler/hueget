@@ -9,11 +9,11 @@
 A simple API to control Philips Hue lamps with http GET requests.
 
 # Background
-The existing Philips Hue REST API requires a PUT request to control the Hue lights and groups. 
+The existing Philips Hue REST API requires a PUT request to control the Hue lights, groups, sensors and other resources of the Hue system. 
 
 I needed GET, so I made a simple API to translate from GET to PUT. It also supports the standard GET command so you can use hueget for both.
 
-hueget suports controlling lights as well as groups. A group is a collection of a number of lights, which in the Philips Hue app appears as a room.
+hueget suports controlling lights, groups, sensors and more. A group is a collection of a number of lights, which in the Philips Hue app appears as a room. Sensors are devices such as the daylight sensor, the geofence sensor, motion sensors 8which include light level and temperature) and switch sensors.
 
 This is my first ever API javascript program, so if you see any way it can be improved, I'd be happy to receive your suggestions.
 
