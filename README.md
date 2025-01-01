@@ -200,6 +200,7 @@ Groups are collections of lights, and are used for Rooms and Zones in the Hue ap
 ### Sensor 1 (the daylight sensor)
 * Turn sensor 1 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1/config?on=true
 * Turn sensor 1 off: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1/config?on=false
+* Toggle sensor 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1/toggle
 
 ### Sensor 15 (example, a Hue motion sensor)
 * Turn sensor 15 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/15/config?on=true
@@ -218,7 +219,17 @@ Syntax:
 
 
 ## Supported Keywords
-The API is transparent to all Philips Hue keywords. It expects all name=value pairs to be separated by a comma. If any comma is required inside a value, eg: for the xy command which expects a value array, then you must url encode the comma to %2c.
+The API is transparent to all Philips Hue keywords and parameters. It expects all name=value pairs to be separated by a comma. If any comma is required inside a value, eg: for the xy command which expects a value array, then you must url encode the comma to %2c.
+
+If you include a parameter that the Hue bridge does not understand, an error message will be returned from the Hue bridge. Example:
+
+url: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/15/config?xxxx=on
+
+Response:
+```
+[{"error":{"type":6,"address":"/sensors/15/config/xxxx","description":"parameter, xxxx, not available"}}]
+```
+
 
 ## Example JSON Responses
 ### Lights
