@@ -195,14 +195,6 @@ Examples:
 
 Groups are collections of lights, and are used for Rooms and Zones in the Hue app.
 
-## Special Commands for Lights, Groups and Sensors
-The hueget server supports a special 'toggle' command, which does not exist natively in the Philips Hue bridge. This toggles (changes the state) of a specified light or group or sensor, allowing you to toggle the light/group/sensor state with a single URL.
-The toggling of a light, group or sensor is the same as turning it on or off in the Hue app, and thus applies to the 'on' parameter of the relevant 'state' (lights), 'action' (groups) or 'config' (sensors).
-
-Syntax:
-* Toggle light 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/1/toggle
-* Toggle group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/toggle
-* Toggle sensor 15: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/15/toggle
 
 ## Sensors
 ### Sensor 1 (the daylight sensor)
@@ -214,6 +206,15 @@ Syntax:
 * Turn sensor 15 off: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/15/config?on=false
 * Toggle sensor 15: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/15/toggle
 
+
+## Special Toggle Command for Lights, Groups and Sensors
+The hueget server supports a special `toggle` command, which does not exist natively in the Philips Hue bridge. This toggles (changes the state) of a specified light or group or sensor, allowing you to toggle the light/group/sensor state with a single URL.
+The toggling of a light, group or sensor is the same as turning it on or off in the Hue app, and thus applies to the `on` parameter of the relevant `state` (lights), `action` (groups) or `config` (sensors).
+
+Syntax:
+* Toggle light 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/1/toggle
+* Toggle group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/toggle
+* Toggle sensor 15: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/15/toggle
 
 
 ## Supported Keywords
