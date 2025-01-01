@@ -377,7 +377,7 @@ An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewh
 
 # Finding your Light, Group, Sensor or other Resource ids
 You need to know the id of the resource (light, group, sensor etc) that you wish to control.
-Ids can be either a numeric integer (generally starting at 0) or a string, depending on the ressource.
+Ids can be either a numeric integer (generally starting at 0) or a string, depending on the resource.
 Go to http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/resourcename. The resourcename is lights, groups, sensors, etc. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500," ...
