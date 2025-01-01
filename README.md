@@ -11,11 +11,9 @@ A simple API to control Philips Hue lamps with http GET requests.
 # Background
 The existing Philips Hue REST API requires a PUT request to control the Hue lights, groups, sensors and other resources of the Hue system. 
 
-I needed GET, so I made a simple API to translate from GET to PUT. It also supports the standard GET command so you can use hueget for both.
+I had a specific use case where i could only use GET requests, so I made a simple API to translate from GET to PUT. It also supports the standard GET command so you can use hueget for both GET and PUT.
 
-hueget suports controlling lights, groups, sensors and more. A group is a collection of a number of lights, which in the Philips Hue app appears as a room. Sensors are devices such as the daylight sensor, the geofence sensor, motion sensors 8which include light level and temperature) and switch sensors.
-
-This is my first ever API javascript program, so if you see any way it can be improved, I'd be happy to receive your suggestions.
+hueget suports controlling lights, groups, sensors and more. A group is a collection of a number of lights, which in the Philips Hue app appears as a room. Sensors are devices such as the daylight sensor, the geofence sensor, motion sensors (which include light level and temperature) and switch sensors.
 
 If you like this tool, consider buying me a coffee!<br>
 <a target="blank" href="https://ko-fi.com/jsiegenthaler"><img src="https://img.shields.io/badge/Ko--Fi-Buy%20me%20a%20coffee-29abe0.svg?logo=ko-fi"/></a>
@@ -23,16 +21,16 @@ If you like this tool, consider buying me a coffee!<br>
 # Creative Ways to use hueget
 
 ## Visual Door Bell
-Flash your lights in the entire house when the doorbell rings. I have a Shelly1 as my doorbell. The doorbell connects to the Shelly1 SW input using a relay on the doorbell buzzer. Thus when the doorbell button is pressed, the Shelly1 sees an input, and calls a url, which flashes a group of lights for 15 seconds using the ```alert=lselect``` command. I use the Philips Hue app to determine what lights should be in the group.
+Flash your lights in the entire house when the doorbell rings. I have a Shelly1 as my doorbell. The doorbell connects to the Shelly1 SW input using a relay on the doorbell buzzer. Thus when the doorbell button is pressed, the Shelly1 sees an input, and calls a url, which flashes a group of lights for 15 seconds using the `alert=lselect` command. I use the Philips Hue app to determine what lights should be in the group.
 
 ## Control Hue Lights directly from Shelly Motion Sensors
 Anything that can call a url when triggered - such as a Shelly Motion Sensor - can be used to turn the lights on and off again. Make sure the motion sensor calls a url to turn lights on, and a url to turn lights off. The Shelly Motion Sensor is ideal for this, as you can activate call urls for different motion triggers.
 
 ## Toggle lights from a Shelly Button 1
-Toggle a light or group of lights from a button that sends a non-changing URL. The ```toggle``` command is perfect for any pushbutton controller that does not know (or can not know) the current light state, and only sends a non-changing static URL, such as a Shelly Button 1.
+Toggle a light or group of lights from a button that sends a non-changing URL. The `toggle` command is perfect for any pushbutton controller that does not know (or can not know) the current light state, and only sends a non-changing static URL, such as a Shelly Button 1.
 
 ## Be Home Soon Alert
-Flash lights in a room or in any group (zone, room) when someone comes home. The ```alert=lselect``` command is perfect to generate a 15 second long flash without any extra programming. Just call the URL from Apple HomeKit automations when a person arrives in your geofence.
+Flash lights in a room or in any group (zone, room) when someone comes home. The `alert=lselect` command is perfect to generate a 15 second long flash without any extra programming. Just call the URL from Apple HomeKit automations when a person arrives in your geofence.
 
 
 # Installing hueget
@@ -84,7 +82,7 @@ $ node /home/pi/node_modules/hueget/hueget.js -i 192.168.0.101 -u UBxWZChHseyjeF
 ```
 A successful start of hueget (using the above command to specify ip address 192.168.0.100 and port 1234) will show:
 ```
-hueget v0.7.6
+hueget v1.0.0
 commands will be sent to 192.168.0.101 with username UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
@@ -131,6 +129,9 @@ The username will look something like this:
 ```
 UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
+
+Otherwise, if you do not have the homebridge-hue plugin installed, you need to create a new api username using the instructions shown here (this page does not require a Hue Developer Account): https://developers.meethue.com/develop/get-started-2/
+
 
 # Running hueget with Docker (optional, only if you use a Docker environment)
 You can run hueget easily using Docker and Docker Compose. This approach simplifies the setup in a Docker environment and ensures hueget is isolated and always running reliably.
