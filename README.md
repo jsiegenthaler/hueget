@@ -147,14 +147,22 @@ You can run hueget easily using Docker and Docker Compose. This approach simplif
    ```
 
 
-# Reading the Status of your Hue Lights or Groups with hueget
+# Reading the Status of your Hue Lights, Groups, Sensors and other resources with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
 * Get status of light 31: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31
 * Get status of group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2
+* Get status of sensor 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1
+* Get status of sensor 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1
 
-# Controlling your Hue Lights or Groups with hueget
+# Get the capabilities of your Hue bridge with hueget
+The capabilities api endpoint shows how many lights, sensors, groups, scenes, schedules, rules, resourcelinks are available and how many exist in total. This is very useful to determine how many resources are configured and being used.
+
+Example:
+* Get capabilities of the hue bridge: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/capabilities
+
+# Controlling your Hue Lights, Groups or Sensors with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 ## Lights
@@ -196,18 +204,69 @@ Syntax:
 * Toggle group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/toggle
 
 
+## Sensors
+### Sensor 1 (a special daylight sensor)
+* Turn sensore 1 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1/action?on=true
+
+
+
+
 ## Supported Keywords
 The API is transparent to all Philips Hue keywords. It expects all name=value pairs to be separated by a comma. If any comma is required inside a value, eg: for the xy command which expects a value array, then you must url encode the comma to %2c.
 
+## Example JSON Responses
+### Lights
 The full JSON response for a light looks like this:
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500,"alert":"select","colormode":"xy","mode":"homeautomation","reachable":true},"swupdate":{"state":"noupdates","lastinstall":"2021-08-21T01:50:00"},"type":"Extended color light","name":"Standard Lamp","modelid":"LCA001","manufacturername":"Signify Netherlands B.V.","productname":"Hue color lamp","capabilities":{"certified":true,"control":{"mindimlevel":200,"maxlumen":800,"colorgamuttype":"C","colorgamut":[[0.6915,0.3083],[0.1700,0.7000],[0.1532,0.0475]],"ct":{"min":153,"max":500}},"streaming":{"renderer":true,"proxy":true}},"config":{"archetype":"floorshade","function":"mixed","direction":"omnidirectional","startup":{"mode":"safety","configured":true}},"uniqueid":"00:17:88:01:08:ff:ff:ff-0b","swversion":"1.90.1","swconfigid":"35F80D40","productid":"Philips-LCA001-4-A19ECLv6"}}
 ```
 
+### Groups
 The full JSON response for a group looks like this:
 ```
 {"name":"Lounge","lights":["9","1","2"],"sensors":[],"type":"Room","state":{"all_on":false,"any_on":false},"recycle":false,"class":"Lounge","action":{"on":false,"bri":0,"hue":7800,"sat":138,"effect":"none","xy":[0.5302,0.392],"ct":153,"alert":"select","colormode":"xy"}}
 ```
+
+### Sensors
+The full JSON response for a sensor varies according to the sensor type. A few types are shown below:
+
+#### Daylight
+A Daylight sensor is a built-in sensor used for sunrise and sunset functions
+```
+{"1":{"state":{"daylight":true,"lastupdated":"2025-01-01T07:12:00"},"config":{"on":true,"configured":true,"sunriseoffset":0,"sunsetoffset":0},"name":"Daylight","type":"Daylight","modelid":"PHDL00","manufacturername":"Signify Netherlands B.V.","swversion":"1.0"}
+```
+
+#### Geofence
+A Geofence sensor is a built-in sensor used for coming and leaving home functions
+```
+"4":{"state":{"presence":true,"lastupdated":"2021-05-27T17:54:43"},"config":{"on":true,"reachable":true},"name":"John's iPhone","type":"Geofence","modelid":"HA_GEOFENCE","manufacturername":"Philips","swversion":"1.0","uniqueid":"L_02_AaRRM","recycle":false}
+```
+
+#### ZLLPresence
+A ZLLPresence sensor is the motion sensor component of a Hue Motion Sensor
+```
+"15":{"state":{"presence":false,"lastupdated":"2025-01-01T09:09:13"},"swupdate":{"state":"noupdates","lastinstall":"2019-12-31T21:39:06"},"config":{"on":true,"battery":70,"reachable":true,"alert":"lselect","sensitivity":2,"sensitivitymax":2,"ledindication":false,"usertest":false,"pending":[]},"name":"Motion sensor 1","type":"ZLLPresence","modelid":"SML001","manufacturername":"Signify Netherlands B.V.","productname":"Hue motion sensor","swversion":"6.1.1.27575","uniqueid":"00:17:88:01:06:f5:1f:36-02-0406","capabilities":{"certified":true,"primary":true}},
+```
+
+#### ZLLLightLevel
+A ZLLLightLevel sensor is the ambient light sensor component of a Hue Motion Sensor
+```
+"16":{"state":{"lightlevel":11427,"dark":false,"daylight":true,"lastupdated":"2025-01-01T09:10:17"},"swupdate":{"state":"noupdates","lastinstall":"2019-12-31T21:39:06"},"config":{"on":true,"battery":70,"reachable":true,"alert":"none","tholddark":2702,"tholdoffset":7000,"ledindication":false,"usertest":false,"pending":[]},"name":"Hue ambient light sensor 1","type":"ZLLLightLevel","modelid":"SML001","manufacturername":"Signify Netherlands B.V.","productname":"Hue ambient light sensor","swversion":"6.1.1.27575","uniqueid":"00:17:88:01:06:f5:1f:36-02-0400","capabilities":{"certified":true,"primary":false}},
+```
+
+#### ZLLTemperature
+A ZLLTemperature sensor is the temperature sensor component of a Hue Motion Sensor
+```
+"17":{"state":{"temperature":2030,"lastupdated":"2025-01-01T09:08:13"},"swupdate":{"state":"noupdates","lastinstall":"2019-12-31T21:39:06"},"config":{"on":true,"battery":70,"reachable":true,"alert":"none","ledindication":false,"usertest":false,"pending":[]},"name":"Hue temperature sensor 1","type":"ZLLTemperature","modelid":"SML001","manufacturername":"Signify Netherlands B.V.","productname":"Hue temperature sensor","swversion":"6.1.1.27575","uniqueid":"00:17:88:01:06:f5:1f:36-02-0402","capabilities":{"certified":true,"primary":false}}
+```
+
+#### ZLLSwitch
+A ZLLSwitch sensor is the dimmer switch buttons of a Hue dimmer switch (original version)
+```
+"79":{"state":{"buttonevent":1002,"lastupdated":"2024-12-31T21:19:34"},"swupdate":{"state":"noupdates","lastinstall":"2020-07-18T12:47:52"},"config":{"on":true,"battery":15,"reachable":true,"pending":[]},"name":"Hue dimmer switch","type":"ZLLSwitch","modelid":"RWL021","manufacturername":"Signify Netherlands B.V.","productname":"Hue dimmer switch","diversityid":"73bbabea-3420-499a-9856-46bf437e119b","swversion":"6.1.1.28573","uniqueid":"00:17:88:01:08:09:d4:cd-02-fc00","capabilities":{"certified":true,"primary":true,"inputs":[{"repeatintervals":[800],"events":[{"buttonevent":1000,"eventtype":"initial_press"},{"buttonevent":1001,"eventtype":"repeat"},{"buttonevent":1002,"eventtype":"short_release"},{"buttonevent":1003,"eventtype":"long_release"},{"buttonevent":1004,"eventtype":"long_press"}]},{"repeatintervals":[800],"events":[{"buttonevent":2000,"eventtype":"initial_press"},{"buttonevent":2001,"eventtype":"repeat"},{"buttonevent":2002,"eventtype":"short_release"},{"buttonevent":2003,"eventtype":"long_release"},{"buttonevent":2004,"eventtype":"long_press"}]},{"repeatintervals":[800],"events":[{"buttonevent":3000,"eventtype":"initial_press"},{"buttonevent":3001,"eventtype":"repeat"},{"buttonevent":3002,"eventtype":"short_release"},{"buttonevent":3003,"eventtype":"long_release"},{"buttonevent":3004,"eventtype":"long_press"}]},{"repeatintervals":[800],"events":[{"buttonevent":4000,"eventtype":"initial_press"},{"buttonevent":4001,"eventtype":"repeat"},{"buttonevent":4002,"eventtype":"short_release"},{"buttonevent":4003,"eventtype":"long_release"},{"buttonevent":4004,"eventtype":"long_press"}]}]}}
+```
+
+## Common Action Keywords for Lights and Groups
 The most common action keywords for state or group are:
 on, bri, hue, sat, effect, xy, ct, alert, colormode, mode (lights only).
 More keywords exist, see the [API documentation](#api-documentation).
@@ -281,7 +340,7 @@ For full details of the control capabilities, please see the [official Philips H
 An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewhat outdated, also exists.
 
 
-# Finding your Light or Group ids
+# Finding your Light, Group or Sensor ids
 You need to know the light id or the group id of the light or group you wish to control.
 Go to http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights respectively http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
 ```
