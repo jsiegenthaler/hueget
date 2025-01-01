@@ -351,8 +351,8 @@ Increments or decrements the value of the xy.  xy_inc is ignored if the xy attri
 Exact use unknown. Looks like it reflects an operating mode. Observed values are: homeautomation
 
 
-## Common Action Keywords for Sensors
-Sensors can have their name changed, and can have their config updated. 
+## Common Config Keywords for Sensors
+Sensors can have their config updated by the api. You can also update other . 
 
 The config capabilities are dependent on the sensor type. The most common config keywords for sensors are:
 
@@ -367,12 +367,9 @@ Valid for Daylight, Geofence, ZLLPresence, ZLLLightLevel, ZLLTemperature, ZLLSwi
 
 
 
-
-## Further commands
-See the [API documentation](#api-documentation).
-
 ## API Documentation
 For full details of the control capabilities, please see the [official Philips Hue API reference](https://developers.meethue.com/develop/hue-api/).
+
 An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewhat outdated, also exists.
 
 
