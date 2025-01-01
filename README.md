@@ -157,8 +157,8 @@ Examples:
 
 # Get the capabilities of your Hue bridge with hueget
 The capabilities api endpoint shows how many lights, sensors, groups, scenes, schedules, rules, resourcelinks and other resources are available and how many exist in total. This is very useful to determine how many resources are configured and being used.
-
 Example:
+
 * Get capabilities of the hue bridge: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/capabilities
 
 # Controlling your Hue Lights, Groups or Sensors with hueget
@@ -203,10 +203,14 @@ Syntax:
 * Toggle group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/toggle
 
 
-## Sensors TO BE TESTED
-### Sensor 1 (a special daylight sensor)
-* Turn sensor 1 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1/action?on=true
+## Sensors
+### Sensor 1 (the daylight sensor)
+* Turn sensor 1 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1/config?on=true
+* Turn sensor 1 off: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1/config?on=false
 
+### Sensor 15 (example, a Hue motion sensor)
+* Turn sensor 15 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/15/config?on=true
+* Turn sensor 15 off: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/15/config?on=false
 
 
 
