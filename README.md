@@ -271,7 +271,9 @@ A ZLLSwitch sensor is the dimmer switch buttons of a Hue dimmer switch (original
 
 ## Common Action Keywords for Lights and Groups
 The most common action keywords for state or group are:
+
 on, bri, hue, sat, effect, xy, ct, alert, colormode, mode (lights only).
+
 More keywords exist, see the [API documentation for lights](https://developers.meethue.com/develop/hue-api/lights-api/) and the [API documentation for groups](https://developers.meethue.com/develop/hue-api/groupds-api/).
 
 ## on (get and set)
@@ -336,13 +338,19 @@ Exact use unknown. Looks like it reflects an operating mode. Observed values are
 
 
 ## Common Action Keywords for Sensors
-Sensors can have their name changed, and can have their config updated. the config capabilities are dependent on the sensor type. The most common config keywords for sensors are:
+Sensors can have their name changed, and can have their config updated. 
+
+The config capabilities are dependent on the sensor type. The most common config keywords for sensors are:
+
 on, battery, reachable, alert, tholddark, tholdoffset, sensitivity, sensitivitymax, ledindication, usertest
+
 More keywords exist, see the [API documentation for sensors](https://developers.meethue.com/develop/hue-api/5-sensors-api/).
 
 ## on (get and set)
-Turn a sensore on or off. On=true, Off=false.
-Valid for light or group. A group also supports all_on and any_on.
+Turn a sensor on or off. On=true, Off=false. This is the same as enabling or disabling the sensor in the Hue app.
+Valid for Daylight, Geofence, ZLLPresence, ZLLLightLevel, ZLLTemperature, ZLLSwitch and likely more.
+
+
 
 
 
