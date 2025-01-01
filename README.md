@@ -154,10 +154,9 @@ Examples:
 * Get status of light 31: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31
 * Get status of group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2
 * Get status of sensor 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1
-* Get status of sensor 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1
 
 # Get the capabilities of your Hue bridge with hueget
-The capabilities api endpoint shows how many lights, sensors, groups, scenes, schedules, rules, resourcelinks are available and how many exist in total. This is very useful to determine how many resources are configured and being used.
+The capabilities api endpoint shows how many lights, sensors, groups, scenes, schedules, rules, resourcelinks and other resources are available and how many exist in total. This is very useful to determine how many resources are configured and being used.
 
 Example:
 * Get capabilities of the hue bridge: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/capabilities
@@ -196,7 +195,7 @@ Examples:
 
 Groups are collections of lights, and are used for Rooms and Zones in the Hue app.
 
-## Special Commands
+## Special Commands for Lights and Groups
 The hueget server supports a special toggle command, which does not exist natively in the Philips Hue bridge. This toggles (changes the state) of a specified light or a group, allowing you to toggle the light/group state with a single URL.
 
 Syntax:
@@ -204,9 +203,9 @@ Syntax:
 * Toggle group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2/toggle
 
 
-## Sensors
+## Sensors TO BE TESTED
 ### Sensor 1 (a special daylight sensor)
-* Turn sensore 1 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1/action?on=true
+* Turn sensor 1 on: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1/action?on=true
 
 
 
@@ -269,7 +268,7 @@ A ZLLSwitch sensor is the dimmer switch buttons of a Hue dimmer switch (original
 ## Common Action Keywords for Lights and Groups
 The most common action keywords for state or group are:
 on, bri, hue, sat, effect, xy, ct, alert, colormode, mode (lights only).
-More keywords exist, see the [API documentation](#api-documentation).
+More keywords exist, see the [API documentation for lights](https://developers.meethue.com/develop/hue-api/lights-api/) and the [API documentation for groups](https://developers.meethue.com/develop/hue-api/groupds-api/).
 
 ## on (get and set)
 Turn a light on or off. On=true, Off=false.
@@ -332,6 +331,17 @@ Increments or decrements the value of the xy.  xy_inc is ignored if the xy attri
 Exact use unknown. Looks like it reflects an operating mode. Observed values are: homeautomation
 
 
+## Common Action Keywords for Sensors
+Sensors can have their name changed, and can have their config updated. the config capabilities are dependent on the sensor type. The most common config keywords for sensors are:
+on, battery, reachable, alert, tholddark, tholdoffset, sensitivity, sensitivitymax, ledindication, usertest
+More keywords exist, see the [API documentation for sensors](https://developers.meethue.com/develop/hue-api/5-sensors-api/).
+
+## on (get and set)
+Turn a sensore on or off. On=true, Off=false.
+Valid for light or group. A group also supports all_on and any_on.
+
+
+
 ## Further commands
 See the [API documentation](#api-documentation).
 
@@ -340,9 +350,9 @@ For full details of the control capabilities, please see the [official Philips H
 An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewhat outdated, also exists.
 
 
-# Finding your Light, Group or Sensor ids
-You need to know the light id or the group id of the light or group you wish to control.
-Go to http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights respectively http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
+# Finding your Light, Group, Sensor or other resourcee ids
+You need to know the id of the resource (light, group, sensor etc) that you wish to control.
+Go to http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/resourcename. the resourcename is lights, groups, sensors, etc. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500," ...
 ```
@@ -355,6 +365,6 @@ Go backwards in the text until you find the keyword **state**, this is at the st
 ... ,"31":{"state":{"on":true,"bri":100,"hue":65396 ...
 ```
 
-Use the same method for groups to find the group id of the room you wish to control. Note that group id 0 is a special group containing all lights in the system, and is not returned by the ‘get all groups’ command. Group 0 is not visible, and cannot be created, modified or deleted using the API, but group 0 can be controlled by the API.
+Use the same method for other resources groups to find the group id of the room you wish to control. Note that group id 0 is a special group containing all lights in the system, and is not returned by the ‘get all groups’ command. Group 0 is not visible, and cannot be created, modified or deleted using the API, but group 0 can be controlled by the API.
 
 
