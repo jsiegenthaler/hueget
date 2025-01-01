@@ -4,6 +4,9 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
+## 1.0.0 (2025-01-01)
+* Added support for further controllable api endpoints: schedules,scenes,sensors,rules,resourcelinks,capabilities
+
 
 ## 0.7.6 (2024-12-13)
 * Added Docker config (thanks @Yannis4444)
