@@ -130,7 +130,7 @@ The username will look something like this:
 UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 ```
 
-Otherwise, if you do not have the homebridge-hue plugin installed, you need to create a new api username using the instructions shown here (this page does not require a Hue Developer Account): https://developers.meethue.com/develop/get-started-2/
+Otherwise, if you do not have the homebridge-hue plugin installed, you need to create a new api username using the instructions shown here: https://developers.meethue.com/develop/get-started-2/ (this page does not require a Hue Developer Account).
 
 
 # Running hueget with Docker (optional, only if you use a Docker environment)
