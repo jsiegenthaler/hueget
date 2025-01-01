@@ -61,19 +61,35 @@ app.use('/api/' + options.username, (req, res) => {
     const resource  = (urlPathParts[1] || '').toLowerCase(); 
     const id  = urlPathParts[2]; 
     const command  = (urlPathParts[3] || '').toLowerCase(); 
-    //console.log('resource', resource );
-    //console.log('id', id );
-    //console.log('command', command );
+    var commandParts = command.split('?'); // split on ? if exists, the put command is the first array index
+    var putCommand = commandParts[0]; // the possible PUT command
+    /*
+    // Debug:
+    console.log('commandParts[0]', commandParts[0] );
+    console.log('commandParts[1]', commandParts[1] );
+    console.log('resource', resource );
+    console.log('id', id );
+    console.log('command', command );
+    console.log('putCommand', putCommand );
+    */
 
     // throw error if resource is not supported
-    if ( !((resource  == 'lights') || (resource  == 'groups')) ) {
-      throw errPrefix + 'unknown resource "' + resource + '", expecting "lights" or "groups": "' + req.url + '"';
+    // more resources added in v1.0.0
+    const supportedResources = ['lights','groups','schedules','scenes','sensors','rules','resourcelinks','capabilities'];
+    //console.log(JSON.stringify(supportedResources));
+    //console.log(resource, supportedResources.indexOf(resource));
+    if (supportedResources.indexOf(resource) < 0) {
+      throw errPrefix + 'unknown resource "' + resource + '", expecting one of ' + JSON.stringify(supportedResources).replace('[', '').replace(']', '').replace('"', '') + ': "' + req.url + '"';
     }
 
-    // get the id, throw error if not a number
-    if ( (isNaN((id || '')) || (id == '')) ){ throw errPrefix + 'id "' + id + '" is not an integer: "' + req.url + '"';}
+    // get the id, throw error if not a number only for resources that need a numeric id
+    const resourcesWithIdInteger = ['lights','groups','sensors','rules','schedules'];
+    if (resourcesWithIdInteger.indexOf(resource) > 0) {
+      if ( (isNaN((id || '')) || (id == '')) ){ throw errPrefix + 'id "' + id + '" is not an integer: "' + req.url + '"';}
+    }
 
     // throw error if unexpected quantity of url components
+    // supported quantity of url components: up to 3
     // allowed: 
     // /<resource>
     // /<resource>/<id>
@@ -82,45 +98,27 @@ app.use('/api/' + options.username, (req, res) => {
       throw errPrefix + (urlPathParts.length - 1).toString() + ' url path components found, expecting maximum 3: "' + req.url + '"';
     }
 
-    // throw error if unexpected command
-    // for lights  /lights/<id>/state  expectedCommand = state or nothing
-    // for groups, /groups/<id>/action expectedCommand = action or nothing
-    var expectedCommand;
-    if (urlPathParts.length > 3) {
-      switch(resource) {
-        case 'lights':
-          expectedCommand = 'state'
-          break;
-        case 'groups':
-          expectedCommand = 'action'
-          break;
-      }
-      //console.log('expectedCommand', expectedCommand );
-      // toggle is a special case, raise error for anything else that does not fit the syntax
-      if (command != 'toggle') {
-        if (!command.startsWith(expectedCommand)) { throw errPrefix + 'unknown command "' + command + '", expecting "' + expectedCommand + '": "' + req.url + '"'; }
-        if (!command.includes(expectedCommand + '?')) { throw errPrefix + 'query character "?" missing in "' + command + '", expecting "' + expectedCommand + '?<query>": "' + req.url + '"'; }
-        if (command.endsWith(expectedCommand + '?')) { throw errPrefix + 'query missing in "' + command + '", expecting "' + expectedCommand + '?<query>": "' + req.url + '"'; }
-      }
-    }
+    // DEPRECATED throw error if unexpected command DEPRECATED
+    // as of 1.0.0, do not test the commands, as they vary a lot.
+    // So allow the hue bridge to reject a command if incorrect.
 
-
-    // get the query parts, throw error if unexpected quantity
-    const urlQueryParts = req.url.split('?'); 
-    if ( (urlPathParts[0].toLowerCase() == expectedCommand) && (urlQueryParts.length != 2) ) { 
-      throw errPrefix + (urlQueryParts.length - 1).toString() + ' "?" delimiters found, expecting 1: "' + req.url + '"';
+    // throw error if unexpected quantity of ? delimiters
+    // get the commandParts parts, identified by the presence of a ? delimiter, throw error if unexpected quantity of delimiters exist
+    if ((commandParts.length > 1) && (commandParts.length != 2) ) { 
+        throw errPrefix + (commandParts.length - 1).toString() + ' "?" delimiters found, expecting 1: "' + req.url + '"';
     }
 
 
 
-    // if a query exists, split the query part [1] into name-value pairs on &, loop and construct a json result
+    // if a commandParts[1] (the parameters) exists, split the parameters into name-value pairs on &, loop and construct a json result
+    // the existance of a query part generates a dataObj, which determines whether a PUT or a GEt is used
     var dataObj;
-    if (urlQueryParts.length > 1){
+    if (commandParts.length > 1){
       var result = '{';
       errPrefix = 'url query syntax error, ';
-      urlQueryParts[1].split('&').forEach(function(nameValuePair) {
+      commandParts[1].split('&').forEach(function(nameValuePair) {
         
-        //console.log('nameValuePair', nameValuePair );
+        //console.log('nameValuePair', nameValuePair );}
 
         const pair = nameValuePair.split('=');
         if (pair.length != 2){ throw errPrefix + (pair.length - 1).toString() + ' "=" delimiters found, expecting 1: "' + nameValuePair + '"';}
@@ -152,34 +150,45 @@ app.use('/api/' + options.username, (req, res) => {
     // PUT http://192.168.0.101/api/<username>/lights/31/state --data "{""on"":true}"
     var url = 'http://' + options.ip + '/api/' + options.username + '/' + resource;
     if (id) { url = url + '/' + id; } // add id if supplied
+    
 
 
     // special handling for toggle command, this toggles a light or group state
+    // lights:  http://localhost:3000/api/<username>/lights/31/toggle
+    // groups:  http://localhost:3000/api/<username>/groups/0/toggle
+    // sensors: http://localhost:3000/api/<username>/sensors/15/toggle
     if (command == 'toggle') {
       console.log('toggling current state')
       // Get actual state
       console.log('sending GET: %s', url);
       axios.get(url)
         .then(response => {
-          // for lights  /lights/<id>  state = on     true/false
-          // for groups, /groups/<id>  state = all_on true/false
+          // for lights   /lights/<id>   state = on      true/false
+          // for groups,  /groups/<id>   state = all_on  true/false
+          // for sensors, /sensors/<id>  config = on     true/false
           switch(resource) {
             case 'lights':
               console.log('GET response:', response.status, response.statusText, "state:on="+response.data["state"]["on"]  );
               state = !response.data["state"]["on"] // get the current on state , as a boolean, and invert it
-              expectedCommand = 'state'
+              toggleCommand = 'state'
               break;
             case 'groups':
               console.log('GET response:', response.status, response.statusText, "state:all_on="+response.data["state"]["all_on"]  );
               state = !response.data["state"]["all_on"] // get the current all_on state, as a boolean, and invert it
-              expectedCommand = 'action'
+              toggleCommand = 'action'
               break;
-          }
+            case 'sensors':
+              console.log('GET response:', response.status, response.statusText, "config:on="+response.data["config"]["on"]  );
+              state = !response.data["config"]["on"] // get the current on state, as a boolean, and invert it
+              toggleCommand = 'config'
+              break;
+            }
           // toggle light or group state
-          // lights: http://localhost:3000/api/<username>/lights/31/state?on=true
-          // groups: http://localhost:3000/api/<username>/groups/0/action?on=true
+          // lights:  http://localhost:3000/api/<username>/lights/31/state?on=true
+          // groups:  http://localhost:3000/api/<username>/groups/0/action?on=true
+          // sensors: http://localhost:3000/api/<username>/sensors/15/config?on=true
           console.log('sending PUT: %s%s', url + '/' + "state?on=", state.toString() || '');
-          axios.put(url + '/' + expectedCommand,'{"on":' + state.toString() + '}')
+          axios.put(url + '/' + toggleCommand,'{"on":' + state.toString() + '}')
           .then(response => {
             console.log('PUT response:', response.status, response.statusText, JSON.stringify(response.data) );
             res.json(response.data);
@@ -200,8 +209,8 @@ app.use('/api/' + options.username, (req, res) => {
     // normal handling for non-toggle commands
     } else {    
       if (dataObj){
-        console.log('sending PUT: %s %s', url + '/' + expectedCommand, dataObj || '');
-        axios.put(url + '/' + expectedCommand, dataObj)
+        console.log('sending PUT: %s %s', url + '/' + putCommand, dataObj || '');
+        axios.put(url + '/' + putCommand, dataObj)
           .then(response => {
             console.log('PUT response:', response.status, response.statusText, JSON.stringify(response.data) );
             res.json(response.data);
