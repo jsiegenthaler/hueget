@@ -145,21 +145,22 @@ You can run hueget easily using Docker and Docker Compose. This approach simplif
    ```bash
    docker compose up -d
    ```
+ 
 
-
-# Reading the Status of your Hue Lights, Groups, Sensors and other resources with hueget
+# Reading the Status of your Hue Lights, Groups, Sensors and other Resources with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
 Examples:
 
 * Get status of light 31: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31
 * Get status of group 2: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/groups/2
 * Get status of sensor 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/1
+* Get status of resourcename 1: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/resourcename/1
 
-# Get the capabilities of your Hue bridge with hueget
+# Get the Capabilities of your Hue Bridge with hueget
 The capabilities api endpoint shows how many lights, sensors, groups, scenes, schedules, rules, resourcelinks and other resources are available and how many exist in total. This is very useful to determine how many resources are configured and being used.
 Example:
 
-* Get capabilities of the hue bridge: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/capabilities
+* Get capabilities of the Hue bridge: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/capabilities
 
 # Controlling your Hue Lights, Groups or Sensors with hueget
 Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
@@ -218,8 +219,8 @@ Syntax:
 * Toggle sensor 15: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/sensors/15/toggle
 
 
-## Supported Keywords
-The API is transparent to all Philips Hue keywords and parameters. It expects all name=value pairs to be separated by a comma. If any comma is required inside a value, eg: for the xy command which expects a value array, then you must url encode the comma to %2c.
+## Supported Command Keywords and Parameters
+The API is transparent to all Philips Hue command keywords and parameters. It expects all parameter name=value pairs to be separated by a comma. If any comma is required inside a value, eg: for the xy command which expects a value array, then you must url encode the comma to %2c.
 
 If you include a parameter that the Hue bridge does not understand, an error message will be returned from the Hue bridge. Example:
 
@@ -288,7 +289,7 @@ The most common action keywords for state or group are:
 
 on, bri, hue, sat, effect, xy, ct, alert, colormode, mode (lights only).
 
-More keywords exist, see the [API documentation for lights](https://developers.meethue.com/develop/hue-api/lights-api/) and the [API documentation for groups](https://developers.meethue.com/develop/hue-api/groupds-api/).
+For the full documentation of all keywords, see the [API documentation for lights](https://developers.meethue.com/develop/hue-api/lights-api/) and the [API documentation for groups](https://developers.meethue.com/develop/hue-api/groupds-api/).
 
 ## on (get and set)
 Turn a light on or off. On=true, Off=false.
@@ -352,13 +353,13 @@ Exact use unknown. Looks like it reflects an operating mode. Observed values are
 
 
 ## Common Config Keywords for Sensors
-Sensors can have their config updated by the api. You can also update other . 
+Sensors can have their state and config updated by the api. You can also update other parameters. 
 
-The config capabilities are dependent on the sensor type. The most common config keywords for sensors are:
+The state and config capabilities are dependent on the sensor type. The most common config keywords for sensors are:
 
 on, battery, reachable, alert, tholddark, tholdoffset, sensitivity, sensitivitymax, ledindication, usertest
 
-More keywords exist, see the [API documentation for sensors](https://developers.meethue.com/develop/hue-api/5-sensors-api/).
+For the full documentation of all keywords, see the [API documentation for sensors](https://developers.meethue.com/develop/hue-api/5-sensors-api/).
 
 ## on (get and set)
 Turn a sensor on or off. On=true, Off=false. This is the same as enabling or disabling the sensor in the Hue app.
@@ -373,9 +374,10 @@ For full details of the control capabilities, please see the [official Philips H
 An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewhat outdated, also exists.
 
 
-# Finding your Light, Group, Sensor or other resourcee ids
+# Finding your Light, Group, Sensor or other Resource ids
 You need to know the id of the resource (light, group, sensor etc) that you wish to control.
-Go to http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/resourcename. the resourcename is lights, groups, sensors, etc. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
+Ids can be either a numeric integer (generally starting at 0) or a string, depending on the ressource.
+Go to http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/resourcename. The resourcename is lights, groups, sensors, etc. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500," ...
 ```
@@ -383,7 +385,7 @@ Copy and paste the response into a text editor and format as JSON (or use an onl
 ```
 ... ,"type":"Extended color light","name":"Desk lamp","modelid":"LCT012", ...
 ```
-Go backwards in the text until you find the keyword **state**, this is at the start of the JSON text for the light. The light id is the number immediately before state. In this case, my light id is 31:
+Go backwards in the text until you find the keyword **state**, this is at the start of the JSON text for the light. The light id is the value immediately before state. In this case, my light id is 31:
 ```
 ... ,"31":{"state":{"on":true,"bri":100,"hue":65396 ...
 ```
