@@ -11,9 +11,9 @@ A simple API to control Philips Hue lamps with http GET requests.
 # Background
 The existing Philips Hue REST API requires a PUT request to control the Hue lights, groups, sensors and other resources of the Hue system. 
 
-I had a specific use case where i could only use GET requests, so I made a simple API to translate from GET to PUT. It also supports the standard GET command so you can use hueget for both GET and PUT.
+I had a specific use case where I could only use GET requests, so I made a simple API to translate from GET to PUT. It also supports the standard GET command so you can use hueget for both GET and PUT.
 
-hueget suports controlling lights, groups, sensors and more. A group is a collection of a number of lights, which in the Philips Hue app appears as a room. Sensors are devices such as the daylight sensor, the geofence sensor, motion sensors (which include light level and temperature) and switch sensors.
+hueget supports controlling lights, groups, sensors and more. A group is a collection of a number of lights, which in the Philips Hue app appears as a room. Sensors are devices such as the daylight sensor, the geofence sensor, motion sensors (which include light level and temperature) and switch sensors.
 
 If you like this tool, consider buying me a coffee!<br>
 <a target="blank" href="https://ko-fi.com/jsiegenthaler"><img src="https://img.shields.io/badge/Ko--Fi-Buy%20me%20a%20coffee-29abe0.svg?logo=ko-fi"/></a>
@@ -119,7 +119,7 @@ For more information about pm2, see https://github.com/Unitech/pm2
 
 
 # Getting your Philips Hue Bridge API Username
-If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address folowed by the Hue bridge api username
+If you have [Homebridge](https://homebridge.io/), and the [homebridge-hue](https://github.com/ebaauw/homebridge-hue) plugin, look at the **users** section of the hue config. You will see the Hue bridge MAC address followed by the Hue bridge api username
 ```
 "users": {
   "ECB5FAFFFEFFFFFF": "yourPhilipsHueBridgeUsername"
@@ -149,7 +149,7 @@ You can run hueget easily using Docker and Docker Compose. This approach simplif
  
 
 # Reading the Status of your Hue Lights, Groups, Sensors and other Resources with hueget
-Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, e.g.: a raspberry pi.
 Examples:
 
 * Get status of light 31: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/lights/31
@@ -164,7 +164,7 @@ Example:
 * Get capabilities of the Hue bridge: http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/capabilities
 
 # Controlling your Hue Lights, Groups or Sensors with hueget
-Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, eg: a raspberry pi.
+Enter a URL (in the format shown below) into your browser and press Enter. The ip address is the ip address of the device running hueget, e.g.: a raspberry pi.
 Examples:
 ## Lights
 ### Light 31 (example)
@@ -222,7 +222,7 @@ Syntax:
 
 
 ## Supported Command Keywords and Parameters
-The API is transparent to all Philips Hue command keywords and parameters. It expects all parameter name=value pairs to be separated by a comma. If any comma is required inside a value, eg: for the xy command which expects a value array, then you must url encode the comma to %2c.
+The API is transparent to all Philips Hue command keywords and parameters. It expects all parameter name=value pairs to be separated by a comma. If any comma is required inside a value, e.g.: for the xy command which expects a value array, then you must url encode the comma to %2c.
 
 If you include a parameter that the Hue bridge does not understand, an error message will be returned from the Hue bridge. Example:
 
@@ -307,7 +307,7 @@ The hue value to set the light to. The hue value is a wrapping value between 0 a
 Saturation of the light. 254 is the most saturated (colored) and 0 is the least saturated (white).
 
 ## xy (get and set)
-The xy values represent x and y coordinates of a color in CIE color space. The first value is the x coordinate and the second value is the y coordinate. Both x and y must be between 0 and 1, and will be rounded to 4 decimal places by the Hue bridge, eg: 0.666666 becomes 0.6667.
+The xy values represent x and y coordinates of a color in CIE color space. The first value is the x coordinate and the second value is the y coordinate. Both x and y must be between 0 and 1, and will be rounded to 4 decimal places by the Hue bridge, e.g.: 0.666666 becomes 0.6667.
 If the specified coordinates are not in the CIE color space, the closest color to the coordinates will be chosen.
 
 When sending the xy array, you **must** url encode the comma to %2c (or %2C). Here is an example for "xy":\[0.25,0.52\] :
@@ -373,13 +373,13 @@ Valid for Daylight, Geofence, ZLLPresence, ZLLLightLevel, ZLLTemperature, ZLLSwi
 ## API Documentation
 For full details of the control capabilities, please see the [official Philips Hue API reference](https://developers.meethue.com/develop/hue-api/).
 
-An [alternative unoffical reference](http://www.burgestrand.se/hue-api/), somewhat outdated, also exists.
+An [alternative unofficial reference](http://www.burgestrand.se/hue-api/), somewhat outdated, also exists.
 
 
 # Finding your Light, Group, Sensor or other Resource ids
 You need to know the id of the resource (light, group, sensor etc) that you wish to control.
 Ids can be either a numeric integer (generally starting at 0) or a string, depending on the resource.
-Go to http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/resourcename. The resourcename is lights, groups, sensors, etc. You will see a JSON responce that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
+Go to http://192.168.0.101:3000/api/yourPhilipsHueBridgeUsername/resourcename. The resourcename is lights, groups, sensors, etc. You will see a JSON response that looks like this (truncated here for brevity, only lights is shown. Groups is similar):
 ```
 {"1":{"state":{"on":false,"bri":198,"hue":5360,"sat":192,"effect":"none","xy":[0.5330,0.3870],"ct":500," ...
 ```
