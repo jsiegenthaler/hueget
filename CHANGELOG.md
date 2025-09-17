@@ -4,6 +4,10 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
+## 1.0.1 (2025-09-17)
+* Bumped dependencies: "axios": "^1.12.2",
+* Bumped dependencies: "express": "^5.1.0",
+
 ## 1.0.0 (2025-01-01)
 * Added support for further controllable api endpoints: schedules,scenes,sensors,rules,resourcelinks,capabilities
 
