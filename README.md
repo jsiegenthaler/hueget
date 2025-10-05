@@ -82,7 +82,7 @@ $ node /home/pi/node_modules/hueget/hueget.js -i 192.168.0.101 -u UBxWZChHseyjeF
 ```
 A successful start of hueget (using the above command to specify ip address 192.168.0.100 and port 1234) will show:
 ```
-hueget v1.0.1
+hueget v1.0.2
 commands will be sent to 192.168.0.101 with username UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj
 listening on port 1234
 ```
@@ -92,7 +92,7 @@ Ideally hueget will run all the time. You need a tool to start hueget when your 
 To startup pm2 running so it auto-starts on pi reboot, use this command and follow the instructions from pm2:
 $ pm2 startup
 
-To start hueget with pm2, and have it daemonized, monitored and kept alive forever:
+To start hueget with pm2, and have it daemonized, monitored and kept alive forever (note that you need a -- before adding the hueget options):
 ```
 $ pm2 start /home/pi/node_modules/hueget/hueget.js -- -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 ```
@@ -108,7 +108,7 @@ $ pm2 save
 Managing hueget in pm2 is straightforward:
 ```
 $ pm2 status
-$ pm2 start /home/pi/node_modules/hueget/hueget.js.js -- -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
+$ pm2 start /home/pi/node_modules/hueget/hueget.js -- -i 192.168.0.101 -u UBxWZChHseyjeFwAkwgbdQ08x9XASWpanZZVg-mj -p 3000
 $ pm2 save
 $ pm2 stop hueget
 $ pm2 restart hueget
