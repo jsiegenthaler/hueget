@@ -56,9 +56,9 @@ $ npm update hueget
 # Starting hueget
 The following examples assume you have hueget in a folder that your system can find. Update your PATH variables if needed. The following examples use a Philips Hue bridge IP address of 192.168.0.101. Adjust to match the IP address of your Hue bridge.
 
-To see the help text, start hueget without any arguments as follows:
+To see the help text, start hueget with the -h or --help option as follows
 ```
-$ node /home/pi/node_modules/hueget/hueget.js
+$ node /home/pi/node_modules/hueget/hueget.js -h
 ```
 
 hueget shows the following response:
