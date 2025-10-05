@@ -4,7 +4,7 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
-## 1.0.2-beta.1 (2025-10-05)
+## 1.0.2 (2025-10-05)
 * Addded support for node Maintenance LTS, Active LTS and Current versions
 * Added some small Readme improvements
 * Bumped dependencies: "node": "^20 || ^22 || ^24"
