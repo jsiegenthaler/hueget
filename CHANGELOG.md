@@ -4,13 +4,17 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
+## 1.0.2-beta.1 (2025-10-05)
+* Addded support for node Maintenance LTS, Active LTS and Current versions
+* Added some small Readme improvements
+* Bumped dependencies: "node": "^20 || ^22 || ^24"
+
 ## 1.0.1 (2025-09-17)
 * Bumped dependencies: "axios": "^1.12.2",
 * Bumped dependencies: "express": "^5.1.0",
 
 ## 1.0.0 (2025-01-01)
 * Added support for further controllable api endpoints: schedules,scenes,sensors,rules,resourcelinks,capabilities
-
 
 ## 0.7.6 (2024-12-13)
 * Added Docker config (thanks @Yannis4444)
