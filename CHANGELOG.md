@@ -4,6 +4,10 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
+## 1.0.3 (2025-12-13)
+* Bumped dependencies: "axios": "^1.13.2",
+* Bumped dependencies: "express": "^5.2.1",
+
 ## 1.0.2 (2025-10-05)
 * Addded support for node Maintenance LTS, Active LTS and Current versions
 * Added some small Readme improvements
