@@ -4,6 +4,9 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
+## 1.0.4 (2026-02-04)
+* Bumped dependencies: "axios": "^1.13.4",
+
 ## 1.0.3 (2025-12-13)
 * Bumped dependencies: "axios": "^1.13.2",
 * Bumped dependencies: "express": "^5.2.1",
