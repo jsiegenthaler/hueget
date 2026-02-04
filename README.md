@@ -90,7 +90,9 @@ listening on port 1234
 Ideally hueget will run all the time. You need a tool to start hueget when your system restarts. On my raspberry pi, I use [pm2](https://github.com/Unitech/pm2) (Process Management Module).
 
 To startup pm2 running so it auto-starts on pi reboot, use this command and follow the instructions from pm2:
+```
 $ pm2 startup
+```
 
 To start hueget with pm2, and have it daemonized, monitored and kept alive forever (note that you need a -- before adding the hueget options):
 ```
