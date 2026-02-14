@@ -4,6 +4,10 @@ See the [Readme file](https://github.com/jsiegenthaler/hueget/blob/master/README
 
 # Bug Fixes and Improvements
 
+## 1.0.5 (2026-02-14)
+* Fixed formatting issues in Readme
+* Bumped dependencies: "axios": "^1.13.5",
+
 ## 1.0.4 (2026-02-04)
 * Bumped dependencies: "axios": "^1.13.4",
 
